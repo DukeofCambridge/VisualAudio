@@ -1,0 +1,24 @@
+<template>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+import {searchByKey} from '@/apis/test.js'
+searchByKey({keywords: "方大同"}).then((res)=>{
+  console.log("ww")
+  console.log(res.result.songs[0].)
+})
+
+
+export default {
+  name: 'Home',
+  components: {
+    HelloWorld
+  }
+}
+</script>
