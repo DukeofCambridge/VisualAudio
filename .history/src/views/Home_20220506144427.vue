@@ -1,7 +1,10 @@
 <template>
 
     <el-container>
+      <!-- style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;padding:0;margin: 0;" -->
      <el-main >
+      <!--  <el-image :src="url" class="other-product" :fit="fill" >
+     </el-image>  -->
      <div  class="warp">
        <div class="bg" :style="{backgroundImage:'url('+url+')'}"> </div>
      </div>

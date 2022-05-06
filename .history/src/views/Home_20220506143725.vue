@@ -1,7 +1,10 @@
 <template>
 
     <el-container>
+      <!-- style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;padding:0;margin: 0;" -->
      <el-main >
+      <!--  <el-image :src="url" class="other-product" :fit="fill" >
+     </el-image>  -->
      <div  class="warp">
        <div class="bg" :style="{backgroundImage:'url('+url+')'}"> </div>
      </div>
@@ -53,7 +56,18 @@ export default {
 </script>
 
 <style scoped>
-/* wrap和bg用于设置背景图像和遮罩层 */
+.other-product{
+    /* height: 700px; */
+    /* margin-top: -20%; */
+     margin: -30% 0 0 -50%; 
+    z-index: 0;
+    opacity: 90%;
+    position: absolute;
+    width: 100%;
+    clip:rect(0px 2000px 1500px 0px);
+    
+}
+
 .warp{
   position: relative;
   margin: -10px 0 0 0;

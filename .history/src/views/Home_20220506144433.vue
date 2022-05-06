@@ -2,6 +2,7 @@
 
     <el-container>
      <el-main >
+
      <div  class="warp">
        <div class="bg" :style="{backgroundImage:'url('+url+')'}"> </div>
      </div>
