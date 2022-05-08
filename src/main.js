@@ -7,4 +7,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-createApp(App).use(ElementPlus).use(store).use(router).use(VueAxios,axios).mount('#app')
+
+const app = createApp(App)
+// 全局注册
+app.config.globalProperties.$axios = axios
+app.use(ElementPlus).use(store).use(router).use(VueAxios,axios).mount('#app')

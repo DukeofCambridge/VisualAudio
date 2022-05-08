@@ -9,7 +9,7 @@
     <span id="title">Seeing music</span>
   </div>
   <div  style="position:absolute;left:200px;top:440px">
-  <a href="" @click="changePage"><span>Start</span></a>
+    <a href="" @click="changePage"><span>Start</span></a>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
         height: 100px;
         width: 120px;
     }
- 
+
     .flip-item {
         position: absolute;
         left: 0;
@@ -46,32 +46,32 @@ export default {
         backface-visibility: hidden;
         box-sizing: border-box;
     }
- 
+
     .flip-item-front {
         z-index: 2;
         background: red;
         color: white;
     }
- 
+
     .flip-item-back {
         transform: rotateY(180deg);
         z-index: 1;
         background: green;
         color: white;
     }
- 
+
     .flip-box:hover .flip-item-front {
         transform: rotateY(180deg);
     }
- 
+
     .flip-box:hover .flip-item-back {
         transform: rotateY(0deg);
     }
- 
+
     .flip-front {
         transform: rotateY(180deg);
     }
- 
+
     .flip-back {
         transform: rotateY(0deg);
     }

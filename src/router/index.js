@@ -3,6 +3,8 @@ import Home from '@/views/Home.vue'
 import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
+import Emotion from "@/components/Emotion";
+
 const routes = [
   {
     path: '/home',
@@ -24,6 +26,11 @@ const routes = [
     name: 'TagSelect',
     component: TagSelect
   },
+  {
+    path:'/face',
+    name: 'Face',
+    component: Emotion
+  }
 ]
 
 const router = createRouter({
