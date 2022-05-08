@@ -37,7 +37,6 @@
     <el-popover
       placement="top"
       :width="0"
-      show-arrow="true"
       effect="light"
       trigger="click"
       popper-class="myPopover"
@@ -46,7 +45,11 @@
         <el-image
           :src="require(`/src/assets/home/volume.svg`)"
           class="volume"
+          :style="{
+            opacity: control.volume > 0 && control.muted == false ? '1' : '0'
+          }"
         ></el-image>
+        
       </template>
       <el-slider
         :show-tooltip="false"
@@ -106,7 +109,16 @@
         ></path>
       </svg>
     </el-popover>
+    <el-image
+      :src="require(`/src/assets/home/silence.svg`)"
+      style="margin:0px 0 9px 11px;pointer-events: none;"
+      :style="{
+            opacity: control.volume > 0 && control.muted == false ? '0' : '1',
+            
+          }"
+        ></el-image>
   </div>
+  
   <audio
     :src="song.url"
     id="audio"
@@ -144,6 +156,8 @@ export default {
         muted: false, //是否静音
         color: "#bfbfbf"
       },
+      volumePath: require('@/assets/home/volume.svg'),
+      silencePath: require('@/assets/home/silence.svg')
     };
   },
   methods: {
