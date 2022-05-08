@@ -11,7 +11,10 @@
     </el-slider>
     <el-image
       :src="require(`/src/assets/home/previous.svg`)"
-      style="margin-left: 17px; margin-bottom: 7px"
+      style="margin-left: 17px; margin-bottom: 7px;cursor: pointer;"
+      @click="switchPrevious()"
+      class="icon"
+      v-on:click.stop
     ></el-image>
     <el-image
       :src="require(`/src/assets/home/play.svg`)"
@@ -31,7 +34,10 @@
     ></el-image>
     <el-image
       :src="require(`/src/assets/home/next.svg`)"
-      style="margin-bottom: 7px"
+      style="margin-bottom: 7px;cursor: pointer;"
+      class="icon"
+      @click="switchNext()"
+      v-on:click.stop
     ></el-image>
 
     <el-popover
@@ -45,7 +51,7 @@
       <template #reference>
         <el-image
           :src="require(`/src/assets/home/volume.svg`)"
-          class="volume"
+          class="volume icon"
         ></el-image>
       </template>
       <el-slider
@@ -111,6 +117,7 @@
     :src="song.url"
     id="audio"
     ref="audio"
+    @ended="switchNext()"
     @timeupdate="getCurr"
     @canplay="showLong"
     @pause="control.is_stop == true"
@@ -119,14 +126,12 @@
 </template>
 
 <script>
-/* import { defineProps } from "vue"; */
-
 export default {
   props: {
     song: {
       url: String, //音乐url
       picUrl: String, //海报url
-    },
+    },  
   },
   data() {
     return {
@@ -191,7 +196,7 @@ export default {
      */
     changeLong() {
       let ct = (this.control.progress * this.$refs.audio.duration) / 100;
-      console.log("进度" + ct);
+      console.log("进度" + this.control.progress);
       if (!isNaN(ct)) {
         this.$refs.audio.currentTime = ct;
       }
@@ -221,9 +226,26 @@ export default {
     leave() {
         console.log("离开")
         this.control.color = "#bfbfbf"
+    },
+    switchNext() {
+      this.control.is_stop = false
+      this.$refs.audio.autoplay = true
+      this.$emit('switch',"next");
+    },
+    switchPrevious() {
+      this.control.is_stop = false
+      this.$refs.audio.autoplay = true
+      this.$emit('switch',"previous");
     }
   },
-  mounted: async function () {},
+  mounted () {
+    this.$refs.audio.volume = 0.5;
+    this.control.volume = 50
+    
+  },
+  setup() {
+    
+  }
 };
 </script>
 
@@ -253,6 +275,10 @@ export default {
   cursor: pointer;
   margin: -15px 0 12px 8px;
 }
+.icon:hover{
+    -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.5));
+  }
+
 
 </style>
 
