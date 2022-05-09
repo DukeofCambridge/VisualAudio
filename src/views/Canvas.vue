@@ -44,7 +44,7 @@ function onLoadAudio() {
 
     var barWidth = WIDTH / bufferLength * 1.5;
     var barHeight;
-
+    var halfWidth = WIDTH / 2;
     function renderFrame() {
         requestAnimationFrame(renderFrame);
 
@@ -63,9 +63,9 @@ function onLoadAudio() {
             var b = 153;
             
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-            ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
-
-            x += barWidth + 2;
+            ctx.fillRect(x + halfWidth, HEIGHT - barHeight, barWidth / 2, barHeight);
+            ctx.fillRect(halfWidth - x, HEIGHT - barHeight, barWidth / 2, barHeight);
+            x += barWidth + 1;
         }
     }
 

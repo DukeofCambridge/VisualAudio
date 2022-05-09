@@ -1,4 +1,7 @@
 <template>
+  <el-row style="height: 20%;width: 50%">
+    <canvas id="canvas" ></canvas>
+  </el-row>
   <el-row class="player">
     <el-slider
       v-model="control.progress"
@@ -14,7 +17,7 @@
     <el-col :span="2" :offset="1"
       ><div class="timeStr">{{ control.timeStr }}</div></el-col
     >
-    
+
     <el-col :span="1" :offset="6">
       <div>
         <el-popover
@@ -262,6 +265,7 @@
     @canplay="showLong"
     @pause="control.is_stop == true"
     @play="control.is_stop == false"
+    crossOrigin="anonymous"
   ></audio>
 </template>
 
@@ -292,6 +296,11 @@ export default {
         order: "sequence", //播放模式（sequence、random、loop）
         timeStr: "00:00 / 00:00", //当前播放进度（展示用）
       },
+      canvas: {
+        context: "",
+        analyser:"",
+        source:""
+      }
     };
   },
   /* watch: {
@@ -313,6 +322,7 @@ export default {
         console.log("启动");
         this.control.is_stop = false;
         audio.play();
+        this.onLoadAudio();
       }
       //启动 -> 暂停
       else {
@@ -330,13 +340,11 @@ export default {
       this.control.progress =
         (this.control.currentTime / this.control.duration) * 100;
       let time = parseInt(this.control.currentTime);
-      
+
       let total = parseInt(this.control.duration);
       let timeStr = "";
       let min = Math.floor(time / 60);
-      console.log("取商"+min)
       let sec = time % 60;
-      console.log("取余"+sec)
       if (min < 10) {
         timeStr += "0";
       }
@@ -356,7 +364,6 @@ export default {
       }
       timeStr += sec;
       this.control.timeStr = timeStr;
-    
     },
     /**
      * <audio>
@@ -366,6 +373,7 @@ export default {
     showLong() {
       this.control.duration = parseInt(this.$refs.audio.duration);
       this.control.volume = this.$refs.audio.volume * 100;
+    
     },
     /**
      * <el-slider>
@@ -379,6 +387,7 @@ export default {
       }
       this.control.is_stop = false;
       this.$refs.audio.play();
+      this.onLoadAudio();
     },
     changeVolume() {
       let volume = this.control.volume / 100;
@@ -439,10 +448,79 @@ export default {
     end() {
       this.$emit("end");
     },
+    onLoadAudio() {
+      //var audio = this.$refs.audio;
+      var context = this.canvas.context;
+      var analyser = this.canvas.analyser;
+      var source = this.canvas.source;
+
+      source.connect(analyser);
+      analyser.connect(context.destination);
+
+      var bufferLength = analyser.frequencyBinCount;
+      var dataArray = new Uint8Array(bufferLength);
+
+      var canvas = document.getElementById("canvas");
+      canvas.width = 800;
+      canvas.height = 1000;
+      console.log("canvas "+canvas)
+      console.log("width "+canvas.width)
+      console.log("height "+canvas.height)
+      var ctx = canvas.getContext("2d");
+      var WIDTH = canvas.width;
+      var HEIGHT = canvas.height;
+
+      var barWidth = (WIDTH / bufferLength) * 1.5;
+      console.log("width "+canvas.width)
+      var barHeight;
+      var halfWidth = WIDTH / 2;
+      let a = 0.75 / bufferLength;
+      function renderFrame() {
+        requestAnimationFrame(renderFrame);
+
+        analyser.getByteFrequencyData(dataArray);
+
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        for (var i = 0, x = 0; i < bufferLength; i++) {
+          barHeight = dataArray[i] / 4;
+          let multi = a * i + 0.75;
+          barHeight *= multi;
+          // Create gradient
+          var grd=ctx.createLinearGradient(0,870,0,882);
+
+          grd.addColorStop(0,"#00ffcc");
+
+          grd.addColorStop(1,"#0099cc");
+          //ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+          ctx.fillStyle = grd;
+          ctx.fillRect(
+            x + halfWidth,
+            882 - barHeight,
+            barWidth / 8,
+            barHeight
+          );
+          ctx.fillRect(
+            halfWidth - x,
+            882 - barHeight ,
+            barWidth / 8,
+            barHeight
+          );
+          x += barWidth/8 + 2;
+        }
+      }
+
+      renderFrame();
+      // setInterval(renderFrame, 44);
+    },
   },
   mounted() {
     this.$refs.audio.volume = 0.5;
     this.control.volume = 50;
+          this.canvas.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.canvas.analyser = this.canvas.context.createAnalyser();
+    this.canvas.analyser.fftSize = 128;
+    this.canvas.source = this.canvas.context.createMediaElementSource(this.$refs.audio);
   },
   setup() {},
 };
@@ -479,6 +557,13 @@ export default {
   display: flex;
   align-items: center;
 }
+#canvas {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>
 
 <style lang="scss">
@@ -503,10 +588,10 @@ export default {
   margin: 0px 0px 0px 8px;
 }
 
-.timeStr{
+.timeStr {
   margin: 11px 0 0 0;
-  font: bold 18px , monospace;
-  color: #fff
+  font: bold 18px, monospace;
+  color: #fff;
 }
 </style>
 <style scoped>
