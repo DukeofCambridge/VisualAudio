@@ -96,7 +96,7 @@ export default {
     //根据专辑id获取专辑详情（包括海报）
     res = await searchAlbumById({ id: albumId });
     this.song.picUrl = res.songs[0].al.picUrl; //海报url */
-    this.song = this.playList[1];
+    this.song = this.playList[0];
     
   },
   components: { Player },

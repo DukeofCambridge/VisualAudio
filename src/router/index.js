@@ -4,7 +4,7 @@ import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
 import Emotion from "@/components/Emotion";
-
+import Canvas from "@/views/Canvas"
 const routes = [
   {
     path: '/home',
@@ -30,6 +30,11 @@ const routes = [
     path:'/face',
     name: 'Face',
     component: Emotion
+  },
+  {
+    path:'/canvas',
+    name: 'Canvas',
+    component: Canvas
   }
 ]
 
