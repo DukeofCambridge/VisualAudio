@@ -9,7 +9,12 @@
       </div>
     </el-main>
     <el-footer>
-      <Player :song="song" @switch="switchSong"></Player>
+      <Player
+        :song="song"
+        @switch="switchSong"
+        @switchOrder="switchOrderMod"
+        @end="endSong"
+      ></Player>
     </el-footer>
   </el-container>
 </template>
@@ -27,11 +32,12 @@ export default {
       progress: 0,
       duration: 0,
       curr: 0,
+      order: "sequence",
       song: {
         url: String,
         picUrl: String, //海报url
       },
-      playList: Array()
+      playList: Array(),
     };
   },
   methods: {
@@ -40,64 +46,79 @@ export default {
      */
     switchSong(str) {
       var index = (this.playList || []).findIndex((song) => song === this.song);
-      let following = index
-      if(str == "next"){
-        if(index >= this.playList.length-1) {
-          following = 0
+      let following = index;
+      if (str == "next") {
+        if (index >= this.playList.length - 1) {
+          following = 0;
+        } else {
+          following = index + 1;
         }
-        else {
-          following = index + 1
-        }
-      }
-      else if(str == "previous"){
-        console.log("previous")
-        if(index <= 0) {
-          following = this.playList.length-1
-        }
-        else {
-          following = index - 1
+      } else if (str == "previous") {
+        console.log("previous");
+        if (index <= 0) {
+          following = this.playList.length - 1;
+        } else {
+          following = index - 1;
         }
       }
-      this.song = this.playList[following]
-    }
+      this.song = this.playList[following];
+    },
+    /**
+     * 切换播放顺序
+     */
+    switchOrderMod(str) {
+      if (str == "sequence" || str == "loop" || str == "random") {
+        this.order = str;
+      }
+    },
+    //歌曲结束，根据听歌状态切换歌曲
+    endSong() {
+      /**
+       * 顺序播放
+       */
+      if (this.order == "sequence") {
+        this.switchSong("next")
+      }
+      //单曲循环
+      else if(this.order == "loop") {
+        console.log("单曲循环")
+      }
+      //随机播放
+      else if(this.order == "random") {
+        var index = (this.playList || []).findIndex((song) => song === this.song);
+        let following = index;
+        let len = this.playList.length
+        while (following == index) {
+            following = Math.floor(Math.random() * len);    // 随机获取下标
+        }
+        this.song = this.playList[following];
+      }
+    },
   },
   mounted: async function () {
     //根据关键词搜索，获取音乐id列表
     //var idList = new Array();
     var res = await searchByKey({ keywords: "方大同" });
-    let songs = res.result.songs
-    for(let i = 0; i < songs.length; i++) {
-        let element = songs[i]
-        let id = element.id;
-        
+    let songs = res.result.songs;
+    for (let i = 0; i < songs.length; i++) {
+      let element = songs[i];
+      let id = element.id;
+
       let albumId = element.album.id;
       let song = {
         url: String,
-        picUrl :String
-      }
+        picUrl: String,
+      };
       res = await searchById({ id: id });
       //console.log("ww"+res.data[0].url);
       song.url = res.data[0].url; //音乐url
       res = await searchAlbumById({ id: albumId });
       song.picUrl = res.songs[0].al.picUrl; //海报url
       this.playList.push(song);
-      console.log("加入歌单"+song.url)
+      console.log("加入歌单" + song.url);
     }
-    console.log("ww"+this.playList)
-    /* var id = idList[1];
-    console.log("歌曲id" + id);
-    var albumId = res.result.songs[0].album.id;
-    console.log("专辑id" + albumId); */
-    
-    //根据歌曲id获取歌曲详细信息（包括Url）
-    /* res = await searchById({ id: id });
-    //console.log(res.data[0].url);
-    this.song.url = res.data[0].url; //音乐url
-    //根据专辑id获取专辑详情（包括海报）
-    res = await searchAlbumById({ id: albumId });
-    this.song.picUrl = res.songs[0].al.picUrl; //海报url */
+    console.log("ww" + this.playList);
     this.song = this.playList[0];
-    
   },
   components: { Player },
 };
@@ -126,5 +147,4 @@ export default {
   background-position-y: center;
   background-size: 1500px;
 }
-
 </style>

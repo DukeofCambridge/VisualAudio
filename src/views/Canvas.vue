@@ -55,10 +55,13 @@ function onLoadAudio() {
         for (var i = 0, x = 0; i < bufferLength; i++) {
             barHeight = dataArray[i];
 
-            var r = barHeight + 25 * (i / bufferLength);
+            /* var r = barHeight + 25 * (i / bufferLength);
             var g = 250 * (i / bufferLength);
-            var b = 50;
-
+            var b = 50; */
+            var r = 0;
+            var g = 204;
+            var b = 153;
+            
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
             ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
 
