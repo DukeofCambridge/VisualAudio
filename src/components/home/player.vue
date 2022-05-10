@@ -1,6 +1,6 @@
 <template>
-  <el-row style="height: 20%;width: 50%">
-    <canvas id="canvas" ></canvas>
+  <el-row style="height: 20%; width: 50%">
+    <canvas id="canvas"></canvas>
   </el-row>
   <el-row class="player">
     <el-slider
@@ -17,8 +17,8 @@
     <el-col :span="2" :offset="1"
       ><div class="timeStr">{{ control.timeStr }}</div></el-col
     >
-
-    <el-col :span="1" :offset="6">
+    <div style="margin-right:80px">
+    <el-col :span="1" :offset="7" style="">
       <div>
         <el-popover
           placement="top"
@@ -27,11 +27,12 @@
           effect="light"
           trigger="click"
           popper-class="modPopover"
+          
         >
           <template #reference>
             <svg
               t="1652071833689"
-              class="icon"
+              
               viewBox="0 0 1024 1024"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +79,7 @@
         </el-popover>
         <svg
           t="1652084499199"
-          class="icon"
+          
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +108,7 @@
         </svg>
         <svg
           t="1652084640536"
-          class="icon"
+          
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -138,6 +139,7 @@
         @click="switchPrevious()"
         class="icon"
         v-on:click.stop
+
       ></el-image
     ></el-col>
     <el-col :span="1">
@@ -178,7 +180,6 @@
         <template #reference>
           <el-image
             :src="require(`/src/assets/home/volume.svg`)"
-            class="icon"
             :style="{
               opacity: control.volume > 0 && control.muted == false ? '1' : '0',
               cursor: 'pointer',
@@ -253,7 +254,8 @@
         }"
       ></el-image>
     </el-col>
-    <el-col :span="10"></el-col>
+    </div>
+    <el-col :span="9"></el-col>
   </el-row>
 
   <audio
@@ -298,9 +300,9 @@ export default {
       },
       canvas: {
         context: "",
-        analyser:"",
-        source:""
-      }
+        analyser: "",
+        source: "",
+      },
     };
   },
   /* watch: {
@@ -373,7 +375,6 @@ export default {
     showLong() {
       this.control.duration = parseInt(this.$refs.audio.duration);
       this.control.volume = this.$refs.audio.volume * 100;
-    
     },
     /**
      * <el-slider>
@@ -399,9 +400,6 @@ export default {
      * 点击音量案件，静音或取消
      */
     closeVolume() {
-      console.log(
-        "是否静音" + this.$refs.audio.muted + " " + this.control.muted
-      );
       this.control.muted = !this.control.muted;
       this.$refs.audio.muted = !this.$refs.audio.muted;
     },
@@ -409,14 +407,12 @@ export default {
      * mouseover触发变色事件
      */
     over() {
-      console.log("悬停");
       this.control.color = "#00cc99";
     },
     /**
      * mouseleave触发变色事件
      */
     leave() {
-      console.log("离开");
       this.control.color = "#bfbfbf";
     },
     /**
@@ -463,50 +459,47 @@ export default {
       var canvas = document.getElementById("canvas");
       canvas.width = 800;
       canvas.height = 1000;
-      console.log("canvas "+canvas)
-      console.log("width "+canvas.width)
-      console.log("height "+canvas.height)
       var ctx = canvas.getContext("2d");
       var WIDTH = canvas.width;
       var HEIGHT = canvas.height;
 
       var barWidth = (WIDTH / bufferLength) * 1.5;
-      console.log("width "+canvas.width)
       var barHeight;
       var halfWidth = WIDTH / 2;
       let a = 0.75 / bufferLength;
       function renderFrame() {
         requestAnimationFrame(renderFrame);
-
         analyser.getByteFrequencyData(dataArray);
-
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
+        let multi = 0;
         for (var i = 0, x = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i] / 4;
-          let multi = a * i + 0.75;
+          barHeight = dataArray[i] / 3;
+          multi = a * i + 0.75;
           barHeight *= multi;
+          
           // Create gradient
-          var grd=ctx.createLinearGradient(0,870,0,882);
+          var grd = ctx.createLinearGradient(0, 865, 0, 882);
 
-          grd.addColorStop(0,"#00ffcc");
+          //调节明暗
+          let down = parseInt((256 - dataArray[i]) / 2);
+          let g1 = 255 - down;
+          let g2 = 255 - down;
+          let b1 = 180 - down;
+          let b2 = 255 - down;
+          let firstColor = "rgb(" + 0 + "," + g1 + "," + b1 + "," + 1 + ")";
+          let secondColor = "rgb(" + 0 + "," + g2 + "," + b2 + "," + 0.3 + ")";
+          //grd.addColorStop(0,"#00ffcc");
 
-          grd.addColorStop(1,"#0099cc");
+          //grd.addColorStop(1,"#0099cc","transparent");
+          grd.addColorStop(0, firstColor);
+          grd.addColorStop(1, secondColor);
           //ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+          ctx.lineJoin = "round";
+
           ctx.fillStyle = grd;
-          ctx.fillRect(
-            x + halfWidth,
-            882 - barHeight,
-            barWidth / 8,
-            barHeight
-          );
-          ctx.fillRect(
-            halfWidth - x,
-            882 - barHeight ,
-            barWidth / 8,
-            barHeight
-          );
-          x += barWidth/8 + 2;
+          ctx.fillRect(x + halfWidth, 882 - barHeight, barWidth / 8, barHeight);
+          ctx.fillRect(halfWidth - x, 882 - barHeight, barWidth / 8, barHeight);
+          x += barWidth / 8 + 2;
         }
       }
 
@@ -517,10 +510,13 @@ export default {
   mounted() {
     this.$refs.audio.volume = 0.5;
     this.control.volume = 50;
-          this.canvas.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.canvas.context = new (window.AudioContext ||
+      window.webkitAudioContext)();
     this.canvas.analyser = this.canvas.context.createAnalyser();
     this.canvas.analyser.fftSize = 128;
-    this.canvas.source = this.canvas.context.createMediaElementSource(this.$refs.audio);
+    this.canvas.source = this.canvas.context.createMediaElementSource(
+      this.$refs.audio
+    );
   },
   setup() {},
 };
@@ -544,10 +540,14 @@ export default {
 }
 .icon {
   margin: 6px 0 0 0;
+
 }
 .icon:hover {
-  -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.5));
+   -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 204, 153, 0.5)); 
+   width: 50%;
 }
+
+
 .option:hover {
   -webkit-filter: brightness(-50%);
 }
