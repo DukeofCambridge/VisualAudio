@@ -4,7 +4,9 @@ import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
 import Emotion from "@/components/Emotion";
-import Canvas from "@/views/Canvas"
+import Three from "@/components/home/Three";
+import Test from "@/components/home/Test";
+
 const routes = [
   {
     path: '/home',
@@ -32,10 +34,15 @@ const routes = [
     component: Emotion
   },
   {
-    path:'/canvas',
-    name: 'Canvas',
-    component: Canvas
-  }
+    path:'/three',
+    name: 'Three',
+    component: Three
+  },
+   {
+    path:'/test',
+    name: 'Test',
+    component: Test
+  } 
 ]
 
 const router = createRouter({

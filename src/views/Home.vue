@@ -100,7 +100,7 @@ export default {
     //var idList = new Array();
     var res = await searchByKey({ keywords: "方大同" });
     let songs = res.result.songs;
-    for (let i = 0; i < songs.length; i++) {
+    for (let i = 0; i < songs.length && i < 10; i++) {
       let element = songs[i];
       let id = element.id;
 
@@ -115,8 +115,9 @@ export default {
       song.picUrl = res.songs[0].al.picUrl; //海报url
       this.playList.push(song);
       console.log("加入歌单" + song.url);
+      if (i == 0) this.song = song
     }
-    this.song = this.playList[0];
+    //this.song = this.playList[0];
   },
   components: { Player },
 };
