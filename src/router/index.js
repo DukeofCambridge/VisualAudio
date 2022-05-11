@@ -5,8 +5,6 @@ import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
 import Emotion from "@/components/Emotion";
 import Test from "@/components/home/Test";
-
-import Canvas from "@/views/Canvas"
 import Index from "@/views/Index"
 const routes = [
   {
@@ -38,10 +36,6 @@ const routes = [
     path:'/test',
     name: 'Test',
     component: Test
-  },
-    path:'/canvas',
-    name: 'Canvas',
-    component: Canvas
   },
   {
     path: '/index',

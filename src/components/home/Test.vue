@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import * as THREE from 'three';
-import { TimelineMax, Power3, TweenLite, Power2} from 'gsap'
+import * as THREE from "three";
+import { TimelineMax, Power3, TweenLite, Power2 } from "gsap";
 export default {
   name: "Test",
   mounted() {
@@ -226,7 +226,6 @@ export default {
         vertexArray: i,
       };
     }
-
 
     // =====================================================
 
@@ -522,7 +521,7 @@ export default {
     }
 
     Soundwave.prototype.transitionShowSoundwave = function () {
-      var timeline = new   TimelineMax();
+      var timeline = new TimelineMax();
 
       var object3D = this.object3D;
       object3D.visible = true;
@@ -537,7 +536,7 @@ export default {
           1,
           {
             value: 0,
-            ease:  Power3.easeOut,
+            ease: Power3.easeOut,
           },
           0
         );
@@ -546,7 +545,7 @@ export default {
           0.4,
           {
             value: 0.2,
-            ease:  Power3.easeOut,
+            ease: Power3.easeOut,
           },
           0
         );
@@ -555,7 +554,7 @@ export default {
           0.4,
           {
             value: 0.2,
-            ease:  Power3.easeOut,
+            ease: Power3.easeOut,
           },
           0
         );
@@ -590,7 +589,7 @@ export default {
     };
 
     Soundwave.prototype.transitionExplodeSoundwave = function () {
-      var timeline = new  TimelineMax();
+      var timeline = new TimelineMax();
       var object3D = this.object3D;
 
       object3D.visible = true;
@@ -599,13 +598,13 @@ export default {
 
         timeline.add(
           [
-              TweenLite.to(child.material.uniforms.radiusMultiplier, 0.4, {
+            TweenLite.to(child.material.uniforms.radiusMultiplier, 0.4, {
               value: 0.7,
-              ease:  Power2.easeOut,
+              ease: Power2.easeOut,
             }),
-              TweenLite.to(child.material.uniforms.radiusMultiplier, 0.8, {
+            TweenLite.to(child.material.uniforms.radiusMultiplier, 0.8, {
               value: 4,
-              ease:  Power3.easeOut,
+              ease: Power3.easeOut,
             }),
           ],
           delay,
@@ -614,13 +613,13 @@ export default {
 
         timeline.add(
           [
-              TweenLite.to(child.material.uniforms.perturbMultiplier, 0.4, {
+            TweenLite.to(child.material.uniforms.perturbMultiplier, 0.4, {
               value: 0.4,
-              ease:  Power2.easeOut,
+              ease: Power2.easeOut,
             }),
-              TweenLite.to(child.material.uniforms.perturbMultiplier, 0.8, {
+            TweenLite.to(child.material.uniforms.perturbMultiplier, 0.8, {
               value: 1,
-              ease:  Power3.easeOut,
+              ease: Power3.easeOut,
             }),
           ],
           delay,
@@ -737,8 +736,7 @@ export default {
     // =====================================================
     var app, audio, dolly, soundwave;
 
-    function RewindApplication(options) {
-        console.log(options)
+    function RewindApplication() {
       app = new Application();
 
       var renderer = app.renderer;
@@ -821,7 +819,7 @@ export default {
 
     // =====================================================
     var URL =
-      "http://m8.music.126.net/20220511162756/cb350a1cd174cf794823a3d984ccd46e/ymusic/obj/w5zDlMODwrDDiGjCn8Ky/14056488968/f93b/b5cb/19be/89f5629486df1b48083c8921b6a39b57.mp3";
+      "https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001";
 
     var bridge = renderWebGL(document.body, {
       audioSrc: URL,
@@ -835,7 +833,6 @@ export default {
     btn.onclick = function () {
       btn.style.display = "none";
       audio.play();
-      audio.muted = true;
     };
   },
 };
