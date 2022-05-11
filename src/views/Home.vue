@@ -1,5 +1,8 @@
 <template>
   <el-container>
+    <el-header>
+      <Menu></Menu>
+    </el-header>
     <el-main>
       <div class="warp">
         <div
@@ -22,6 +25,7 @@
 <script>
 import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
 import Player from "../components/home/player.vue";
+import Menu from "@/components/Menu";
 
 export default {
   name: "Home",
@@ -119,7 +123,7 @@ export default {
     this.song = this.playList[0];
     // console.log('current song', this.song)
   },
-  components: { Player },
+  components: {Menu, Player },
 };
 </script>
 
@@ -133,6 +137,7 @@ export default {
   z-index: -1;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
+  //top: 25vh;
 }
 .bg {
   width: 100%;

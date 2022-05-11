@@ -65,9 +65,9 @@ window.onload = function () {
       }
     })
   })
-  document.querySelector('.dock').addEventListener('mouseleave', e => {
-    resetScale(e)
-  })
+  // document.querySelector('.dock').addEventListener('mouseleave', e => {
+  //   resetScale(e)
+  // })
 }
 
 function resetScale() {
