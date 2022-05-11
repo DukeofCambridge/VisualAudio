@@ -117,6 +117,7 @@ export default {
       console.log("加入歌单" + song.url);
     }
     this.song = this.playList[0];
+    // console.log('current song', this.song)
   },
   components: { Player },
 };
@@ -131,6 +132,7 @@ export default {
   height: 760px;
   z-index: -1;
   background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
 }
 .bg {
   width: 100%;

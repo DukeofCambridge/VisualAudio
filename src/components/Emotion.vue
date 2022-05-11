@@ -17,6 +17,18 @@
         <canvas id="canvas" width="320" height="240"></canvas>
       </div>
     </div>
+
+    <div class="glass">
+      <ul class="dock">
+        <li>😇</li>
+        <li>🥰</li>
+        <li>😜</li>
+        <li>🤩</li>
+        <li>🥳</li>
+        <li>🤯</li>
+        <li>🥶</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -26,6 +38,43 @@ require('tracking/build/tracking-min.js')
 require('tracking/build/data/face-min.js')
 // const echarts = require('echarts');
 // require('echarts/theme/macarons') // echarts theme
+window.onload = function () {
+  document.querySelectorAll('.dock li').forEach(li => {
+    li.addEventListener('mousemove', e => {
+      console.log(e.target.tagName)
+      let item = e.target
+      let itemRect = item.getBoundingClientRect()
+
+      // 鼠标hover到某个li上的时候，靠近左侧则 offset -> 0, 靠近右侧则 offset -> 1
+      let offset = Math.abs(e.clientX - itemRect.left) / itemRect.width
+
+      let prev = item.previousElementSibling || null
+      let next = item.nextElementSibling || null
+
+      let scale = 0.5
+      resetScale()
+
+      if(prev) {
+        prev.style.setProperty('--scale-factor', 1 + scale * Math.abs(offset - 1))
+      }
+
+      item.style.setProperty('--scale-factor', 1 + scale)
+
+      if(next) {
+        next.style.setProperty('--scale-factor', 1 + scale * offset)
+      }
+    })
+  })
+  document.querySelector('.dock').addEventListener('mouseleave', e => {
+    resetScale(e)
+  })
+}
+
+function resetScale() {
+  document.querySelectorAll('.dock li').forEach(li => {
+    li.style.setProperty('--scale-factor', 1)
+  })
+}
 
 export default {
   name: "Emotion",
@@ -261,5 +310,35 @@ canvas {
   width: 600px;
   /* border: 1px solid red; */
   display: inline;
+}
+
+.glass {
+  width: 100%;
+  height: 8rem;
+  /*background-color: #eee;*/
+  display: flex;
+  justify-content: center;
+}
+
+.dock {
+  --scale-factor: 1;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dock li {
+  font-size: calc(6rem * var(--scale-factor));
+  padding: 0 .5rem;
+  cursor: default;
+
+  /* 默认放大时中间对齐，改为底部对对齐 */
+  position: relative;
+  top: calc((6rem * var(--scale-factor) - 6rem) / 2 * -1);
+  transition: 15ms ease-out;
 }
 </style>
