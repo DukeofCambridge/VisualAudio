@@ -4,6 +4,7 @@ import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
 import Emotion from "@/components/Emotion";
+import Test from "@/components/home/Test";
 
 import Canvas from "@/views/Canvas"
 import Index from "@/views/Index"
@@ -32,11 +33,6 @@ const routes = [
     path:'/face',
     name: 'Face',
     component: Emotion
-  },
-  {
-    path:'/three',
-    name: 'Three',
-    component: Three
   },
    {
     path:'/test',
