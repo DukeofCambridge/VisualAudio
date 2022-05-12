@@ -1,5 +1,5 @@
 <template>
-  <a href="javascript:;" id="play-btn">PLAY</a>
+  <a href="javascript:" id="play-btn">PLAY</a>
 </template>
 
 <script>

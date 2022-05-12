@@ -1,15 +1,1179 @@
 <template>
-  <Menu></Menu>
+  <body>
+  <div class="wrapper">
+    <!-- Wave bg-->
+    <div class="wave-container">
+      <div class="wave -one"></div>
+      <div class="wave -two"></div>
+      <div class="wave -three"></div>
+    </div>
+    <div class="line"></div>
+    <div class="text-wrap">
+      <div class="text"><span>L</span><span>I</span><span>S</span><span>T</span><span>E</span><span>N</span>
+        <div class="main-btn_wrapper"><i class="main-btn fa fa-play" aria-hidden="true"></i></div>
+      </div>
+    </div>
+    <div class="header">
+      <div class="burger-wrapper" @click="nav">
+        <div class="burger"></div>
+      </div>
+      <div class="logo-text">Listeners Playlist</div>
+      <div class="back_btn">
+        <div class="circle"></div>
+        <div class="text">Back</div>
+      </div>
+    </div>
+    <div class="nav">
+      <ul class="nav_main">
+        <li> <a class="nav_link">Home	</a></li>
+        <li> <a class="nav_link">Listeners</a></li>
+        <li> <a class="nav_link">Compilations</a></li>
+        <li> <a class="nav_link">LP. Mix</a></li>
+      </ul>
+      <div class="nav_divider"></div>
+      <ul class="nav_sub">
+        <li><a class="nav_link" href="">About	</a></li>
+        <li><a class="nav_link" href="">Contact	</a></li>
+      </ul>
+    </div>
+    <div class="mini-player">
+      <div class="track_info_wrapper">
+        <div class="track_info">
+          <div class="thumb"></div>
+          <div class="info">
+            <div class="title">Friday Comes</div>
+            <div class="artist">Early</div>
+          </div>
+        </div>
+      </div>
+      <div class="mini-player_btn_wrapper"><i class="btn-prev fa fa-step-backward" aria-hidden="true"></i>
+        <div class="btn-switch"><i class="btn-play fa fa-play" aria-hidden="true"></i><i class="btn-pause fa fa-pause" aria-hidden="true"></i></div><i class="btn-next fa fa-step-forward" aria-hidden="true"></i><i class="btn-open-player fa fa-list" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="dim"></div>
+    <div class="player" id="player">
+      <div class="playback_wrapper">
+        <div class="playback_blur"></div>
+        <div class="playback_thumb"></div>
+        <div class="playback_info">
+          <div class="title">Friday Comes</div>
+          <div class="artist">Early</div>
+        </div>
+        <div class="playback_btn_wrapper"><i class="btn-prev fa fa-step-backward" aria-hidden="true"></i>
+          <div class="btn-switch"><i class="btn-play fa fa-play" aria-hidden="true"></i><i class="btn-pause fa fa-pause" aria-hidden="true"></i></div><i class="btn-next fa fa-step-forward" aria-hidden="true"></i>
+        </div>
+        <div class="playback_timeline">
+          <div class="playback_timeline_start-time">00:31</div>
+          <div class="playback_timeline_slider">
+            <div class="slider_base"></div>
+            <div class="slider_progress"></div>
+            <div class="slider_handle"></div>
+          </div>
+          <div class="playback_timeline_end-time">03:11</div>
+        </div>
+      </div>
+      <div class="list_wrapper">
+        <ul class="list">
+          <li class="list_item selected">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+          <li class="list_item">
+            <div class="thumb"> </div>
+            <div class="info">
+              <div class="title">Friday Comes</div>
+              <div class="artist">Early</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="page" id="curator">
+      <div class="curator_title_wrapper"><span>LP</span>
+        <div class="curator_line"></div>
+        <div class="curator_title">Listeners</div>
+        <div class="curator_line"></div><span>14</span>
+      </div>
+      <div class="curator_list">
+        <div class="curator_list_content">
+          <div class="connect_btn_wrapper item">
+            <div class="connect_btn">
+              <div class="connect_btn_text">Connect <br/>SoundCloud</div>
+            </div>
+          </div>
+          <div class="curator_list_content_desc">Or Select <br/>a Listener of <br/>L.P.			</div>
+          <div class="item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="name">Fantasy</div>
+              <div class="desc">Sam</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="name">Fantasy</div>
+              <div class="desc">Sam</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="name">Fantasy</div>
+              <div class="desc">Sam</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="name">Fantasy</div>
+              <div class="desc">Sam</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="name">Fantasy</div>
+              <div class="desc">Sam</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="thumb"></div>
+            <div class="info">
+              <div class="name">Fantasy</div>
+              <div class="desc">Sam</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
 </template>
 
 <script>
-import Menu from "@/components/Menu";
+import $ from 'jquery'
+import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
+
 export default {
   name: "Index",
-  components: {Menu}
+  mounted() {
+    // ===== Open Nav =====
+    $( ".burger-wrapper" ).click(function() {
+
+      // ===== If Nav is not open
+      if($('.nav').css("display") == "none"){
+        gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
+        gsap.fromTo(".nav", 0.5, {xPercent: -100},
+            {xPercent: 0, display: 'block', ease: Expo.easeOut});
+        gsap.staggerFrom('.nav li', 0.5, {opacity:0, y: 20, ease: Power2.easeInOut}, 0.1);
+
+        $('.logo-text').css({'opacity': '0', 'display': 'none'});
+      }
+      // ===== If Nav is open	and in Curation page
+      else if($('.nav').css("display") == "block" && $('#curator').css("display") == "block"){
+        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
+        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
+        // $('.logo-text').css({'opacity': '1', 'display': 'block'});
+      }
+
+      else {
+        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
+        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
+        $('.logo-text').css({'opacity': '1', 'display': 'block'});
+      }
+
+    });
+
+
+// ===== Open Player + dim on =====
+
+    $( ".btn-open-player, .track_info" ).click(function() {
+      gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
+      gsap.fromTo("#player", 0.5, {xPercent: 100},
+          {xPercent: 0, display: 'block', ease: Expo.easeOut});
+      gsap.to(".mini-player", 0.5, {x: 50, ease: Expo.easeOut});
+    });
+
+    $('.dim').click(function() {
+      gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
+      gsap.to("#player", 0.5, {xPercent: 100, display: 'none', ease: Expo.easeOut});
+      gsap.to(".nav", 0.5, {xPercent: -100, display: 'none', ease: Power2.easeInOut})
+      gsap.to(".mini-player", 0.5, {x: 0, ease: Expo.easeOut});
+    });
+
+// ===== Mini Player - Play/Pause Switch =====
+
+    $('.btn-play').click(function(){
+      gsap.to($('.btn-play'), 0.2, {x: 20, opacity: 0, scale: 0.3,  display: 'none', ease: Power2.easeInOut});
+      gsap.fromTo($('.btn-pause'), 0.2, {x: -20, opacity: 0, scale: 0.3, display: 'none'},
+          {x: 0, opacity: 1, scale: 1, display: 'block', ease: Power2.easeInOut});
+    });
+
+    $('.btn-pause').click(function(){
+      gsap.to($('.btn-pause'), 0.2, {x: 20, opacity: 0, display: 'none', scale: 0.3, ease: Power2.easeInOut});
+      gsap.fromTo($('.btn-play'), 0.2, {x: -20, opacity: 0, scale: 0.3, display: 'none'},
+          {x: 0, opacity: 1, display: 'block', scale: 1, ease: Power2.easeInOut});
+    });
+
+// ===== HoverIn/HoverOut Flash Effect =====
+
+    $('.track_info').hover(function(){
+
+          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
+              {opacity: 1})},
+        function(){
+          $(this).css("opacity", "1");
+        });
+
+    $('.burger-wrapper, .logo-text, .back_btn').hover(function(){
+
+          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
+              {opacity: 1})},
+        function(){
+          $(this).css("opacity", "1")
+        });
+
+    $('.btn-open-player').hover(function(){
+
+          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
+              {opacity: 1})},
+        function(){
+          $(this).css("opacity", "1")
+        });
+
+    $('.nav a').hover(function(){
+
+          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
+              {opacity: 1})},
+        function(){
+          $(this).css("opacity", "1")
+        });
+
+// ===== Player - List Items =====
+    $('.list_item').click(function() {
+      $('.list_item').removeClass('selected');
+      $(this).addClass('selected');
+    });
+
+
+// ===== Main Play Button - Hover =====
+
+    $('.text-wrap .text').hover(function(){
+          gsap.to($('.main-btn_wrapper'), 0.5, {opacity: 1, display: 'block', position: 'absolute', scale: 1, ease: Elastic.easeOut.config(1, 0.75)}),
+              gsap.to($('.line'), 0.5, {css: { scaleY: 0.6, transformOrigin: "center center" }, ease: Expo.easeOut})},
+
+        function(){
+          gsap.to($('.main-btn_wrapper'), 0.5, {opacity: 0, display: 'none', scale: 0, ease: Elastic.easeOut.config(1, 0.75)}),
+              gsap.to($('.line'), 0.5, {css: { scaleY: 1, transformOrigin: "center center" }, ease: Expo.easeOut})
+        });
+
+
+// ===== Curation Page  =====
+// ===== List  =====
+    $('.item').hover(function(){
+          gsap.to($(this), 0.5, {y: -30, ease: Power2.easeInOut}),
+              $(this).children('.thumb').addClass('shadow'),
+              $(this).children('.connect_btn').addClass('shadow'),
+
+              gsap.to($(this).children('.info'), 0.5, {opacity: 1, ease: Power2.easeInOut})
+        },
+
+        function(){
+          gsap.to($(this), 0.5, {y: 0, ease: Power2.easeInOut}),
+              $(this).children('.thumb').removeClass('shadow'),
+              $(this).children('.connect_btn').removeClass('shadow'),
+
+              gsap.to($(this).children('.info'), 0.5, {opacity: 0, ease: Power2.easeInOut})
+        });
+
+
+// ===== Home Page to Curation Page Transition  =====
+// ===== Main Play Button Activate =====
+
+    $('.text-wrap .text').click(function(){
+
+      var homeToMain = new TimelineMax({});
+
+      // Hide
+      $('.logo-text').css('display', 'none'),
+          homeToMain.to($('.line, .text-wrap'), 0.5, {display: 'none', opacity: 0, y: -20, ease: Power2.easeInOut}, 0),
+
+          // Background down
+          homeToMain.to($('.wave-container'), 1, {yPercent: 30, ease: Power2.easeInOut}, 0),
+
+          // Show
+          $('#curator').css('display', 'block'),
+          homeToMain.fromTo($('.back_btn'), 0.8, {x: 15},
+              {display: 'flex', opacity: 1, x: 0, ease: Power2.easeInOut}, 1),
+
+          homeToMain.fromTo($('.curator_title_wrapper'), 0.8, {opacity: 0, x: 30},
+              {opacity: 1, x: 0, ease: Power2.easeInOut}, 1),
+
+          homeToMain.fromTo($('.curator_list'), 0.8, {opacity: 0, display: 'none', x: 30},
+              {opacity: 1, x: 0, display: 'block', ease: Power2.easeInOut}, 1.2)
+
+    });
+
+
+// ===== Curation Page to Playlist Page Transition  =====
+// ===== Item Activate =====
+    $('.item').click(function(){
+      var mainToPlaylist = new TimelineMax({});
+
+      // Hide
+      mainToPlaylist.to($('#curator'), 0.8, {display: 'none', opacity: 0, scale: 1.1, ease: Power2.easeInOut}, 0)
+
+      // mainToPlaylist.fromTo($('.curator_list'), 0.5, {opacity: 1, display: 'block', x: 0},
+      // 									{opacity: 0, x: 30, display: 'none', ease: Power2.easeInOut}, 0.5),
+
+
+
+
+    });
+
+// ===== Back Button Activate =====
+
+    $('.back_btn').click(function(){
+// ===== From Playlist(3) to Main(2)
+      if($('#curator').css("display") == "none"){
+        var playlistToMain = new TimelineMax({});
+
+        // Hide
+        playlistToMain.fromTo($('#curator'), 0.8, {display: 'none', opacity: 0, scale: 1.1},
+            {display: 'block', opacity: 1, scale: 1, ease: Power2.easeInOut}, 0)
+      }
+
+      // From Main(2) to Home(1)
+      else {
+        var mainToHome = new TimelineMax({});
+        // Hide
+        mainToHome.fromTo($('.curator_title_wrapper'), 0.5, {opacity: 1, x: 0},
+            {opacity: 0, x: 30, ease: Power2.easeInOut}, 0.2),
+
+            mainToHome.fromTo($('.curator_list'), 0.5, {opacity: 1, display: 'block', x: 0},
+                {opacity: 0, x: 30, display: 'none', ease: Power2.easeInOut}, 0.5),
+
+
+            mainToHome.to($('.back_btn'), 0.5, {display: 'none', opacity: 0, x: 15, ease: Power2.easeInOut}, 0.5),
+
+            mainToHome.to($('#curator'), 0, {display: 'none', ease: Power2.easeInOut}, 1),
+
+            // Background Up
+            mainToHome.to($('.wave-container'), 1, {yPercent: 0, ease: Power2.easeInOut}, 1),
+
+            // 	Show
+            mainToHome.to($('.text-wrap'), 0.5, {display: 'flex', opacity: 1, y: 0, ease: Power2.easeInOut}, 1.2),
+
+            mainToHome.to($('.logo-text, .line'), 0.5, {display: 'block', opacity: 1, y: 0, ease: Power2.easeInOut}, 1.2),
+
+            // 	Force to redraw by using y translate
+            mainToHome.fromTo($('.text-wrap .text'), 0.1, {y: 0.1, position: 'absolute'},
+                {y: 0, position: 'relative', ease: Power2.easeInOut}, 1.3)
+        // $('.text-wrap .text').css('position', 'relative');
+      }
+    });
+  },
+  methods:{
+    // ===== Open Nav =====
+    nav(){
+      // ===== If Nav is not open
+      if($('.nav').css("display") === "none"){
+        gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
+        gsap.fromTo(".nav", 0.5, {xPercent: -100},
+            {xPercent: 0, display: 'block', ease: Expo.easeOut});
+        gsap.staggerFrom('.nav li', 0.5, {opacity:0, y: 20, ease: Power2.easeInOut}, 0.1);
+
+        $('.logo-text').css({'opacity': '0', 'display': 'none'});
+      }
+      // ===== If Nav is open	and in Curation page
+      else if($('.nav').css("display") === "block" && $('#curator').css("display") === "block"){
+        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
+        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
+        // $('.logo-text').css({'opacity': '1', 'display': 'block'});
+      }
+
+      else {
+        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
+        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
+        $('.logo-text').css({'opacity': '1', 'display': 'block'});
+      }
+    },
+    // ===== Open Player + dim on =====
+    play(){
+      gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
+      gsap.fromTo("#player", 0.5, {xPercent: 100},
+          {xPercent: 0, display: 'block', ease: Expo.easeOut});
+      gsap.to(".mini-player", 0.5, {x: 50, ease: Expo.easeOut});
+    }
+  }
 }
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Oswald:300,400,700");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
+i[class^=btn] {
+  font-size: 20px;
+  margin-right: 30px;
+  cursor: pointer;
+}
 
+* {
+  box-sizing: border-box;
+}
+
+ul, li {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  background-color: #F2D7D3;
+  font-family: "Oswald", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  overflow: hidden;
+  width: 100vw;
+}
+
+.wave-container {
+  width: 300vw;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.wave {
+  opacity: 1;
+  position: absolute;
+  top: 60%;
+  left: -28%;
+  background: #18DFAD;
+  width: 100%;
+  height: 300vw;
+  transform-origin: 50% 49%;
+  border-radius: 49%;
+  -webkit-animation: drift 3000ms infinite linear;
+  animation: drift 8000ms infinite linear;
+  will-change: transform;
+}
+
+.wave.-two {
+  animation: drift 9000ms infinite linear;
+  opacity: 1;
+  background: #33476a;
+  top: 60%;
+  left: -32%;
+}
+
+.wave.-three {
+  animation: drift 4000ms infinite linear;
+  opacity: 1;
+  background: #F12645;
+  top: 60%;
+  left: -36%;
+  z-index: -2;
+}
+
+@keyframes drift {
+  from {
+    transform: rotate(0deg);
+  }
+  from {
+    transform: rotate(360deg);
+  }
+}
+.bg {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 50%;
+  background-color: #33476a;
+  z-index: -1;
+}
+
+.line {
+  position: fixed;
+  left: 50vw;
+  width: 2px;
+  height: 80px;
+  top: 24vh;
+  background-color: white;
+}
+
+.text-wrap {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text-wrap .text {
+  cursor: pointer;
+  position: relative;
+}
+.text-wrap span {
+  color: #fff9e1;
+  font-size: 100px;
+  font-weight: 300;
+  padding: 0 2%;
+}
+
+.main-btn_wrapper {
+  position: absolute;
+  right: -25%;
+  top: calc(50% - 18px);
+  width: 36px;
+  height: 36px;
+  background-color: #fff9e1;
+  border-radius: 50%;
+  text-align: center;
+  display: none;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: bottom;
+}
+.main-btn_wrapper .main-btn {
+  line-height: 36px;
+}
+
+.header {
+  position: fixed;
+  left: 2.2vw;
+  top: 2.2vw;
+  margin-left: -4px;
+  margin-top: -6px;
+  color: #252120;
+  z-index: 103;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  height: 30px;
+}
+.header .burger-wrapper {
+  width: 20px;
+  height: 30px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+.header .burger {
+  width: 20px;
+  height: 3px;
+  background-color: #252120;
+  position: relative;
+}
+.header .burger:before, .header .burger:after {
+  content: "";
+  width: 20px;
+  height: 3px;
+  background-color: #252120;
+  position: absolute;
+  left: 0;
+}
+.header .burger:before {
+  top: -6px;
+}
+.header .burger:after {
+  top: 6px;
+  width: 14px;
+}
+.header .logo-text {
+  font-size: 20px;
+  color: #252120;
+}
+
+.back_btn {
+  cursor: pointer;
+  position: relative;
+  color: rgba(37, 33, 32, 0.4);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  display: none;
+  opacity: 0;
+}
+.back_btn .circle {
+  background-color: rgba(37, 33, 32, 0.3);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.nav {
+  will-change: transform;
+  position: fixed;
+  background-color: #fff;
+  width: 50vw;
+  min-width: 500px;
+  height: 100vh;
+  z-index: 10;
+  box-shadow: 0 30px 80px 0 rgba(97, 45, 45, 0.25);
+  display: none;
+}
+.nav ul {
+  color: #444444;
+}
+.nav ul.nav_main {
+  margin-top: 20vh;
+}
+.nav ul.nav_sub {
+  margin-top: 3vh;
+}
+.nav ul.nav_sub a {
+  font-size: 2.4vw;
+}
+.nav ul li {
+  margin-left: 6vw;
+  margin-bottom: 0.5vw;
+  position: relative;
+}
+
+.nav_link {
+  font-size: 3.8vw;
+  cursor: pointer;
+}
+.nav_link:before {
+  content: "";
+  position: absolute;
+  width: 4vw;
+  height: 2px;
+  background-color: #444444;
+  left: -12vw;
+  top: 50%;
+  transition: 0.4s;
+}
+
+.nav_divider {
+  width: 3vw;
+  height: 1px;
+  background-color: rgba(37, 33, 32, 0.12);
+  margin: 4vh 6vw;
+}
+
+.nav li .nav_link:hover:before {
+  left: -6vw;
+}
+
+.mini-player {
+  color: #252120;
+  position: fixed;
+  height: 32px;
+  right: 2.2vw;
+  top: 2.2vw;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.track_info_wrapper {
+  border-right: 1px solid rgba(24, 38, 69, 0.11);
+  margin-right: 23px;
+  padding-right: 30px;
+}
+.track_info_wrapper .track_info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  opacity: 1;
+}
+.track_info_wrapper .track_info .thumb {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  background-color: #D3D6DA;
+  border-radius: 2px;
+  background-size: cover;
+  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
+}
+.track_info_wrapper .track_info .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+.track_info_wrapper .track_info .artist {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  color: rgba(37, 33, 32, 0.7);
+}
+
+.mini-player_btn_wrapper {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.btn-switch {
+  width: 30px;
+  display: flex;
+  margin-right: 30px;
+  justify-content: center;
+}
+
+.playback_btn_wrapper .btn-switch {
+  margin-right: 0;
+}
+
+.btn-play, .btn-pause {
+  position: absolute;
+}
+
+.btn-pause {
+  display: none;
+  opacity: 0;
+}
+
+.dim {
+  will-change: opacity;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(37, 33, 32, 0.2);
+  position: fixed;
+  background-color: rgba(224, 221, 209, 0.701961);
+  z-index: 110;
+  display: none;
+  z-index: 2;
+  opacity: 0;
+}
+
+.player {
+  will-change: transform;
+  display: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 600px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0px 25px 60px 0px rgba(97, 45, 45, 0.4);
+  font-size: 14px;
+  z-index: 999;
+}
+
+.playback_wrapper {
+  height: 310px;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff9e1;
+}
+
+.playback_blur {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  transform: scale(1.1);
+  filter: blur(32px);
+  opacity: 0.24;
+  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
+}
+
+.playback_thumb {
+  transition: 0.5s;
+  width: 164px;
+  height: 164px;
+  border-radius: 5px;
+  background-size: cover;
+  position: absolute;
+  margin: 35px;
+  box-shadow: 0px 12px 30px 0px rgba(97, 45, 45, 0.2);
+  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-t500x500.jpg);
+}
+
+.playback_info {
+  display: block;
+  position: absolute;
+  left: 164px;
+  z-index: 10;
+  margin: 42px 8px 8px 70px;
+  width: 55%;
+  min-width: 100px;
+  mix-blend-mode: color-burn;
+}
+.playback_info .title {
+  font-size: 30px;
+  display: inline;
+  color: #252120;
+}
+.playback_info .artist {
+  margin-top: 14px;
+  font-size: 16px;
+  opacity: 0.34;
+  color: #252120;
+}
+
+.playback_btn_wrapper {
+  position: absolute;
+  z-index: 10;
+  mix-blend-mode: color-burn;
+  width: 124px;
+  left: 55px;
+  top: 240px;
+  opacity: 0.6;
+  display: flex;
+  justify-content: space-between;
+}
+.playback_btn_wrapper i {
+  margin: 0;
+}
+
+.playback_timeline {
+  position: absolute;
+  width: 60%;
+  left: 234px;
+  top: 238px;
+  mix-blend-mode: color-burn;
+  color: #252120;
+}
+
+.playback_timeline_start-time, .playback_timeline_end-time {
+  font-size: 14px;
+  opacity: 0.4;
+  margin-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.playback_timeline_slider {
+  height: 24.67px;
+  position: relative;
+  cursor: pointer;
+  width: 65%;
+  margin-right: 15px;
+  opacity: 1;
+  display: inline-block;
+  vertical-align: middle;
+}
+.playback_timeline_slider .slider_base {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(37, 33, 32, 0.12);
+  border-radius: 2px;
+  position: absolute;
+  top: 12px;
+}
+.playback_timeline_slider .slider_progress {
+  transform: matrix(0.15812, 0, 0, 1, 0, 0);
+  transform-origin: 0 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(37, 33, 32, 0.5);
+  border-radius: 2px;
+  position: absolute;
+  top: 12px;
+}
+.playback_timeline_slider .slider_handle {
+  transform: matrix(1, 0, 0, 1, 37, 0);
+  width: 12px;
+  height: 12px;
+  background-color: #252120;
+  border-radius: 50%;
+  position: absolute;
+  top: 7px;
+  left: -6px;
+}
+
+.list_wrapper {
+  height: calc(100% - 310px);
+  overflow: auto;
+}
+
+.list {
+  padding: 20px 0;
+}
+.list .list_item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  height: 74px;
+  transition: 0.4s;
+}
+.list .thumb {
+  width: 50px;
+  height: 50px;
+  margin: 0 12px 0 31px;
+  border-radius: 50%;
+  position: relative;
+  opacity: 0.8;
+  background-size: cover;
+}
+.list .info {
+  max-width: 600px;
+}
+.list .info .title {
+  font-size: 15px;
+  color: #999;
+}
+.list .info .artist {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: #bbb;
+}
+
+.list_item:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.list_item:active {
+  transform: scale(0.98);
+}
+
+.list .list_item:nth-child(1) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
+}
+.list .list_item:nth-child(2) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000149308680-w9rj6a-large.jpg);
+}
+.list .list_item:nth-child(3) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000091003491-upr0rf-large.jpg);
+}
+.list .list_item:nth-child(4) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000125642440-o2ff73-large.jpg);
+}
+.list .list_item:nth-child(5) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000174340505-wv6dl1-large.jpg);
+}
+.list .list_item:nth-child(6) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000169142537-e22x2o-large.jpg);
+}
+.list .list_item:nth-child(7) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000180119811-wgpequ-large.jpg);
+}
+.list .list_item:nth-child(8) .thumb {
+  background-image: url(https://i1.sndcdn.com/artworks-000133986066-hf1rz6-large.jpg);
+}
+
+.selected {
+  background-color: rgba(224, 186, 171, 0.19);
+}
+.selected:hover {
+  background-color: rgba(224, 186, 171, 0.3);
+}
+.selected .info .title {
+  color: #252120;
+  font-size: 15px;
+}
+.selected .info .artist {
+  color: rgba(37, 33, 32, 0.7);
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.active {
+  display: block;
+  opacity: 1;
+}
+
+#curator {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  color: #252120;
+  display: none;
+}
+#curator .curator_title_wrapper {
+  position: fixed;
+  margin-top: 17.55vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+#curator .curator_title_wrapper span {
+  font-size: 2.16vh;
+}
+#curator .curator_title_wrapper .curator_title {
+  font-size: 7.425vh;
+}
+#curator .curator_title_wrapper .curator_line {
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  margin: 0 30px;
+  background-color: #252120;
+}
+
+.curator_list {
+  position: absolute;
+  text-align: center;
+  font-size: 14px;
+  width: 100vw;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.connect_btn {
+  border-radius: 50%;
+  width: 18vh;
+  height: 18vh;
+  background-image: linear-gradient(280deg, #2f2a29 0%, #2f2a29 100%);
+  color: #f1dfdd;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+.connect_btn .connect_btn_text {
+  z-index: 9;
+}
+
+.connect_btn:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: opacity 0.5s ease-out;
+  opacity: 0;
+  background-image: linear-gradient(225deg, #ff6700 0%, #ff2df0 100%);
+  transition: 0.5s;
+}
+
+.connect_btn:hover:before {
+  opacity: 1;
+}
+
+.curator_list_content_desc {
+  position: relative;
+  pointer-events: none;
+  margin: 0 20px;
+  margin-bottom: 60px;
+}
+
+.curator_list_content {
+  padding: 0 50px;
+  white-space: nowrap;
+  text-align: left;
+  position: absolute;
+  top: 50%;
+  margin-top: -6.6666666667vh;
+  display: flex;
+  align-items: center;
+}
+.curator_list_content .item {
+  cursor: pointer;
+  height: 25vh;
+  margin: 0 20px;
+}
+.curator_list_content .item:active {
+  transform: scale(0.95);
+}
+.curator_list_content .info {
+  opacity: 0;
+}
+.curator_list_content .info .name, .curator_list_content .info .desc {
+  font-size: 13px;
+  color: #f1dfdd;
+  clear: both;
+  position: relative;
+  padding: 0 3px 1px 3px;
+  background-color: #252120;
+  display: inline-block;
+  float: left;
+  clear: both;
+  border-radius: 3px 3px 0px 0px;
+}
+.curator_list_content .thumb {
+  border-radius: 50%;
+  width: 18vh;
+  height: 18vh;
+  background-size: cover;
+  margin-bottom: 20px;
+  transition: 0.5s;
+}
+
+.curator_list_content .item:nth-child(3) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000202649537-6368nw-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(4) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000249865900-64rve1-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(5) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000270812013-6zuevs-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(6) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000213988027-6nutce-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(7) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000187841543-7rhmm0-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(8) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000248045110-uq3jhv-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(9) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000276749358-7c1upz-t250x250.jpg);
+}
+.curator_list_content .item:nth-child(10) .thumb {
+  background-image: url(https://i1.sndcdn.com/avatars-000265518371-amlg8s-t250x250.jpg);
+}
+
+.shadow {
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.4);
+}
 </style>
