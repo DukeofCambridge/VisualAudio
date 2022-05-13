@@ -36,103 +36,14 @@
         <li><a class="nav_link" href="">Contact	</a></li>
       </ul>
     </div>
-    <div class="mini-player">
-      <div class="track_info_wrapper">
-        <div class="track_info">
-          <div class="thumb"></div>
-          <div class="info">
-            <div class="title">Friday Comes</div>
-            <div class="artist">Early</div>
-          </div>
-        </div>
-      </div>
-      <div class="mini-player_btn_wrapper"><i class="btn-prev fa fa-step-backward" aria-hidden="true"></i>
-        <div class="btn-switch"><i class="btn-play fa fa-play" aria-hidden="true"></i><i class="btn-pause fa fa-pause" aria-hidden="true"></i></div><i class="btn-next fa fa-step-forward" aria-hidden="true"></i><i class="btn-open-player fa fa-list" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div class="dim"></div>
-    <div class="player" id="player">
-      <div class="playback_wrapper">
-        <div class="playback_blur"></div>
-        <div class="playback_thumb"></div>
-        <div class="playback_info">
-          <div class="title">Friday Comes</div>
-          <div class="artist">Early</div>
-        </div>
-        <div class="playback_btn_wrapper"><i class="btn-prev fa fa-step-backward" aria-hidden="true"></i>
-          <div class="btn-switch"><i class="btn-play fa fa-play" aria-hidden="true"></i><i class="btn-pause fa fa-pause" aria-hidden="true"></i></div><i class="btn-next fa fa-step-forward" aria-hidden="true"></i>
-        </div>
-        <div class="playback_timeline">
-          <div class="playback_timeline_start-time">00:31</div>
-          <div class="playback_timeline_slider">
-            <div class="slider_base"></div>
-            <div class="slider_progress"></div>
-            <div class="slider_handle"></div>
-          </div>
-          <div class="playback_timeline_end-time">03:11</div>
-        </div>
-      </div>
-      <div class="list_wrapper">
-        <ul class="list">
-          <li class="list_item selected">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-          <li class="list_item">
-            <div class="thumb"> </div>
-            <div class="info">
-              <div class="title">Friday Comes</div>
-              <div class="artist">Early</div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <div style="margin-top:25px"><Player
+    
+        :song="song"
+        @switch="switchSong"
+        @switchOrder="switchOrderMod"
+        @end="endSong"
+      ></Player></div>
+    
     <div class="page" id="curator">
       <div class="curator_title_wrapper"><span>LP</span>
         <div class="curator_line"></div>
@@ -199,10 +110,28 @@
 <script>
 import $ from 'jquery'
 import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
+import Player from "@/components/Player.vue"
+import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
+
 
 export default {
   name: "Index",
-  mounted() {
+  data() {
+    return {
+      is_stop: true,
+      currentTime: Number,
+      progress: 0,
+      duration: 0,
+      curr: 0,
+      order: "sequence",
+      song: {
+        url: String,
+        picUrl: String, //海报url
+      },
+      playList: Array(),
+    };
+  },
+  mounted: async function () {
     // ===== Open Nav =====
     $( ".burger-wrapper" ).click(function() {
 
@@ -418,6 +347,33 @@ export default {
         // $('.text-wrap .text').css('position', 'relative');
       }
     });
+
+
+    //搜索歌曲部分
+    //根据关键词搜索，获取音乐id列表
+    //var idList = new Array();
+    var res = await searchByKey({ keywords: "方大同" });
+    let songs = res.result.songs;
+    for (let i = 0; i < songs.length && i < 10; i++) {
+      let element = songs[i];
+      let id = element.id;
+
+      let albumId = element.album.id;
+      let song = {
+        url: String,
+        picUrl: String,
+      };
+      res = await searchById({ id: id });
+      song.url = res.data[0].url; //音乐url
+      res = await searchAlbumById({ id: albumId });
+      song.picUrl = res.songs[0].al.picUrl; //海报url
+      this.playList.push(song);
+      console.log("加入歌单" + song.url);
+      if (i == 0) this.song = song
+    }
+    this.song = this.playList[0];
+
+
   },
   methods:{
     // ===== Open Nav =====
@@ -450,8 +406,62 @@ export default {
       gsap.fromTo("#player", 0.5, {xPercent: 100},
           {xPercent: 0, display: 'block', ease: Expo.easeOut});
       gsap.to(".mini-player", 0.5, {x: 50, ease: Expo.easeOut});
-    }
-  }
+    },
+    /**
+     * 切歌
+     */
+    switchSong(str) {
+      var index = (this.playList || []).findIndex((song) => song === this.song);
+      let following = index;
+      if (str == "next") {
+        if (index >= this.playList.length - 1) {
+          following = 0;
+        } else {
+          following = index + 1;
+        }
+      } else if (str == "previous") {
+        console.log("previous");
+        if (index <= 0) {
+          following = this.playList.length - 1;
+        } else {
+          following = index - 1;
+        }
+      }
+      this.song = this.playList[following];
+    },
+    /**
+     * 切换播放顺序
+     */
+    switchOrderMod(str) {
+      if (str == "sequence" || str == "loop" || str == "random") {
+        this.order = str;
+      }
+    },
+    //歌曲结束，根据听歌状态切换歌曲
+    endSong() {
+      /**
+       * 顺序播放
+       */
+      if (this.order == "sequence") {
+        this.switchSong("next")
+      }
+      //单曲循环
+      else if(this.order == "loop") {
+        console.log("单曲循环")
+      }
+      //随机播放
+      else if(this.order == "random") {
+        var index = (this.playList || []).findIndex((song) => song === this.song);
+        let following = index;
+        let len = this.playList.length
+        while (following == index) {
+            following = Math.floor(Math.random() * len);    // 随机获取下标
+        }
+        this.song = this.playList[following];
+      }
+    },
+  },
+  components:{Player}
 }
 </script>
 
