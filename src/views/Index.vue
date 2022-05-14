@@ -1,118 +1,129 @@
 <template>
   <body>
-  <div class="wrapper">
-    <!-- Wave bg-->
-    <div class="wave-container">
-      <div class="wave -one"></div>
-      <div class="wave -two"></div>
-      <div class="wave -three"></div>
-    </div>
-    <div class="line"></div>
-    <div class="text-wrap">
-      <div class="text"><span>L</span><span>I</span><span>S</span><span>T</span><span>E</span><span>N</span>
-        <div class="main-btn_wrapper"><i class="main-btn fa fa-play" aria-hidden="true"></i></div>
+    <div class="wrapper">
+      <!-- Wave bg-->
+      <div class="wave-container">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
       </div>
-    </div>
-    <div class="header">
-      <div class="burger-wrapper" @click="nav">
-        <div class="burger"></div>
+      <div class="line"></div>
+      <div class="text-wrap">
+        <div class="text">
+          <span>L</span><span>I</span><span>S</span><span>T</span><span>E</span
+          ><span>N</span>
+          <div class="main-btn_wrapper">
+            <i class="main-btn fa fa-play" aria-hidden="true"></i>
+          </div>
+        </div>
       </div>
-      <div class="logo-text">Listeners Playlist</div>
-      <div class="back_btn">
-        <div class="circle"></div>
-        <div class="text">Back</div>
+      <div class="header">
+        <div class="burger-wrapper" @click="nav">
+          <div class="burger"></div>
+        </div>
+        <div class="logo-text">Listeners Playlist</div>
+        <div class="back_btn">
+          <div class="circle"></div>
+          <div class="text">Back</div>
+        </div>
       </div>
-    </div>
-    <div class="nav">
-      <ul class="nav_main">
-        <li> <a class="nav_link">Home	</a></li>
-        <li> <a class="nav_link">Listeners</a></li>
-        <li> <a class="nav_link">Compilations</a></li>
-        <li> <a class="nav_link">LP. Mix</a></li>
-      </ul>
-      <div class="nav_divider"></div>
-      <ul class="nav_sub">
-        <li><a class="nav_link" href="">About	</a></li>
-        <li><a class="nav_link" href="">Contact	</a></li>
-      </ul>
-    </div>
-    <div style="margin-top:25px"><Player
-    
-        :song="song"
-        @switch="switchSong"
-        @switchOrder="switchOrderMod"
-        @end="endSong"
-      ></Player></div>
-    
-    <div class="page" id="curator">
-      <div class="curator_title_wrapper"><span>LP</span>
-        <div class="curator_line"></div>
-        <div class="curator_title">Listeners</div>
-        <div class="curator_line"></div><span>14</span>
+      <div class="nav">
+        <ul class="nav_main">
+          <li><a class="nav_link">Home </a></li>
+          <li><a class="nav_link">Listeners</a></li>
+          <li><a class="nav_link">Compilations</a></li>
+          <li><a class="nav_link">LP. Mix</a></li>
+        </ul>
+        <div class="nav_divider"></div>
+        <ul class="nav_sub">
+          <li><a class="nav_link" href="">About </a></li>
+          <li><a class="nav_link" href="">Contact </a></li>
+        </ul>
       </div>
-      <div class="curator_list">
-        <div class="curator_list_content">
-          <div class="connect_btn_wrapper item">
-            <div class="connect_btn">
-              <div class="connect_btn_text">Connect <br/>SoundCloud</div>
+      <div style="margin-top: 25px">
+        <Player
+          :song="song"
+          :playList="playList"
+          @switch="switchSong"
+          @switchOrder="switchOrderMod"
+          @switchList="switchList"
+          @end="endSong"
+          
+        ></Player>
+      </div>
+      
+      <div class="page" id="curator">
+        <div class="curator_title_wrapper">
+          <span>LP</span>
+          <div class="curator_line"></div>
+          <div class="curator_title">Listeners</div>
+          <div class="curator_line"></div>
+          <span>14</span>
+        </div>
+        <div class="curator_list">
+          <div class="curator_list_content">
+            <div class="connect_btn_wrapper item">
+              <div class="connect_btn">
+                <div class="connect_btn_text">Connect <br />SoundCloud</div>
+              </div>
             </div>
-          </div>
-          <div class="curator_list_content_desc">Or Select <br/>a Listener of <br/>L.P.			</div>
-          <div class="item">
-            <div class="thumb"></div>
-            <div class="info">
-              <div class="name">Fantasy</div>
-              <div class="desc">Sam</div>
+            <div class="curator_list_content_desc">
+              Or Select <br />a Listener of <br />L.P.
             </div>
-          </div>
-          <div class="item">
-            <div class="thumb"></div>
-            <div class="info">
-              <div class="name">Fantasy</div>
-              <div class="desc">Sam</div>
+            <div class="item">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">Fantasy</div>
+                <div class="desc">Sam</div>
+              </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="thumb"></div>
-            <div class="info">
-              <div class="name">Fantasy</div>
-              <div class="desc">Sam</div>
+            <div class="item">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">Fantasy</div>
+                <div class="desc">Sam</div>
+              </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="thumb"></div>
-            <div class="info">
-              <div class="name">Fantasy</div>
-              <div class="desc">Sam</div>
+            <div class="item">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">Fantasy</div>
+                <div class="desc">Sam</div>
+              </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="thumb"></div>
-            <div class="info">
-              <div class="name">Fantasy</div>
-              <div class="desc">Sam</div>
+            <div class="item">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">Fantasy</div>
+                <div class="desc">Sam</div>
+              </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="thumb"></div>
-            <div class="info">
-              <div class="name">Fantasy</div>
-              <div class="desc">Sam</div>
+            <div class="item">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">Fantasy</div>
+                <div class="desc">Sam</div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="thumb"></div>
+              <div class="info">
+                <div class="name">Fantasy</div>
+                <div class="desc">Sam</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </body>
 </template>
 
 <script>
-import $ from 'jquery'
+import $ from "jquery";
 import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
-import Player from "@/components/Player.vue"
+import Player from "@/components/Player.vue";
 import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
-
 
 export default {
   name: "Index",
@@ -125,229 +136,400 @@ export default {
       curr: 0,
       order: "sequence",
       song: {
-        url: String,
-        picUrl: String, //海报url
+        url: String, //歌曲url
+        picUrl: "https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg", //海报url
+        name: "", //歌曲名称
+        singer: "", //歌手名称
       },
       playList: Array(),
     };
   },
   mounted: async function () {
     // ===== Open Nav =====
-    $( ".burger-wrapper" ).click(function() {
-
+    $(".burger-wrapper").click(function () {
       // ===== If Nav is not open
-      if($('.nav').css("display") == "none"){
-        gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
-        gsap.fromTo(".nav", 0.5, {xPercent: -100},
-            {xPercent: 0, display: 'block', ease: Expo.easeOut});
-        gsap.staggerFrom('.nav li', 0.5, {opacity:0, y: 20, ease: Power2.easeInOut}, 0.1);
+      if ($(".nav").css("display") == "none") {
+        gsap.to(".dim", 0.5, {
+          opacity: 1,
+          display: "block",
+          ease: Power2.easeInOut,
+        });
+        gsap.fromTo(
+          ".nav",
+          0.5,
+          { xPercent: -100 },
+          { xPercent: 0, display: "block", ease: Expo.easeOut }
+        );
+        gsap.staggerFrom(
+          ".nav li",
+          0.5,
+          { opacity: 0, y: 20, ease: Power2.easeInOut },
+          0.1
+        );
 
-        $('.logo-text').css({'opacity': '0', 'display': 'none'});
+        $(".logo-text").css({ opacity: "0", display: "none" });
       }
       // ===== If Nav is open	and in Curation page
-      else if($('.nav').css("display") == "block" && $('#curator').css("display") == "block"){
-        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
-        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
+      else if (
+        $(".nav").css("display") == "block" &&
+        $("#curator").css("display") == "block"
+      ) {
+        gsap.to(".dim", 0.5, {
+          opacity: 0,
+          display: "none",
+          ease: Power2.easeInOut,
+        });
+        gsap.to(".nav", 0.5, {
+          xPercent: -100,
+          display: "none",
+          ease: Expo.easeOut,
+        });
         // $('.logo-text').css({'opacity': '1', 'display': 'block'});
+      } else {
+        gsap.to(".dim", 0.5, {
+          opacity: 0,
+          display: "none",
+          ease: Power2.easeInOut,
+        });
+        gsap.to(".nav", 0.5, {
+          xPercent: -100,
+          display: "none",
+          ease: Expo.easeOut,
+        });
+        $(".logo-text").css({ opacity: "1", display: "block" });
       }
+    });
 
-      else {
-        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
-        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
-        $('.logo-text').css({'opacity': '1', 'display': 'block'});
+    // ===== Open Player + dim on =====
+
+    $(".btn-open-player, .track_info").click(function () {
+      gsap.to(".dim", 0.5, {
+        opacity: 1,
+        display: "block",
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        "#player",
+        0.5,
+        { xPercent: 100 },
+        { xPercent: 0, display: "block", ease: Expo.easeOut }
+      );
+      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
+    });
+
+    $(".dim").click(function () {
+      gsap.to(".dim", 0.5, {
+        opacity: 0,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      gsap.to("#player", 0.5, {
+        xPercent: 100,
+        display: "none",
+        ease: Expo.easeOut,
+      });
+      gsap.to(".nav", 0.5, {
+        xPercent: -100,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      gsap.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
+    });
+
+    // ===== Mini Player - Play/Pause Switch =====
+
+    $(".btn-play").click(function () {
+      gsap.to($(".btn-play"), 0.2, {
+        x: 20,
+        opacity: 0,
+        scale: 0.3,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        $(".btn-pause"),
+        0.2,
+        { x: -20, opacity: 0, scale: 0.3, display: "none" },
+        { x: 0, opacity: 1, scale: 1, display: "block", ease: Power2.easeInOut }
+      );
+    });
+
+    $(".btn-pause").click(function () {
+      gsap.to($(".btn-pause"), 0.2, {
+        x: 20,
+        opacity: 0,
+        display: "none",
+        scale: 0.3,
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        $(".btn-play"),
+        0.2,
+        { x: -20, opacity: 0, scale: 0.3, display: "none" },
+        { x: 0, opacity: 1, display: "block", scale: 1, ease: Power2.easeInOut }
+      );
+    });
+
+    // ===== HoverIn/HoverOut Flash Effect =====
+
+    $(".track_info").hover(
+      function () {
+        gsap.fromTo(
+          $(this),
+          0.5,
+          { opacity: 0.5, ease: Power2.easeInOut },
+          { opacity: 1 }
+        );
+      },
+      function () {
+        $(this).css("opacity", "1");
       }
+    );
 
+    $(".burger-wrapper, .logo-text, .back_btn").hover(
+      function () {
+        gsap.fromTo(
+          $(this),
+          0.5,
+          { opacity: 0.5, ease: Power2.easeInOut },
+          { opacity: 1 }
+        );
+      },
+      function () {
+        $(this).css("opacity", "1");
+      }
+    );
+
+    $(".btn-open-player").hover(
+      function () {
+        gsap.fromTo(
+          $(this),
+          0.5,
+          { opacity: 0.5, ease: Power2.easeInOut },
+          { opacity: 1 }
+        );
+      },
+      function () {
+        $(this).css("opacity", "1");
+      }
+    );
+
+    $(".nav a").hover(
+      function () {
+        gsap.fromTo(
+          $(this),
+          0.5,
+          { opacity: 0.5, ease: Power2.easeInOut },
+          { opacity: 1 }
+        );
+      },
+      function () {
+        $(this).css("opacity", "1");
+      }
+    );
+
+    // ===== Player - List Items =====
+    $(".list_item").click(function () {
+      $(".list_item").removeClass("selected");
+      $(this).addClass("selected");
     });
 
+    // ===== Main Play Button - Hover =====
 
-// ===== Open Player + dim on =====
+    $(".text-wrap .text").hover(
+      function () {
+        gsap.to($(".main-btn_wrapper"), 0.5, {
+          opacity: 1,
+          display: "block",
+          position: "absolute",
+          scale: 1,
+          ease: Elastic.easeOut.config(1, 0.75),
+        }),
+          gsap.to($(".line"), 0.5, {
+            css: { scaleY: 0.6, transformOrigin: "center center" },
+            ease: Expo.easeOut,
+          });
+      },
 
-    $( ".btn-open-player, .track_info" ).click(function() {
-      gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
-      gsap.fromTo("#player", 0.5, {xPercent: 100},
-          {xPercent: 0, display: 'block', ease: Expo.easeOut});
-      gsap.to(".mini-player", 0.5, {x: 50, ease: Expo.easeOut});
-    });
+      function () {
+        gsap.to($(".main-btn_wrapper"), 0.5, {
+          opacity: 0,
+          display: "none",
+          scale: 0,
+          ease: Elastic.easeOut.config(1, 0.75),
+        }),
+          gsap.to($(".line"), 0.5, {
+            css: { scaleY: 1, transformOrigin: "center center" },
+            ease: Expo.easeOut,
+          });
+      }
+    );
 
-    $('.dim').click(function() {
-      gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
-      gsap.to("#player", 0.5, {xPercent: 100, display: 'none', ease: Expo.easeOut});
-      gsap.to(".nav", 0.5, {xPercent: -100, display: 'none', ease: Power2.easeInOut})
-      gsap.to(".mini-player", 0.5, {x: 0, ease: Expo.easeOut});
-    });
+    // ===== Curation Page  =====
+    // ===== List  =====
+    $(".item").hover(
+      function () {
+        gsap.to($(this), 0.5, { y: -30, ease: Power2.easeInOut }),
+          $(this).children(".thumb").addClass("shadow"),
+          $(this).children(".connect_btn").addClass("shadow"),
+          gsap.to($(this).children(".info"), 0.5, {
+            opacity: 1,
+            ease: Power2.easeInOut,
+          });
+      },
 
-// ===== Mini Player - Play/Pause Switch =====
+      function () {
+        gsap.to($(this), 0.5, { y: 0, ease: Power2.easeInOut }),
+          $(this).children(".thumb").removeClass("shadow"),
+          $(this).children(".connect_btn").removeClass("shadow"),
+          gsap.to($(this).children(".info"), 0.5, {
+            opacity: 0,
+            ease: Power2.easeInOut,
+          });
+      }
+    );
 
-    $('.btn-play').click(function(){
-      gsap.to($('.btn-play'), 0.2, {x: 20, opacity: 0, scale: 0.3,  display: 'none', ease: Power2.easeInOut});
-      gsap.fromTo($('.btn-pause'), 0.2, {x: -20, opacity: 0, scale: 0.3, display: 'none'},
-          {x: 0, opacity: 1, scale: 1, display: 'block', ease: Power2.easeInOut});
-    });
+    // ===== Home Page to Curation Page Transition  =====
+    // ===== Main Play Button Activate =====
 
-    $('.btn-pause').click(function(){
-      gsap.to($('.btn-pause'), 0.2, {x: 20, opacity: 0, display: 'none', scale: 0.3, ease: Power2.easeInOut});
-      gsap.fromTo($('.btn-play'), 0.2, {x: -20, opacity: 0, scale: 0.3, display: 'none'},
-          {x: 0, opacity: 1, display: 'block', scale: 1, ease: Power2.easeInOut});
-    });
-
-// ===== HoverIn/HoverOut Flash Effect =====
-
-    $('.track_info').hover(function(){
-
-          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
-              {opacity: 1})},
-        function(){
-          $(this).css("opacity", "1");
-        });
-
-    $('.burger-wrapper, .logo-text, .back_btn').hover(function(){
-
-          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
-              {opacity: 1})},
-        function(){
-          $(this).css("opacity", "1")
-        });
-
-    $('.btn-open-player').hover(function(){
-
-          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
-              {opacity: 1})},
-        function(){
-          $(this).css("opacity", "1")
-        });
-
-    $('.nav a').hover(function(){
-
-          gsap.fromTo($(this), 0.5, {opacity: 0.5, ease: Power2.easeInOut},
-              {opacity: 1})},
-        function(){
-          $(this).css("opacity", "1")
-        });
-
-// ===== Player - List Items =====
-    $('.list_item').click(function() {
-      $('.list_item').removeClass('selected');
-      $(this).addClass('selected');
-    });
-
-
-// ===== Main Play Button - Hover =====
-
-    $('.text-wrap .text').hover(function(){
-          gsap.to($('.main-btn_wrapper'), 0.5, {opacity: 1, display: 'block', position: 'absolute', scale: 1, ease: Elastic.easeOut.config(1, 0.75)}),
-              gsap.to($('.line'), 0.5, {css: { scaleY: 0.6, transformOrigin: "center center" }, ease: Expo.easeOut})},
-
-        function(){
-          gsap.to($('.main-btn_wrapper'), 0.5, {opacity: 0, display: 'none', scale: 0, ease: Elastic.easeOut.config(1, 0.75)}),
-              gsap.to($('.line'), 0.5, {css: { scaleY: 1, transformOrigin: "center center" }, ease: Expo.easeOut})
-        });
-
-
-// ===== Curation Page  =====
-// ===== List  =====
-    $('.item').hover(function(){
-          gsap.to($(this), 0.5, {y: -30, ease: Power2.easeInOut}),
-              $(this).children('.thumb').addClass('shadow'),
-              $(this).children('.connect_btn').addClass('shadow'),
-
-              gsap.to($(this).children('.info'), 0.5, {opacity: 1, ease: Power2.easeInOut})
-        },
-
-        function(){
-          gsap.to($(this), 0.5, {y: 0, ease: Power2.easeInOut}),
-              $(this).children('.thumb').removeClass('shadow'),
-              $(this).children('.connect_btn').removeClass('shadow'),
-
-              gsap.to($(this).children('.info'), 0.5, {opacity: 0, ease: Power2.easeInOut})
-        });
-
-
-// ===== Home Page to Curation Page Transition  =====
-// ===== Main Play Button Activate =====
-
-    $('.text-wrap .text').click(function(){
-
+    $(".text-wrap .text").click(function () {
       var homeToMain = new TimelineMax({});
 
       // Hide
-      $('.logo-text').css('display', 'none'),
-          homeToMain.to($('.line, .text-wrap'), 0.5, {display: 'none', opacity: 0, y: -20, ease: Power2.easeInOut}, 0),
-
-          // Background down
-          homeToMain.to($('.wave-container'), 1, {yPercent: 30, ease: Power2.easeInOut}, 0),
-
-          // Show
-          $('#curator').css('display', 'block'),
-          homeToMain.fromTo($('.back_btn'), 0.8, {x: 15},
-              {display: 'flex', opacity: 1, x: 0, ease: Power2.easeInOut}, 1),
-
-          homeToMain.fromTo($('.curator_title_wrapper'), 0.8, {opacity: 0, x: 30},
-              {opacity: 1, x: 0, ease: Power2.easeInOut}, 1),
-
-          homeToMain.fromTo($('.curator_list'), 0.8, {opacity: 0, display: 'none', x: 30},
-              {opacity: 1, x: 0, display: 'block', ease: Power2.easeInOut}, 1.2)
-
+      $(".logo-text").css("display", "none"),
+        homeToMain.to(
+          $(".line, .text-wrap"),
+          0.5,
+          { display: "none", opacity: 0, y: -20, ease: Power2.easeInOut },
+          0
+        ),
+        // Background down
+        homeToMain.to(
+          $(".wave-container"),
+          1,
+          { yPercent: 30, ease: Power2.easeInOut },
+          0
+        ),
+        // Show
+        $("#curator").css("display", "block"),
+        homeToMain.fromTo(
+          $(".back_btn"),
+          0.8,
+          { x: 15 },
+          { display: "flex", opacity: 1, x: 0, ease: Power2.easeInOut },
+          1
+        ),
+        homeToMain.fromTo(
+          $(".curator_title_wrapper"),
+          0.8,
+          { opacity: 0, x: 30 },
+          { opacity: 1, x: 0, ease: Power2.easeInOut },
+          1
+        ),
+        homeToMain.fromTo(
+          $(".curator_list"),
+          0.8,
+          { opacity: 0, display: "none", x: 30 },
+          { opacity: 1, x: 0, display: "block", ease: Power2.easeInOut },
+          1.2
+        );
     });
 
-
-// ===== Curation Page to Playlist Page Transition  =====
-// ===== Item Activate =====
-    $('.item').click(function(){
+    // ===== Curation Page to Playlist Page Transition  =====
+    // ===== Item Activate =====
+    $(".item").click(function () {
       var mainToPlaylist = new TimelineMax({});
 
       // Hide
-      mainToPlaylist.to($('#curator'), 0.8, {display: 'none', opacity: 0, scale: 1.1, ease: Power2.easeInOut}, 0)
+      mainToPlaylist.to(
+        $("#curator"),
+        0.8,
+        { display: "none", opacity: 0, scale: 1.1, ease: Power2.easeInOut },
+        0
+      );
 
       // mainToPlaylist.fromTo($('.curator_list'), 0.5, {opacity: 1, display: 'block', x: 0},
       // 									{opacity: 0, x: 30, display: 'none', ease: Power2.easeInOut}, 0.5),
-
-
-
-
     });
 
-// ===== Back Button Activate =====
+    // ===== Back Button Activate =====
 
-    $('.back_btn').click(function(){
-// ===== From Playlist(3) to Main(2)
-      if($('#curator').css("display") == "none"){
+    $(".back_btn").click(function () {
+      // ===== From Playlist(3) to Main(2)
+      if ($("#curator").css("display") == "none") {
         var playlistToMain = new TimelineMax({});
 
         // Hide
-        playlistToMain.fromTo($('#curator'), 0.8, {display: 'none', opacity: 0, scale: 1.1},
-            {display: 'block', opacity: 1, scale: 1, ease: Power2.easeInOut}, 0)
+        playlistToMain.fromTo(
+          $("#curator"),
+          0.8,
+          { display: "none", opacity: 0, scale: 1.1 },
+          { display: "block", opacity: 1, scale: 1, ease: Power2.easeInOut },
+          0
+        );
       }
 
       // From Main(2) to Home(1)
       else {
         var mainToHome = new TimelineMax({});
         // Hide
-        mainToHome.fromTo($('.curator_title_wrapper'), 0.5, {opacity: 1, x: 0},
-            {opacity: 0, x: 30, ease: Power2.easeInOut}, 0.2),
-
-            mainToHome.fromTo($('.curator_list'), 0.5, {opacity: 1, display: 'block', x: 0},
-                {opacity: 0, x: 30, display: 'none', ease: Power2.easeInOut}, 0.5),
-
-
-            mainToHome.to($('.back_btn'), 0.5, {display: 'none', opacity: 0, x: 15, ease: Power2.easeInOut}, 0.5),
-
-            mainToHome.to($('#curator'), 0, {display: 'none', ease: Power2.easeInOut}, 1),
-
-            // Background Up
-            mainToHome.to($('.wave-container'), 1, {yPercent: 0, ease: Power2.easeInOut}, 1),
-
-            // 	Show
-            mainToHome.to($('.text-wrap'), 0.5, {display: 'flex', opacity: 1, y: 0, ease: Power2.easeInOut}, 1.2),
-
-            mainToHome.to($('.logo-text, .line'), 0.5, {display: 'block', opacity: 1, y: 0, ease: Power2.easeInOut}, 1.2),
-
-            // 	Force to redraw by using y translate
-            mainToHome.fromTo($('.text-wrap .text'), 0.1, {y: 0.1, position: 'absolute'},
-                {y: 0, position: 'relative', ease: Power2.easeInOut}, 1.3)
+        mainToHome.fromTo(
+          $(".curator_title_wrapper"),
+          0.5,
+          { opacity: 1, x: 0 },
+          { opacity: 0, x: 30, ease: Power2.easeInOut },
+          0.2
+        ),
+          mainToHome.fromTo(
+            $(".curator_list"),
+            0.5,
+            { opacity: 1, display: "block", x: 0 },
+            { opacity: 0, x: 30, display: "none", ease: Power2.easeInOut },
+            0.5
+          ),
+          mainToHome.to(
+            $(".back_btn"),
+            0.5,
+            { display: "none", opacity: 0, x: 15, ease: Power2.easeInOut },
+            0.5
+          ),
+          mainToHome.to(
+            $("#curator"),
+            0,
+            { display: "none", ease: Power2.easeInOut },
+            1
+          ),
+          // Background Up
+          mainToHome.to(
+            $(".wave-container"),
+            1,
+            { yPercent: 0, ease: Power2.easeInOut },
+            1
+          ),
+          // 	Show
+          mainToHome.to(
+            $(".text-wrap"),
+            0.5,
+            { display: "flex", opacity: 1, y: 0, ease: Power2.easeInOut },
+            1.2
+          ),
+          mainToHome.to(
+            $(".logo-text, .line"),
+            0.5,
+            { display: "block", opacity: 1, y: 0, ease: Power2.easeInOut },
+            1.2
+          ),
+          // 	Force to redraw by using y translate
+          mainToHome.fromTo(
+            $(".text-wrap .text"),
+            0.1,
+            { y: 0.1, position: "absolute" },
+            { y: 0, position: "relative", ease: Power2.easeInOut },
+            1.3
+          );
         // $('.text-wrap .text').css('position', 'relative');
       }
     });
-
 
     //搜索歌曲部分
     //根据关键词搜索，获取音乐id列表
@@ -363,49 +545,87 @@ export default {
         url: String,
         picUrl: String,
       };
+      song.name = element.name;
+      song.singer = element.artists[0].name;
       res = await searchById({ id: id });
       song.url = res.data[0].url; //音乐url
       res = await searchAlbumById({ id: albumId });
       song.picUrl = res.songs[0].al.picUrl; //海报url
       this.playList.push(song);
       console.log("加入歌单" + song.url);
-      if (i == 0) this.song = song
+      if (i == 0) this.song = song;
     }
     this.song = this.playList[0];
-
-
   },
-  methods:{
+  methods: {
     // ===== Open Nav =====
-    nav(){
+    nav() {
       // ===== If Nav is not open
-      if($('.nav').css("display") === "none"){
-        gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
-        gsap.fromTo(".nav", 0.5, {xPercent: -100},
-            {xPercent: 0, display: 'block', ease: Expo.easeOut});
-        gsap.staggerFrom('.nav li', 0.5, {opacity:0, y: 20, ease: Power2.easeInOut}, 0.1);
+      if ($(".nav").css("display") === "none") {
+        gsap.to(".dim", 0.5, {
+          opacity: 1,
+          display: "block",
+          ease: Power2.easeInOut,
+        });
+        gsap.fromTo(
+          ".nav",
+          0.5,
+          { xPercent: -100 },
+          { xPercent: 0, display: "block", ease: Expo.easeOut }
+        );
+        gsap.staggerFrom(
+          ".nav li",
+          0.5,
+          { opacity: 0, y: 20, ease: Power2.easeInOut },
+          0.1
+        );
 
-        $('.logo-text').css({'opacity': '0', 'display': 'none'});
+        $(".logo-text").css({ opacity: "0", display: "none" });
       }
       // ===== If Nav is open	and in Curation page
-      else if($('.nav').css("display") === "block" && $('#curator').css("display") === "block"){
-        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
-        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
+      else if (
+        $(".nav").css("display") === "block" &&
+        $("#curator").css("display") === "block"
+      ) {
+        gsap.to(".dim", 0.5, {
+          opacity: 0,
+          display: "none",
+          ease: Power2.easeInOut,
+        });
+        gsap.to(".nav", 0.5, {
+          xPercent: -100,
+          display: "none",
+          ease: Expo.easeOut,
+        });
         // $('.logo-text').css({'opacity': '1', 'display': 'block'});
-      }
-
-      else {
-        gsap.to(".dim", 0.5, {opacity: 0, display: 'none', ease: Power2.easeInOut});
-        gsap.to(".nav", 0.5, {xPercent: -100, display:'none', ease: Expo.easeOut});
-        $('.logo-text').css({'opacity': '1', 'display': 'block'});
+      } else {
+        gsap.to(".dim", 0.5, {
+          opacity: 0,
+          display: "none",
+          ease: Power2.easeInOut,
+        });
+        gsap.to(".nav", 0.5, {
+          xPercent: -100,
+          display: "none",
+          ease: Expo.easeOut,
+        });
+        $(".logo-text").css({ opacity: "1", display: "block" });
       }
     },
     // ===== Open Player + dim on =====
-    play(){
-      gsap.to(".dim", 0.5, {opacity: 1, display: 'block', ease: Power2.easeInOut});
-      gsap.fromTo("#player", 0.5, {xPercent: 100},
-          {xPercent: 0, display: 'block', ease: Expo.easeOut});
-      gsap.to(".mini-player", 0.5, {x: 50, ease: Expo.easeOut});
+    play() {
+      gsap.to(".dim", 0.5, {
+        opacity: 1,
+        display: "block",
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        "#player",
+        0.5,
+        { xPercent: 100 },
+        { xPercent: 0, display: "block", ease: Expo.easeOut }
+      );
+      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
     },
     /**
      * 切歌
@@ -443,32 +663,41 @@ export default {
        * 顺序播放
        */
       if (this.order == "sequence") {
-        this.switchSong("next")
+        this.switchSong("next");
       }
       //单曲循环
-      else if(this.order == "loop") {
-        console.log("单曲循环")
+      else if (this.order == "loop") {
+        console.log("单曲循环");
       }
       //随机播放
-      else if(this.order == "random") {
-        var index = (this.playList || []).findIndex((song) => song === this.song);
+      else if (this.order == "random") {
+        var index = (this.playList || []).findIndex(
+          (song) => song === this.song
+        );
         let following = index;
-        let len = this.playList.length
+        let len = this.playList.length;
         while (following == index) {
-            following = Math.floor(Math.random() * len);    // 随机获取下标
+          following = Math.floor(Math.random() * len); // 随机获取下标
         }
         this.song = this.playList[following];
       }
     },
+    /**
+     * 点击播放列表切歌
+     */
+    switchList(item) {
+      this.song = item
+    }
+    
   },
-  components:{Player}
-}
+  components: { Player },
+};
 </script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Oswald:300,400,700");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css");
-i[class^=btn] {
+i[class^="btn"] {
   font-size: 20px;
   margin-right: 30px;
   cursor: pointer;
@@ -478,7 +707,8 @@ i[class^=btn] {
   box-sizing: border-box;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
   padding: 0;
 }
@@ -490,7 +720,7 @@ a {
 
 body {
   margin: 0;
-  background-color: #F2D7D3;
+  background-color: #f2d7d3;
   font-family: "Oswald", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -512,7 +742,7 @@ body {
   position: absolute;
   top: 60%;
   left: -28%;
-  background: #18DFAD;
+  background: #18dfad;
   width: 100%;
   height: 300vw;
   transform-origin: 50% 49%;
@@ -533,7 +763,7 @@ body {
 .wave.-three {
   animation: drift 4000ms infinite linear;
   opacity: 1;
-  background: #F12645;
+  background: #f12645;
   top: 60%;
   left: -36%;
   z-index: -2;
@@ -628,7 +858,8 @@ body {
   background-color: #252120;
   position: relative;
 }
-.header .burger:before, .header .burger:after {
+.header .burger:before,
+.header .burger:after {
   content: "";
   width: 20px;
   height: 3px;
@@ -747,8 +978,8 @@ body {
   width: 32px;
   height: 32px;
   margin-right: 10px;
-  background-color: #D3D6DA;
-  border-radius: 2px;
+  background-color: #d3d6da;
+  border-radius: 1px;
   background-size: cover;
   background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
 }
@@ -764,6 +995,7 @@ body {
   text-overflow: ellipsis;
   font-size: 12px;
   color: rgba(37, 33, 32, 0.7);
+  text-align: left;
 }
 
 .mini-player_btn_wrapper {
@@ -783,7 +1015,8 @@ body {
   margin-right: 0;
 }
 
-.btn-play, .btn-pause {
+.btn-play,
+.btn-pause {
   position: absolute;
 }
 
@@ -813,6 +1046,7 @@ body {
   top: 0;
   width: 600px;
   height: 100%;
+  margin-top: 0px;
   background-color: #fff;
   box-shadow: 0px 25px 60px 0px rgba(97, 45, 45, 0.4);
   font-size: 14px;
@@ -896,7 +1130,8 @@ body {
   color: #252120;
 }
 
-.playback_timeline_start-time, .playback_timeline_end-time {
+.playback_timeline_start-time,
+.playback_timeline_end-time {
   font-size: 14px;
   opacity: 0.4;
   margin-right: 15px;
@@ -1137,7 +1372,8 @@ body {
 .curator_list_content .info {
   opacity: 0;
 }
-.curator_list_content .info .name, .curator_list_content .info .desc {
+.curator_list_content .info .name,
+.curator_list_content .info .desc {
   font-size: 13px;
   color: #f1dfdd;
   clear: both;
