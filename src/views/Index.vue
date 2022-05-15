@@ -133,7 +133,7 @@ import Player from "@/components/Player.vue";
 import Lyric from "@/components/Lyric.vue";
 
 import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
-import AudioWave from "../components/home/AudioWave.vue";
+
 
 export default {
   name: "Index",
@@ -736,7 +736,7 @@ export default {
       }
     }
   },
-  components: { Player, Lyric, AudioWave },
+  components: { Player, Lyric },
 };
 </script>
 
