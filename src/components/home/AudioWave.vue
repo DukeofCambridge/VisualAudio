@@ -1,13 +1,51 @@
 <template>
-  <a href="javascript:" id="play-btn">PLAY</a>
+  <a href="javascript:;" id="play-btn" @click="play">PLAY</a>
 </template>
 
 <script>
 import * as THREE from "three";
 import { TimelineMax, Power3, TweenLite, Power2 } from "gsap";
+import { watch } from "vue";
+
 export default {
-  name: "Test",
-  mounted() {
+  name: "AudioWave",
+  props: {
+    /* curr: String, */
+    song: {
+      url: String, //音乐url
+      picUrl: String, //海报url
+      name: String, //歌曲名称
+      singer: String, //歌手名称
+      lyric: String, //歌词
+    },
+  },
+  data() {
+    return {
+      //audio:String
+    };
+  },
+  methods: {
+    play() {
+      console.log("播放");
+      this.audio.play();
+    },
+    pause() {
+      console.log("暂停");
+      this.audio.pause();
+    },
+  },
+  setup(props) {
+    watch(
+      () => props.song.url,
+      (url) => {
+        var bridge = renderWebGL(document.body, {
+          audioSrc: url,
+        });
+
+        audio = new AudioSystem();
+        bridge.start();
+      }
+    );
     function AudioSystem() {
       var listener = new THREE.AudioListener();
       var sound = new THREE.Audio(listener);
@@ -23,11 +61,10 @@ export default {
         console.log("audio loaded.");
         sound.setBuffer(buffer);
         sound.setLoop(false);
-        sound.setVolume(0.5);
+        sound.setVolume(0.2);
         sound.getOutput().connect(analyser);
 
         // sound.play();
-        document.querySelector("#play-btn").style.display = "block";
         soundwave.transitionShowSoundwave();
       });
 
@@ -62,6 +99,10 @@ export default {
 
     AudioSystem.prototype.play = function () {
       this.sound.play();
+    };
+
+    AudioSystem.prototype.pause = function () {
+      this.sound.stop();
     };
 
     // =====================================================
@@ -559,33 +600,6 @@ export default {
           0
         );
       });
-
-      // object3D.translateY(100)
-
-      // XXX 模拟线分开
-      // var props = {
-      //     r: 1.2,
-      //     noiseX: 9,
-      //     noiseY: 7,
-      //     noiseZ: 17,
-      //     particleScale: .2
-      // };
-      // var line2 = object3D.children[1];
-      // // line2.material.uniforms.particleScale.value = .7;
-
-      // TweenMax.to(props, 1, {
-      //     r: 1.5,
-      //     noiseX: 9.6,
-      //     noiseY: 7.3,
-      //     noiseZ: 9,
-      //     particleScale: .06,
-      //     delay: 2,
-      //     onUpdate: function() {
-      //         // line2.material.uniforms.radius.value = props.r;
-      //         line2.material.uniforms.particleScale.value = props.particleScale;
-      //         line2.material.uniforms.noiseParams.value = new THREE.Vector3(props.noiseX, props.noiseY, props.noiseZ);
-      //     }
-      // })
     };
 
     Soundwave.prototype.transitionExplodeSoundwave = function () {
@@ -818,21 +832,12 @@ export default {
     }
 
     // =====================================================
-    var URL =
-      "https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001";
+    /* var URL =
+      "https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001"; */
 
-    var bridge = renderWebGL(document.body, {
-      audioSrc: URL,
-    });
-
-    audio = new AudioSystem();
-    bridge.start();
-
-    var btn = document.getElementById("play-btn");
-
-    btn.onclick = function () {
-      btn.style.display = "none";
-      audio.play();
+    //audio.play();
+    return {
+      audio,
     };
   },
 };
@@ -872,5 +877,6 @@ body {
   z-index: 1;
   text-align: center;
   text-decoration: none;
+
 }
 </style>

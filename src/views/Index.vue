@@ -42,16 +42,21 @@
       </div>
       <div style="margin-top: 25px">
         <Player
+          ref="player"
           :song="song"
           :playList="playList"
           @switch="switchSong"
           @switchOrder="switchOrderMod"
           @switchList="switchList"
           @end="endSong"
-          
+          @timeUpdate="updateTime"
+          @change="changeStatus"
         ></Player>
       </div>
       
+     <!--  <AudioWave :song="song" ref="wave" ></AudioWave> -->
+
+      <Lyric ref="lyric" :song="song" ></Lyric>
       <div class="page" id="curator">
         <div class="curator_title_wrapper">
           <span>LP</span>
@@ -117,20 +122,24 @@
       </div>
     </div>
   </body>
+
+    
 </template>
 
 <script>
 import $ from "jquery";
 import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
 import Player from "@/components/Player.vue";
-import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
+import Lyric from "@/components/Lyric.vue";
+
+import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
+import AudioWave from "../components/home/AudioWave.vue";
 
 export default {
   name: "Index",
   data() {
     return {
       is_stop: true,
-      currentTime: Number,
       progress: 0,
       duration: 0,
       curr: 0,
@@ -140,11 +149,13 @@ export default {
         picUrl: "https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg", //海报url
         name: "", //歌曲名称
         singer: "", //歌手名称
+        lyric: String //歌曲歌词
       },
       playList: Array(),
     };
   },
   mounted: async function () {
+    
     // ===== Open Nav =====
     $(".burger-wrapper").click(function () {
       // ===== If Nav is not open
@@ -547,15 +558,25 @@ export default {
       };
       song.name = element.name;
       song.singer = element.artists[0].name;
+
       res = await searchById({ id: id });
       song.url = res.data[0].url; //音乐url
+
       res = await searchAlbumById({ id: albumId });
       song.picUrl = res.songs[0].al.picUrl; //海报url
+
+      // 获取歌词
+      res = await searchLyricById({id: id})
+      song.lyric = res.lrc.lyric
+
       this.playList.push(song);
       console.log("加入歌单" + song.url);
       if (i == 0) this.song = song;
+
+      
     }
     this.song = this.playList[0];
+    //console.log("歌词："+this.song.lyric)
   },
   methods: {
     // ===== Open Nav =====
@@ -687,10 +708,35 @@ export default {
      */
     switchList(item) {
       this.song = item
+    },
+
+    /**
+     * 切歌时，获取新的歌词
+     */
+    getLyric() {
+      
+    },
+    /**
+     * 更新目前播放时间
+     */
+    updateTime(time) {
+      this.curr = time
+      this.$refs.lyric.timeUpdate(time)
+    },
+    /**
+     * 启动或暂停音乐
+     */
+    changeStatus(str){
+      if(str == "play"){
+        console.log("wwplay")
+        this.$refs.wave.play();
+      }
+      if(str == "pause"){
+        this.$refs.wave.pause();
+      }
     }
-    
   },
-  components: { Player },
+  components: { Player, Lyric, AudioWave },
 };
 </script>
 

@@ -1,7 +1,4 @@
 <template>
-  <!--   <el-row style="height: 20%; width: 50%">
-    <canvas id="canvas"></canvas>
-  </el-row> -->
   <!--   <el-row class="player">
     <el-slider
       v-model="control.progress"
@@ -337,9 +334,12 @@
       </div> -->
       <i
         class="timeStr"
-        style="position: absolute; margin: 235px 70px 0 -17px"
+        style="position: absolute; margin: 241px 100px 0 -27px"
         >{{ control.proStr }}</i
       >
+      <el-row style="height: 20%; width: 40%; bottom:500px">
+        <canvas id="canvas"></canvas>
+      </el-row>
       <el-slider
         v-model="control.progress"
         active-color="#00cc99"
@@ -347,9 +347,9 @@
         class="process"
         style="
           box-shadow: #00cc99;
-          width: 30%;
-          margin-left: 55%;
-          margin-top: 40%;
+          width: 35%;
+          margin-left: 52%;
+          margin-top: 31%;
         "
         :show-tooltip="false"
       >
@@ -399,11 +399,11 @@
 
 <script >
 import $ from "jquery";
-import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
+import { gsap, Power2, Expo } from "gsap";
 
 export default {
   name: "Player",
-  emits: ["end", "switch", "switchOrder", "switchList"],
+  emits: ["end", "switch", "switchOrder", "switchList", "timeUpdate", "change"],
   props: {
     playList: Array(), //歌曲列表
     song: {
@@ -411,6 +411,7 @@ export default {
       picUrl: String, //海报url
       name: String, //歌曲名称
       singer: String, //歌手名称
+      lyric: String
     },
   },
   data() {
@@ -441,59 +442,6 @@ export default {
   },
 
   methods: {
-    nav() {
-      // ===== If Nav is not open
-      if ($(".nav").css("display") === "none") {
-        gsap.to(".dim", 0.5, {
-          opacity: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        });
-        gsap.fromTo(
-          ".nav",
-          0.5,
-          { xPercent: -100 },
-          { xPercent: 0, display: "block", ease: Expo.easeOut }
-        );
-        gsap.staggerFrom(
-          ".nav li",
-          0.5,
-          { opacity: 0, y: 20, ease: Power2.easeInOut },
-          0.1
-        );
-
-        $(".logo-text").css({ opacity: "0", display: "none" });
-      }
-      // ===== If Nav is open	and in Curation page
-      else if (
-        $(".nav").css("display") === "block" &&
-        $("#curator").css("display") === "block"
-      ) {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        // $('.logo-text').css({'opacity': '1', 'display': 'block'});
-      } else {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        $(".logo-text").css({ opacity: "1", display: "block" });
-      }
-    },
     // ===== Open Player + dim on =====
     play() {
       gsap.to(".dim", 0.5, {
@@ -520,7 +468,8 @@ export default {
         console.log("启动");
         this.control.is_stop = false;
         audio.play();
-        //this.onLoadAudio();
+        this.onLoadAudio();
+        this.$emit("change","play")
 
         gsap.to($(".btn-play"), 0.2, {
           x: 20,
@@ -547,6 +496,7 @@ export default {
         console.log("暂停");
         this.control.is_stop = true;
         audio.pause();
+        this.$emit("change","pause")
 
         gsap.to($(".btn-pause"), 0.2, {
           x: 20,
@@ -575,6 +525,7 @@ export default {
      * 更改显示的播放时间
      */
     getCurr() {
+      
       this.control.currentTime = parseInt(this.$refs.audio.currentTime);
       this.control.progress =
         (this.control.currentTime / this.control.duration) * 100;
@@ -593,6 +544,8 @@ export default {
       proStr += sec;
 
       this.control.proStr = proStr;
+
+      this.$emit("timeUpdate",time)
     },
     /**
      * <audio>
@@ -615,7 +568,7 @@ export default {
       }
       this.control.is_stop = false;
       this.$refs.audio.play();
-      //this.onLoadAudio();
+      this.onLoadAudio();
     },
     changeVolume() {
       let volume = this.control.volume / 100;
@@ -654,7 +607,7 @@ export default {
       console.log("启动");
       this.control.is_stop = false;
       audio.play();
-      //this.onLoadAudio();
+      this.onLoadAudio();
 
       gsap.to($(".btn-play"), 0.2, {
         x: 20,
@@ -684,7 +637,7 @@ export default {
       console.log("启动");
       this.control.is_stop = false;
       audio.play();
-      //this.onLoadAudio();
+      this.onLoadAudio();
 
       gsap.to($(".btn-play"), 0.2, {
         x: 20,
@@ -737,6 +690,35 @@ export default {
      */
     switchList(item) {
       this.$emit("switchList", item);
+
+      var audio = document.querySelector("#audio");
+
+      audio.autoplay = true;
+
+      console.log("启动");
+      this.control.is_stop = false;
+      audio.play();
+      this.onLoadAudio();
+
+      gsap.to($(".btn-play"), 0.2, {
+        x: 20,
+        opacity: 0,
+        scale: 0.3,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        $(".btn-pause"),
+        0.2,
+        { x: -20, opacity: 0, scale: 0.3, display: "none" },
+        {
+          x: 0,
+          opacity: 1,
+          scale: 1,
+          display: "block",
+          ease: Power2.easeInOut,
+        }
+      );
     },
     /**
      * 歌曲切换时，改变显示的总时长
@@ -782,7 +764,7 @@ export default {
       console.log("启动");
       this.control.is_stop = false;
       audio.play();
-      //this.onLoadAudio();
+      this.onLoadAudio();
     },
     btn_pause() {
       gsap.to($(".btn-pause"), 0.2, {
@@ -806,7 +788,7 @@ export default {
       audio.pause();
     },
 
-    /* onLoadAudio() {
+     onLoadAudio() {
       //var audio = this.$refs.audio;
       var context = this.canvas.context;
       var analyser = this.canvas.analyser;
@@ -867,240 +849,19 @@ export default {
 
       renderFrame();
       // setInterval(renderFrame, 44);
-    }, */
+    }, 
   },
   mounted() {
     this.$refs.audio.volume = 0.5;
     this.control.volume = 50;
-    /* this.canvas.context = new (window.AudioContext ||
+     this.canvas.context = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.canvas.analyser = this.canvas.context.createAnalyser();
-    this.canvas.analyser.fftSize = 128;
+    this.canvas.analyser.fftSize = 32;
     this.canvas.source = this.canvas.context.createMediaElementSource(
       this.$refs.audio
-    ); */
+    ); 
 
-    // ===== Open Nav =====
-    $(".burger-wrapper").click(function () {
-      // ===== If Nav is not open
-      if ($(".nav").css("display") == "none") {
-        gsap.to(".dim", 0.5, {
-          opacity: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        });
-        gsap.fromTo(
-          ".nav",
-          0.5,
-          { xPercent: -100 },
-          { xPercent: 0, display: "block", ease: Expo.easeOut }
-        );
-        gsap.staggerFrom(
-          ".nav li",
-          0.5,
-          { opacity: 0, y: 20, ease: Power2.easeInOut },
-          0.1
-        );
-
-        $(".logo-text").css({ opacity: "0", display: "none" });
-      }
-      // ===== If Nav is open	and in Curation page
-      else if (
-        $(".nav").css("display") == "block" &&
-        $("#curator").css("display") == "block"
-      ) {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        // $('.logo-text').css({'opacity': '1', 'display': 'block'});
-      } else {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        $(".logo-text").css({ opacity: "1", display: "block" });
-      }
-    });
-
-    // ===== Open Player + dim on =====
-
-    $(".btn-open-player, .track_info").click(function () {
-      gsap.to(".dim", 0.5, {
-        opacity: 1,
-        display: "block",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        "#player",
-        0.5,
-        { xPercent: 100 },
-        { xPercent: 0, display: "block", ease: Expo.easeOut }
-      );
-      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
-    });
-
-    $(".dim").click(function () {
-      gsap.to(".dim", 0.5, {
-        opacity: 0,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.to("#player", 0.5, {
-        xPercent: 100,
-        display: "none",
-        ease: Expo.easeOut,
-      });
-      gsap.to(".nav", 0.5, {
-        xPercent: -100,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
-    });
-
-    // ===== Mini Player - Play/Pause Switch =====
-    /* 
-    $(".btn-play").click(function () {
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        { x: 0, opacity: 1, scale: 1, display: "block", ease: Power2.easeInOut }
-      );
-    });
-
-    $(".btn-pause").click(function () {
-      gsap.to($(".btn-pause"), 0.2, {
-        x: 20,
-        opacity: 0,
-        display: "none",
-        scale: 0.3,
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-play"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        { x: 0, opacity: 1, display: "block", scale: 1, ease: Power2.easeInOut }
-      );
-    }); */
-
-    // ===== HoverIn/HoverOut Flash Effect =====
-
-    $(".track_info").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    $(".burger-wrapper, .logo-text, .back_btn").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    $(".btn-open-player").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    $(".nav a").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    // ===== Player - List Items =====
-    $(".list_item").click(function () {
-      $(".list_item").removeClass("selected");
-      $(this).addClass("selected");
-    });
-
-    // ===== Main Play Button - Hover =====
-
-    $(".text-wrap .text").hover(
-      function () {
-        gsap.to($(".main-btn_wrapper"), 0.5, {
-          opacity: 1,
-          display: "block",
-          position: "absolute",
-          scale: 1,
-          ease: Elastic.easeOut.config(1, 0.75),
-        }),
-          gsap.to($(".line"), 0.5, {
-            css: { scaleY: 0.6, transformOrigin: "center center" },
-            ease: Expo.easeOut,
-          });
-      },
-
-      function () {
-        gsap.to($(".main-btn_wrapper"), 0.5, {
-          opacity: 0,
-          display: "none",
-          scale: 0,
-          ease: Elastic.easeOut.config(1, 0.75),
-        }),
-          gsap.to($(".line"), 0.5, {
-            css: { scaleY: 1, transformOrigin: "center center" },
-            ease: Expo.easeOut,
-          });
-      }
-    );
-
-    // ===== Curation Page  =====
     // ===== List  =====
     $(".item").hover(
       function () {
@@ -1123,148 +884,6 @@ export default {
           });
       }
     );
-
-    // ===== Home Page to Curation Page Transition  =====
-    // ===== Main Play Button Activate =====
-
-    $(".text-wrap .text").click(function () {
-      var homeToMain = new TimelineMax({});
-
-      // Hide
-      $(".logo-text").css("display", "none"),
-        homeToMain.to(
-          $(".line, .text-wrap"),
-          0.5,
-          { display: "none", opacity: 0, y: -20, ease: Power2.easeInOut },
-          0
-        ),
-        // Background down
-        homeToMain.to(
-          $(".wave-container"),
-          1,
-          { yPercent: 30, ease: Power2.easeInOut },
-          0
-        ),
-        // Show
-        $("#curator").css("display", "block"),
-        homeToMain.fromTo(
-          $(".back_btn"),
-          0.8,
-          { x: 15 },
-          { display: "flex", opacity: 1, x: 0, ease: Power2.easeInOut },
-          1
-        ),
-        homeToMain.fromTo(
-          $(".curator_title_wrapper"),
-          0.8,
-          { opacity: 0, x: 30 },
-          { opacity: 1, x: 0, ease: Power2.easeInOut },
-          1
-        ),
-        homeToMain.fromTo(
-          $(".curator_list"),
-          0.8,
-          { opacity: 0, display: "none", x: 30 },
-          { opacity: 1, x: 0, display: "block", ease: Power2.easeInOut },
-          1.2
-        );
-    });
-
-    // ===== Curation Page to Playlist Page Transition  =====
-    // ===== Item Activate =====
-    $(".item").click(function () {
-      var mainToPlaylist = new TimelineMax({});
-
-      // Hide
-      mainToPlaylist.to(
-        $("#curator"),
-        0.8,
-        { display: "none", opacity: 0, scale: 1.1, ease: Power2.easeInOut },
-        0
-      );
-
-      // mainToPlaylist.fromTo($('.curator_list'), 0.5, {opacity: 1, display: 'block', x: 0},
-      // 									{opacity: 0, x: 30, display: 'none', ease: Power2.easeInOut}, 0.5),
-    });
-
-    // ===== Back Button Activate =====
-
-    $(".back_btn").click(function () {
-      // ===== From Playlist(3) to Main(2)
-      if ($("#curator").css("display") == "none") {
-        var playlistToMain = new TimelineMax({});
-
-        // Hide
-        playlistToMain.fromTo(
-          $("#curator"),
-          0.8,
-          { display: "none", opacity: 0, scale: 1.1 },
-          { display: "block", opacity: 1, scale: 1, ease: Power2.easeInOut },
-          0
-        );
-      }
-
-      // From Main(2) to Home(1)
-      else {
-        var mainToHome = new TimelineMax({});
-        // Hide
-        mainToHome.fromTo(
-          $(".curator_title_wrapper"),
-          0.5,
-          { opacity: 1, x: 0 },
-          { opacity: 0, x: 30, ease: Power2.easeInOut },
-          0.2
-        ),
-          mainToHome.fromTo(
-            $(".curator_list"),
-            0.5,
-            { opacity: 1, display: "block", x: 0 },
-            { opacity: 0, x: 30, display: "none", ease: Power2.easeInOut },
-            0.5
-          ),
-          mainToHome.to(
-            $(".back_btn"),
-            0.5,
-            { display: "none", opacity: 0, x: 15, ease: Power2.easeInOut },
-            0.5
-          ),
-          mainToHome.to(
-            $("#curator"),
-            0,
-            { display: "none", ease: Power2.easeInOut },
-            1
-          ),
-          // Background Up
-          mainToHome.to(
-            $(".wave-container"),
-            1,
-            { yPercent: 0, ease: Power2.easeInOut },
-            1
-          ),
-          // 	Show
-          mainToHome.to(
-            $(".text-wrap"),
-            0.5,
-            { display: "flex", opacity: 1, y: 0, ease: Power2.easeInOut },
-            1.2
-          ),
-          mainToHome.to(
-            $(".logo-text, .line"),
-            0.5,
-            { display: "block", opacity: 1, y: 0, ease: Power2.easeInOut },
-            1.2
-          ),
-          // 	Force to redraw by using y translate
-          mainToHome.fromTo(
-            $(".text-wrap .text"),
-            0.1,
-            { y: 0.1, position: "absolute" },
-            { y: 0, position: "relative", ease: Power2.easeInOut },
-            1.3
-          );
-        // $('.text-wrap .text').css('position', 'relative');
-      }
-    });
   },
   setup() {},
 };
@@ -1303,11 +922,12 @@ export default {
   display: flex;
   align-items: center;
 }
+
 #canvas {
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
+  left: 230px;
+  top: -430px;
+  width: 60%;
   height: 100%;
 }
 </style>
@@ -1364,28 +984,6 @@ export default {
   margin-bottom: 11px;
 }
 
-.mini-player {
-  color: #252120;
-  position: fixed;
-  height: 32px;
-  right: 2.2vw;
-  top: 2.2vw;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-}
-
-.track_info_wrapper {
-  border-right: 1px solid rgba(24, 38, 69, 0.11);
-  margin-right: 23px;
-  padding-right: 30px;
-}
-.track_info_wrapper .track_info {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  opacity: 1;
-}
 .track_info_wrapper .track_info .thumb {
   width: 32px;
   height: 32px;
@@ -1408,12 +1006,6 @@ export default {
   font-size: 12px;
   color: rgba(37, 33, 32, 0.7);
   text-align: left;
-}
-
-.mini-player_btn_wrapper {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
 }
 
 .btn-switch {
@@ -1532,63 +1124,6 @@ export default {
 }
 .playback_btn_wrapper i {
   margin: 0;
-}
-
-.playback_timeline {
-  position: absolute;
-  width: 60%;
-  left: 234px;
-  top: 238px;
-  mix-blend-mode: color-burn;
-  color: #252120;
-}
-
-.playback_timeline_start-time,
-.playback_timeline_end-time {
-  font-size: 14px;
-  opacity: 0.4;
-  margin-right: 15px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.playback_timeline_slider {
-  height: 24.67px;
-  position: relative;
-  cursor: pointer;
-  width: 65%;
-  margin-right: 15px;
-  opacity: 1;
-  display: inline-block;
-  vertical-align: middle;
-}
-.playback_timeline_slider .slider_base {
-  width: 100%;
-  height: 2px;
-  background-color: rgba(37, 33, 32, 0.12);
-  border-radius: 2px;
-  position: absolute;
-  top: 12px;
-}
-.playback_timeline_slider .slider_progress {
-  transform: matrix(0.15812, 0, 0, 1, 0, 0);
-  transform-origin: 0 0;
-  width: 100%;
-  height: 2px;
-  background-color: rgba(37, 33, 32, 0.5);
-  border-radius: 2px;
-  position: absolute;
-  top: 12px;
-}
-.playback_timeline_slider .slider_handle {
-  transform: matrix(1, 0, 0, 1, 37, 0);
-  width: 12px;
-  height: 12px;
-  background-color: #252120;
-  border-radius: 50%;
-  position: absolute;
-  top: 7px;
-  left: -6px;
 }
 
 .list_wrapper {
