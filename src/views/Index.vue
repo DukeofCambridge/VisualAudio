@@ -728,11 +728,11 @@ export default {
      */
     changeStatus(str){
       if(str == "play"){
-        console.log("wwplay")
-        this.$refs.wave.play();
+        console.log("play")
+        //this.$refs.wave.play();
       }
       if(str == "pause"){
-        this.$refs.wave.pause();
+       // this.$refs.wave.pause();
       }
     }
   },
