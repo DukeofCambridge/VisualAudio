@@ -18,12 +18,12 @@
       <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image
     ></el-col>
     <el-col :span="2"
-      ><p
+      >
+      <div style="word-wrap:break-word;"><p
         style="
           text-align: left;
           margin: -4px 0 0 10px;
-          white-space: nowrap;
-
+        
           font-size: 18px;
         "
       >
@@ -39,14 +39,16 @@
         "
       >
         {{ song.singer }}
-      </p>
+      </p></div>
       <div
         style="
-          width: 2px;
-          height: 50px;
+        position: absolute;
+          width: 1px;
+          height: 60px;
           background: #8a8a8a;
           opacity: 0.3;
-          margin: -45px 0 0 110px;
+          top: 5%;
+          right:25%
         "
       ></div>
     </el-col>

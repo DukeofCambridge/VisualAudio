@@ -1,12 +1,13 @@
 <template>
   <!-- <div>{{ time }}</div> -->
+  <div style="position:absolute;left: 60%;">
   <div class="topBlock">
     <div class="name">{{ song.name }}</div>
     <div class="singer">{{ song.singer }}</div>
   </div>
-
+    <div class="topBlur">      </div>
   <div class="lyricBlock">
-    <ul class="_lyric" ref="lyric">
+    <ul class="lyric" ref="lyric">
       <li
         :class="{ each: true, choose: index == lyricIndex }"
         v-for="(item, key, index) in lrcObj"
@@ -18,7 +19,8 @@
       </li>
     </ul>
   </div>
-  <div class="bottomBlock">bottom</div>
+   <div class="bottomBlur">      </div>
+  </div>
 </template>
 
 <script>
@@ -46,13 +48,7 @@ export default {
       gapTime: 0,     //当前歌词与下一歌词间隔时间
     };
   },
-  computed: {
-    timeGap() {
-      return {
-        '--gapTime': this.gapTime + 's',
-      }
-    },
-  }, 
+
   setup(props) {
     const _this = getCurrentInstance();
 
@@ -64,6 +60,7 @@ export default {
     watch(
       () => props.song.lyric,
       (newVal) => {
+        timeList.length = 0;
 
         // 处理歌词，转化成key为时间，value为歌词的对象
 
@@ -111,9 +108,9 @@ export default {
           this.gapTime = (this.timeList[i+1] - key);
           $('li').css('animation-duration', this.gapTime + 's')
           
-          // 当歌词进度大于3，即播放到了第4句歌词，开始滚动
-          if (i > 3) {
-            this.$refs.lyric.scrollTop = 52 * (i - 3);
+          // 当歌词进度大于4，即播放到了第5句歌词，开始滚动
+          if (i > 4) {
+            this.$refs.lyric.scrollTop = 52 * (i - 4);
 
           } else {
             this.$refs.lyric.scrollTop = 0;
@@ -133,22 +130,17 @@ export default {
 .lyricBlock {
   top: 40%;
   scroll-behavior: smooth; 
- 
+    text-align:center;
 }
 
 
 .topBlock {
-  position: absolute;
-  top: 17%;
+
+  margin-top: 20px;
   left: 64.5%;
   text-align: center;
 }
 
-.bottomBlock {
-  position: absolute;
-  top: 80%;
-  left: 65%;
-}
 
 .name{
     
@@ -157,16 +149,17 @@ export default {
 }
 .singer{
     margin-top: 5px;
-    font-size:14px;
-    color:rgba(180, 180, 180, 0.8)
+    font-size: 16px;
+    color:rgb(129, 129, 129)
 }
-._lyric {
+.lyric {
+
     scroll-behavior: smooth; 
   width: auto;
-  height: 50%;
-  position: absolute;
+  height: 450px;
+
   left: 61%;
-  top: 25%;
+  top: 27%;
   background-color: rgba(255, 255, 255, 0);
   // 滚动歌词
   letter-spacing: 20%;
@@ -200,18 +193,24 @@ export default {
   }
 
 }
-/* 
-.coverLyricEach{
-    color: #000;
-    margin-top:-50px;
 
+.topBlur{
+    width: 100%;
+    height: 20px;
+    margin-bottom: -10px;
+    box-shadow: 0 0 15px 10px #F2D7D3; 
+    background-image: url('../assets/lyric/blur.png');
+    filter: blur(15px);
 }
 
- .coverLyricChosen{
-     width:50%;
-    color: #00cc99;
-
-}  */
+/* .bottomBlur{
+    width: 100%;
+    height: 20px;
+    margin-top: -10px;
+    
+    background-image: url('../assets/lyric/lucency.png');
+    filter: blur(15px);
+} */
 
 @keyframes scan {
   0% {
