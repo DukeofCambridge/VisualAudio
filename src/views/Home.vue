@@ -1,5 +1,8 @@
 <template>
   <el-container>
+    <el-header>
+      <Menu></Menu>
+    </el-header>
     <el-main>
       <div class="warp">
         <div
@@ -22,6 +25,7 @@
 <script>
 import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
 import Player from "../components/home/player.vue";
+import Menu from "@/components/Menu";
 
 export default {
   name: "Home",
@@ -100,7 +104,7 @@ export default {
     //var idList = new Array();
     var res = await searchByKey({ keywords: "方大同" });
     let songs = res.result.songs;
-    for (let i = 0; i < songs.length; i++) {
+    for (let i = 0; i < songs.length && i < 10; i++) {
       let element = songs[i];
       let id = element.id;
 
@@ -110,17 +114,17 @@ export default {
         picUrl: String,
       };
       res = await searchById({ id: id });
-      //console.log("ww"+res.data[0].url);
       song.url = res.data[0].url; //音乐url
       res = await searchAlbumById({ id: albumId });
       song.picUrl = res.songs[0].al.picUrl; //海报url
       this.playList.push(song);
       console.log("加入歌单" + song.url);
+      if (i == 0) this.song = song
     }
-    console.log("ww" + this.playList);
     this.song = this.playList[0];
+
   },
-  components: { Player },
+  components: {Menu, Player },
 };
 </script>
 
@@ -133,6 +137,8 @@ export default {
   height: 760px;
   z-index: -1;
   background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  //top: 25vh;
 }
 .bg {
   width: 100%;
@@ -141,7 +147,7 @@ export default {
   top: 0;
   left: 0;
   z-index: -1;
-  filter: blur(15px);
+  filter:brightness(0.5) blur(15px);
   /* 横向和纵向居中 */
   background-position-x: center;
   background-position-y: center;

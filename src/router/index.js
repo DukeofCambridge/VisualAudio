@@ -4,7 +4,8 @@ import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
 import Emotion from "@/components/Emotion";
-import Canvas from "@/views/Canvas"
+import AudioWave from "@/components/home/AudioWave";
+import Index from "@/views/Index"
 const routes = [
   {
     path: '/home',
@@ -31,10 +32,15 @@ const routes = [
     name: 'Face',
     component: Emotion
   },
+   {
+    path:'/audioWave',
+    name: 'AudioWave',
+    component: AudioWave
+  },
   {
-    path:'/canvas',
-    name: 'Canvas',
-    component: Canvas
+    path: '/index',
+    name: 'Index',
+    component: Index
   }
 ]
 

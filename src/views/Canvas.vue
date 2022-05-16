@@ -2,7 +2,7 @@
 <div id="content">
   <canvas id="canvas"></canvas>
   <audio id="audio" controls :src="require('@/assets/music/久石让 - Summer.mp3')" crossOrigin="anonymous"></audio>
-  <a href="javascript:;" id="play-btn">PLAY</a>
+  <a href="javascript:" id="play-btn">PLAY</a>
 </div>
 </template>
 
@@ -61,7 +61,7 @@ function onLoadAudio() {
             var r = 0;
             var g = 204;
             var b = 153;
-            
+
             ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
             ctx.fillRect(x + halfWidth, HEIGHT - barHeight, barWidth / 2, barHeight);
             ctx.fillRect(halfWidth - x, HEIGHT - barHeight, barWidth / 2, barHeight);

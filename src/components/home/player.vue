@@ -1,6 +1,6 @@
 <template>
-  <el-row style="height: 20%;width: 50%">
-    <canvas id="canvas" ></canvas>
+  <el-row style="height: 20%; width: 50%">
+    <canvas id="canvas"></canvas>
   </el-row>
   <el-row class="player">
     <el-slider
@@ -17,8 +17,8 @@
     <el-col :span="2" :offset="1"
       ><div class="timeStr">{{ control.timeStr }}</div></el-col
     >
-
-    <el-col :span="1" :offset="6">
+    <div style="margin-right:80px">
+    <el-col :span="1" :offset="7" style="">
       <div>
         <el-popover
           placement="top"
@@ -27,11 +27,12 @@
           effect="light"
           trigger="click"
           popper-class="modPopover"
+          ref = "orderList"
         >
           <template #reference>
             <svg
               t="1652071833689"
-              class="icon"
+              v-if="control.order == 'sequence'"
               viewBox="0 0 1024 1024"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +40,7 @@
               width="24"
               height="24"
               style="margin: 10px 0px 0px 0px; cursor: pointer"
-              :style="{
-                opacity: control.order == 'sequence' ? '1' : '0',
-              }"
+              
             >
               <path
                 d="M106 85.5c-22.1 0-40 17.9-40 40v760.6c0 22.1 17.9 40 40 40s40-17.9 40-40V125.5c0-22.1-17.9-40-40-40zM457.3 85.5c-22.1 0-40 17.9-40 40v760.6c0 22.1 17.9 40 40 40s40-17.9 40-40V125.5c0-22.1-17.9-40-40-40zM955.1 661.4c-7.1-12.4-20.3-20-34.6-20h-72c0-0.8 0.1-1.5 0.1-2.3V125.5c0-22.1-17.9-40-40-40s-40 17.9-40 40v513.6c0 0.8 0 1.5 0.1 2.3h-87c-14.3 0-27.5 7.6-34.6 20-7.1 12.4-7.1 27.6 0 40l119.4 206.8c7.1 12.4 20.3 20 34.6 20s27.5-7.6 34.6-20l119.4-206.8c7.2-12.4 7.2-27.7 0-40z m-154 146.8L751 721.4h100.2l-50.1 86.8z"
@@ -49,6 +48,47 @@
                 fill="#ffffff"
               ></path>
             </svg>
+             <svg
+          t="1652084499199"
+          v-else-if="control.order == 'loop'"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="1003"
+          width="24"
+          height="24"
+          style="margin: 10px 0px 0px 0px; cursor: pointer"
+          
+        >
+          <path
+            d="M361.5 727.8c-119.1 0-215.9-96.9-215.9-215.9 0-119.1 96.9-215.9 215.9-215.9 2.3 0 4.6-0.2 6.8-0.6v58.3c0 12.3 14 19.4 23.9 12.1l132.6-97.6c8.1-6 8.1-18.2 0-24.2l-132.6-97.6c-9.9-7.3-23.9-0.2-23.9 12.1v58.1c-2.2-0.4-4.5-0.6-6.8-0.6-39.8 0-78.5 7.9-115 23.4-35.2 15-66.8 36.3-94 63.5s-48.6 58.8-63.5 94c-15.5 36.5-23.4 75.2-23.4 115s7.9 78.5 23.4 115c15 35.2 36.3 66.8 63.5 94s58.8 48.6 94 63.5c36.5 15.5 75.2 23.4 115 23.4 22.1 0 40-17.9 40-40s-17.9-40-40-40zM938.2 396.9c-15-35.2-36.3-66.8-63.5-94s-58.8-48.6-94-63.5c-36.5-15.5-75.2-23.4-115-23.4-22.1 0-40 17.9-40 40s17.9 40 40 40c119.1 0 215.9 96.9 215.9 215.9 0 119.1-96.9 215.9-215.9 215.9-4.1 0-8.1 0.6-11.8 1.8v-60.8c0-12.3-14-19.4-23.9-12.1l-132.6 97.6c-8.1 6-8.1 18.2 0 24.2L629.9 876c9.9 7.3 23.9 0.2 23.9-12.1V806c3.7 1.2 7.7 1.8 11.8 1.8 39.8 0 78.5-7.9 115-23.4 35.2-15 66.8-36.3 94-63.5s48.6-58.8 63.5-94c15.5-36.5 23.4-75.2 23.4-115s-7.8-78.5-23.3-115z"
+            p-id="1004"
+            fill="#ffffff"
+          ></path>
+          <path
+            d="M512.8 660.6c22.1-0.1 39.9-18.1 39.8-40.2l-1.2-214.1c-0.1-22-18-39.8-40-39.8h-0.2c-22.1 0.1-39.9 18.1-39.8 40.2l1.2 214.1c0.1 22 18 39.8 40 39.8h0.2z"
+            p-id="1005"
+            fill="#ffffff"
+          ></path>
+        </svg>
+        <svg
+          t="1652084640536"
+          v-else
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="1218"
+          width="24"
+          height="24"
+          style="margin: 10px 0px 0px 0px; cursor: pointer"
+         
+        >
+          <path
+            d="M914.2 705L796.4 596.8c-8.7-8-22.7-1.8-22.7 10V688c-69.5-1.8-134-39.7-169.3-99.8l-45.1-77 47-80.2c34.9-59.6 98.6-97.4 167.4-99.8v60.1c0 11.8 14 17.9 22.7 10l117.8-108.1c5.8-5.4 5.8-14.6 0-19.9L796.4 165c-8.7-8-22.7-1.8-22.7 10v76H758c-4.7 0-9.3 0.8-13.5 2.3-36.5 4.7-72 16.6-104.1 35-42.6 24.4-78.3 59.8-103.1 102.2L513 432l-24.3-41.5c-24.8-42.4-60.5-77.7-103.1-102.2C343 263.9 294.5 251 245.3 251H105c-22.1 0-40 17.9-40 40s17.9 40 40 40h140.3c71.4 0 138.3 38.3 174.4 99.9l47 80.2-45.1 77c-36.2 61.7-103 99.9-174.4 99.9H105c-22.1 0-40 17.9-40 40s17.9 40 40 40l142 0.1h0.2c49.1 0 97.6-12.9 140.2-37.3 42.7-24.4 78.3-59.8 103.2-102.2l22.4-38.3 22.4 38.3c24.8 42.4 60.5 77.8 103.2 102.2 33.1 18.9 69.6 30.9 107.3 35.4 3.8 1.2 7.8 1.8 11.9 1.8l15.9 0.1v55c0 11.8 14 17.9 22.7 10L914.2 725c5.9-5.5 5.9-14.7 0-20z"
+            p-id="1219"
+            fill="#ffffff"
+          ></path>
+        </svg>
           </template>
           <div style="font: bold 14px arial, sans-serif; cursor: pointer">
             <div class="option" v-on:click="changeOrder('random')">
@@ -76,59 +116,7 @@
             </div>
           </div>
         </el-popover>
-        <svg
-          t="1652084499199"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="1003"
-          width="24"
-          height="24"
-          style="
-            position: absolute;
-            margin: 10px 0px 0 -25px;
-            pointer-events: none;
-          "
-          :style="{
-            opacity: control.order == 'loop' ? '1' : '0',
-          }"
-        >
-          <path
-            d="M361.5 727.8c-119.1 0-215.9-96.9-215.9-215.9 0-119.1 96.9-215.9 215.9-215.9 2.3 0 4.6-0.2 6.8-0.6v58.3c0 12.3 14 19.4 23.9 12.1l132.6-97.6c8.1-6 8.1-18.2 0-24.2l-132.6-97.6c-9.9-7.3-23.9-0.2-23.9 12.1v58.1c-2.2-0.4-4.5-0.6-6.8-0.6-39.8 0-78.5 7.9-115 23.4-35.2 15-66.8 36.3-94 63.5s-48.6 58.8-63.5 94c-15.5 36.5-23.4 75.2-23.4 115s7.9 78.5 23.4 115c15 35.2 36.3 66.8 63.5 94s58.8 48.6 94 63.5c36.5 15.5 75.2 23.4 115 23.4 22.1 0 40-17.9 40-40s-17.9-40-40-40zM938.2 396.9c-15-35.2-36.3-66.8-63.5-94s-58.8-48.6-94-63.5c-36.5-15.5-75.2-23.4-115-23.4-22.1 0-40 17.9-40 40s17.9 40 40 40c119.1 0 215.9 96.9 215.9 215.9 0 119.1-96.9 215.9-215.9 215.9-4.1 0-8.1 0.6-11.8 1.8v-60.8c0-12.3-14-19.4-23.9-12.1l-132.6 97.6c-8.1 6-8.1 18.2 0 24.2L629.9 876c9.9 7.3 23.9 0.2 23.9-12.1V806c3.7 1.2 7.7 1.8 11.8 1.8 39.8 0 78.5-7.9 115-23.4 35.2-15 66.8-36.3 94-63.5s48.6-58.8 63.5-94c15.5-36.5 23.4-75.2 23.4-115s-7.8-78.5-23.3-115z"
-            p-id="1004"
-            fill="#ffffff"
-          ></path>
-          <path
-            d="M512.8 660.6c22.1-0.1 39.9-18.1 39.8-40.2l-1.2-214.1c-0.1-22-18-39.8-40-39.8h-0.2c-22.1 0.1-39.9 18.1-39.8 40.2l1.2 214.1c0.1 22 18 39.8 40 39.8h0.2z"
-            p-id="1005"
-            fill="#ffffff"
-          ></path>
-        </svg>
-        <svg
-          t="1652084640536"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="1218"
-          width="24"
-          height="24"
-          style="
-            position: absolute;
-            margin: 10px 0px 0 -25px;
-            pointer-events: none;
-          "
-          :style="{
-            opacity: control.order == 'random' ? '1' : '0',
-          }"
-        >
-          <path
-            d="M914.2 705L796.4 596.8c-8.7-8-22.7-1.8-22.7 10V688c-69.5-1.8-134-39.7-169.3-99.8l-45.1-77 47-80.2c34.9-59.6 98.6-97.4 167.4-99.8v60.1c0 11.8 14 17.9 22.7 10l117.8-108.1c5.8-5.4 5.8-14.6 0-19.9L796.4 165c-8.7-8-22.7-1.8-22.7 10v76H758c-4.7 0-9.3 0.8-13.5 2.3-36.5 4.7-72 16.6-104.1 35-42.6 24.4-78.3 59.8-103.1 102.2L513 432l-24.3-41.5c-24.8-42.4-60.5-77.7-103.1-102.2C343 263.9 294.5 251 245.3 251H105c-22.1 0-40 17.9-40 40s17.9 40 40 40h140.3c71.4 0 138.3 38.3 174.4 99.9l47 80.2-45.1 77c-36.2 61.7-103 99.9-174.4 99.9H105c-22.1 0-40 17.9-40 40s17.9 40 40 40l142 0.1h0.2c49.1 0 97.6-12.9 140.2-37.3 42.7-24.4 78.3-59.8 103.2-102.2l22.4-38.3 22.4 38.3c24.8 42.4 60.5 77.8 103.2 102.2 33.1 18.9 69.6 30.9 107.3 35.4 3.8 1.2 7.8 1.8 11.9 1.8l15.9 0.1v55c0 11.8 14 17.9 22.7 10L914.2 725c5.9-5.5 5.9-14.7 0-20z"
-            p-id="1219"
-            fill="#ffffff"
-          ></path>
-        </svg>
+       
       </div>
     </el-col>
     <el-col :span="1">
@@ -138,6 +126,7 @@
         @click="switchPrevious()"
         class="icon"
         v-on:click.stop
+
       ></el-image
     ></el-col>
     <el-col :span="1">
@@ -178,7 +167,6 @@
         <template #reference>
           <el-image
             :src="require(`/src/assets/home/volume.svg`)"
-            class="icon"
             :style="{
               opacity: control.volume > 0 && control.muted == false ? '1' : '0',
               cursor: 'pointer',
@@ -253,7 +241,8 @@
         }"
       ></el-image>
     </el-col>
-    <el-col :span="10"></el-col>
+    </div>
+    <el-col :span="9"></el-col>
   </el-row>
 
   <audio
@@ -298,17 +287,12 @@ export default {
       },
       canvas: {
         context: "",
-        analyser:"",
-        source:""
-      }
+        analyser: "",
+        source: "",
+      },
     };
   },
-  /* watch: {
-    control: function (val) {
-      
-    deep: true,
-    immediate: true
-  }, */
+
   methods: {
     /**
      * <el-image>
@@ -373,7 +357,6 @@ export default {
     showLong() {
       this.control.duration = parseInt(this.$refs.audio.duration);
       this.control.volume = this.$refs.audio.volume * 100;
-    
     },
     /**
      * <el-slider>
@@ -399,9 +382,6 @@ export default {
      * 点击音量案件，静音或取消
      */
     closeVolume() {
-      console.log(
-        "是否静音" + this.$refs.audio.muted + " " + this.control.muted
-      );
       this.control.muted = !this.control.muted;
       this.$refs.audio.muted = !this.$refs.audio.muted;
     },
@@ -409,14 +389,12 @@ export default {
      * mouseover触发变色事件
      */
     over() {
-      console.log("悬停");
       this.control.color = "#00cc99";
     },
     /**
      * mouseleave触发变色事件
      */
     leave() {
-      console.log("离开");
       this.control.color = "#bfbfbf";
     },
     /**
@@ -436,6 +414,7 @@ export default {
      * 改变播放模式
      */
     changeOrder(order) {
+      this.$refs.orderList.hide()
       this.control.order = order;
       this.$emit("switchOrder", order);
       if (order == "loop") {
@@ -446,7 +425,10 @@ export default {
     },
     //歌曲结束，根据播放模式切歌
     end() {
+
       this.$emit("end");
+      this.control.is_stop = false;
+      this.$refs.audio.autoplay = true;
     },
     onLoadAudio() {
       //var audio = this.$refs.audio;
@@ -463,50 +445,47 @@ export default {
       var canvas = document.getElementById("canvas");
       canvas.width = 800;
       canvas.height = 1000;
-      console.log("canvas "+canvas)
-      console.log("width "+canvas.width)
-      console.log("height "+canvas.height)
       var ctx = canvas.getContext("2d");
       var WIDTH = canvas.width;
       var HEIGHT = canvas.height;
 
       var barWidth = (WIDTH / bufferLength) * 1.5;
-      console.log("width "+canvas.width)
       var barHeight;
       var halfWidth = WIDTH / 2;
       let a = 0.75 / bufferLength;
       function renderFrame() {
         requestAnimationFrame(renderFrame);
-
         analyser.getByteFrequencyData(dataArray);
-
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
-
+        let multi = 0;
         for (var i = 0, x = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i] / 4;
-          let multi = a * i + 0.75;
+          barHeight = dataArray[i] / 3;
+          multi = a * i + 0.75;
           barHeight *= multi;
+          
           // Create gradient
-          var grd=ctx.createLinearGradient(0,870,0,882);
+          var grd = ctx.createLinearGradient(0, 865, 0, 882);
 
-          grd.addColorStop(0,"#00ffcc");
+          //调节明暗
+          let down = parseInt((256 - dataArray[i]) / 2);
+          let g1 = 255 - down;
+          let g2 = 255 - down;
+          let b1 = 180 - down;
+          let b2 = 255 - down;
+          let firstColor = "rgb(" + 0 + "," + g1 + "," + b1 + "," + 1 + ")";
+          let secondColor = "rgb(" + 0 + "," + g2 + "," + b2 + "," + 0.3 + ")";
+          //grd.addColorStop(0,"#00ffcc");
 
-          grd.addColorStop(1,"#0099cc");
+          //grd.addColorStop(1,"#0099cc","transparent");
+          grd.addColorStop(0, firstColor);
+          grd.addColorStop(1, secondColor);
           //ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+          ctx.lineJoin = "round";
+
           ctx.fillStyle = grd;
-          ctx.fillRect(
-            x + halfWidth,
-            882 - barHeight,
-            barWidth / 8,
-            barHeight
-          );
-          ctx.fillRect(
-            halfWidth - x,
-            882 - barHeight ,
-            barWidth / 8,
-            barHeight
-          );
-          x += barWidth/8 + 2;
+          ctx.fillRect(x + halfWidth, 882 - barHeight, barWidth / 8, barHeight);
+          ctx.fillRect(halfWidth - x, 882 - barHeight, barWidth / 8, barHeight);
+          x += barWidth / 8 + 2;
         }
       }
 
@@ -517,10 +496,13 @@ export default {
   mounted() {
     this.$refs.audio.volume = 0.5;
     this.control.volume = 50;
-          this.canvas.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.canvas.context = new (window.AudioContext ||
+      window.webkitAudioContext)();
     this.canvas.analyser = this.canvas.context.createAnalyser();
     this.canvas.analyser.fftSize = 128;
-    this.canvas.source = this.canvas.context.createMediaElementSource(this.$refs.audio);
+    this.canvas.source = this.canvas.context.createMediaElementSource(
+      this.$refs.audio
+    );
   },
   setup() {},
 };
@@ -544,10 +526,14 @@ export default {
 }
 .icon {
   margin: 6px 0 0 0;
+
 }
 .icon:hover {
-  -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.5));
+   -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 204, 153, 0.5)); 
+   width: 50%;
 }
+
+
 .option:hover {
   -webkit-filter: brightness(-50%);
 }
