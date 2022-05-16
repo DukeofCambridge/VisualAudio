@@ -20,7 +20,6 @@ export default {
     changePage(){
       this.$router.push('/TagSelect');
     }
-
   }
 }
 
