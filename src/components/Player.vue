@@ -11,9 +11,7 @@
     </el-slider>
   </el-row> -->
   <el-row :gutter="0">
-    <!-- <el-col :span="2" :offset="1"
-      > <div class="timeStr">{{ control.timeStr }}</div> </el-col
-    > -->
+
     <el-col :span="1" :offset="15">
       <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image
     ></el-col>
@@ -193,6 +191,7 @@
           effect="light"
           trigger="click"
           popper-class="myPopover"
+          class = "progress"
         >
           <template #reference>
             <el-image
@@ -298,13 +297,12 @@
         :style="{ backgroundImage: 'url(' + song.picUrl + ')' }"
       ></div>
       <div class="playback_info">
-        <div class="title">{{ song.name }}</div>
+        <div class="title" style="color: #252120;">{{ song.name }}</div>
         <div class="artist">{{ song.singer }}</div>
       </div>
       <div class="playback_btn_wrapper">
         <i
           class="btn-prev fa fa-step-backward"
-          aria-hidden="true"
           @click="switchPrevious()"
         ></i>
         <div class="btn-switch">
@@ -315,28 +313,19 @@
           ></i
           ><i
             class="btn-pause fa fa-pause"
-            aria-hidden="true"
+            
             @click="btn_pause"
           ></i>
         </div>
         <i
           class="btn-next fa fa-step-forward"
-          aria-hidden="true"
+          
           @click="switchNext()"
         ></i>
       </div>
-      <!--       <div class="playback_timeline">
-        <div class="playback_timeline_start-time">00:31</div>
-        <div class="playback_timeline_slider">
-          <div class="slider_base"></div>
-          <div class="slider_progress"></div>
-          <div class="slider_handle"></div>
-        </div>
-        <div class="playback_timeline_end-time">03:11</div>
-      </div> -->
       <i
         class="timeStr"
-        style="position: absolute; margin: 241px 100px 0 -27px"
+        style="position: absolute; top:73.5%;right:50% "
         >{{ control.proStr }}</i
       >
       <el-row style="height: 20%; width: 40%; bottom:500px">
@@ -344,11 +333,11 @@
       </el-row>
       <el-slider
         v-model="control.progress"
-        active-color="#00cc99"
+        active-color="#FFD110"
         @change="changeLong"
         class="process"
         style="
-          box-shadow: #00cc99;
+          box-shadow: #FFD110;
           width: 35%;
           margin-left: 52%;
           margin-top: 31%;
@@ -358,7 +347,7 @@
       </el-slider>
       <i
         class="timeStr"
-        style="position: absolute; margin: -23px 0 280px 230px"
+        style="position: absolute; top:73.5%;right:5% "
         >{{ control.durStr }}</i
       >
     </div>
@@ -571,6 +560,25 @@ export default {
       this.control.is_stop = false;
       this.$refs.audio.play();
       this.onLoadAudio();
+      gsap.to($(".btn-play"), 0.2, {
+          x: 20,
+          opacity: 0,
+          scale: 0.3,
+          display: "none",
+          ease: Power2.easeInOut,
+        });
+        gsap.fromTo(
+          $(".btn-pause"),
+          0.2,
+          { x: -20, opacity: 0, scale: 0.3, display: "none" },
+          {
+            x: 0,
+            opacity: 1,
+            scale: 1,
+            display: "block",
+            ease: Power2.easeInOut,
+          }
+        );
     },
     changeVolume() {
       let volume = this.control.volume / 100;
@@ -935,6 +943,7 @@ export default {
 </style>
 
 <style lang="scss">
+
 .el-popover.myPopover {
   padding: 0 0 0 20px;
   margin: 0 0 0 90px;
@@ -957,20 +966,21 @@ export default {
 }
 
 .timeStr {
-  font: bold 18px, monospace;
-  color: #fff;
+  font:  18px, monospace;
+  color: #FFD110;
 }
 </style>
-<style scoped>
+<style  lang="scss" scoped>
 /* 引入两个style是为了改变el-slider的内置样式 */
-:deep() .el-slider__button {
+
+:deep()  .el-slider__button {
   width: 6px;
   height: 6px;
   background: #00cc99;
   margin: 11px 0 0 13px;
   visibility: hidden;
 }
-:deep() .el-slider__runway:hover .el-slider__button {
+:deep()  .el-slider__runway:hover .el-slider__button {
   visibility: visible;
 }
 
@@ -979,14 +989,14 @@ export default {
   height: 3px;
 }
 :deep() .el-slider__runway {
-  background-color: #fff;
+  background-color: #FFF4C8;
   height: 3px;
   border-radius: 0;
   margin-top: 6px;
   margin-bottom: 11px;
 }
 
-.track_info_wrapper .track_info .thumb {
+/* .track_info_wrapper .track_info .thumb {
   width: 32px;
   height: 32px;
   margin-right: 10px;
@@ -1007,23 +1017,27 @@ export default {
   text-overflow: ellipsis;
   font-size: 12px;
   color: rgba(37, 33, 32, 0.7);
-  text-align: left;
-}
+} */
 
 .btn-switch {
   width: 30px;
   display: flex;
   margin-right: 30px;
   justify-content: center;
+  color: #FF645A;
+  font-size:20px;
 }
 
 .playback_btn_wrapper .btn-switch {
   margin-right: 0;
+  color: #FF645A;
+  
 }
 
 .btn-play,
 .btn-pause {
   position: absolute;
+  color: #FF645A;
 }
 
 .btn-pause {
@@ -1062,9 +1076,9 @@ export default {
 .playback_wrapper {
   height: 310px;
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
   background-color: #fff9e1;
-  /**fff9e1 */
+  font-size:20px;
 }
 
 .playback_blur {
@@ -1076,7 +1090,6 @@ export default {
   transform: scale(1.1);
   filter: blur(32px);
   opacity: 0.24;
-  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
 }
 
 .playback_thumb {
@@ -1088,7 +1101,6 @@ export default {
   position: absolute;
   margin: 35px;
   box-shadow: 0px 12px 30px 0px rgba(97, 45, 45, 0.2);
-  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-t500x500.jpg);
 }
 
 .playback_info {
@@ -1099,24 +1111,30 @@ export default {
   margin: 42px 8px 8px 70px;
   width: 55%;
   min-width: 100px;
-  mix-blend-mode: color-burn;
+  //mix-blend-mode: color-burn;
+  text-align: left;
+  color: #252120;
 }
 .playback_info .title {
-  font-size: 30px;
-  display: inline;
-  color: #252120;
+		font-size: 30px;
+		display: inline;
+		color: #252120;
+    font-weight: 500;
+    font-family:Oswald;
 }
 .playback_info .artist {
   margin-top: 14px;
-  font-size: 16px;
-  opacity: 0.34;
+  font-size: 20px;
+  opacity:0.8;
   color: #252120;
+  font-family:Oswald;
+
 }
 
 .playback_btn_wrapper {
   position: absolute;
   z-index: 10;
-  mix-blend-mode: color-burn;
+  
   width: 124px;
   left: 55px;
   top: 240px;
@@ -1126,9 +1144,14 @@ export default {
 }
 .playback_btn_wrapper i {
   margin: 0;
+  color:#FF645A
 }
 
 .list_wrapper {
+    // 修改滚动条样式
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
   height: calc(100% - 310px);
   overflow: auto;
 }
@@ -1155,9 +1178,11 @@ export default {
 }
 .list .info {
   max-width: 600px;
+  text-align: left;
 }
 .list .info .title {
   font-size: 15px;
+  font-weight: 600;
   color: #999;
 }
 .list .info .artist {
@@ -1220,3 +1245,4 @@ export default {
   opacity: 1;
 }
 </style>
+
