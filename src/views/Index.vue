@@ -1,17 +1,18 @@
 <template>
   <body>
     <div class="wrapper">
-      <!-- Wave bg-->
+      <!-- 波浪区域 -->
       <div class="wave-container">
         <div class="wave -one"></div>
         <div class="wave -two"></div>
         <div class="wave -three"></div>
       </div>
+      <!-- LISTEN -->
       <div class="line"></div>
+      <!-- 中央标题 -->
       <div class="text-wrap">
         <div class="text">
-          <span>L</span><span>I</span><span>S</span><span>T</span><span>E</span
-          ><span>N</span>
+          <span>VISUAL&nbsp;&nbsp;AUDIO</span>
           <div class="main-btn_wrapper">
             <i class="main-btn fa fa-play" aria-hidden="true"></i>
           </div>
@@ -53,7 +54,7 @@
           @change="changeStatus"
         ></Player>
       </div>
-      
+
      <!--  <AudioWave :song="song" ref="wave" ></AudioWave> -->
 
       <Lyric ref="lyric" :song="song" ></Lyric>
@@ -123,7 +124,7 @@
     </div>
   </body>
 
-    
+
 </template>
 
 <script>
@@ -155,11 +156,11 @@ export default {
     };
   },
   mounted: async function () {
-    
+
     // ===== Open Nav =====
     $(".burger-wrapper").click(function () {
       // ===== If Nav is not open
-      if ($(".nav").css("display") == "none") {
+      if ($(".nav").css("display") === "none") {
         gsap.to(".dim", 0.5, {
           opacity: 1,
           display: "block",
@@ -182,8 +183,8 @@ export default {
       }
       // ===== If Nav is open	and in Curation page
       else if (
-        $(".nav").css("display") == "block" &&
-        $("#curator").css("display") == "block"
+        $(".nav").css("display") === "block" &&
+        $("#curator").css("display") === "block"
       ) {
         gsap.to(".dim", 0.5, {
           opacity: 0,
@@ -467,7 +468,7 @@ export default {
 
     $(".back_btn").click(function () {
       // ===== From Playlist(3) to Main(2)
-      if ($("#curator").css("display") == "none") {
+      if ($("#curator").css("display") === "none") {
         var playlistToMain = new TimelineMax({});
 
         // Hide
@@ -571,9 +572,9 @@ export default {
 
       this.playList.push(song);
       console.log("加入歌单" + song.url);
-      if (i == 0) this.song = song;
+      if (i === 0) this.song = song;
 
-      
+
     }
     this.song = this.playList[0];
     //console.log("歌词："+this.song.lyric)
@@ -654,13 +655,13 @@ export default {
     switchSong(str) {
       var index = (this.playList || []).findIndex((song) => song === this.song);
       let following = index;
-      if (str == "next") {
+      if (str === "next") {
         if (index >= this.playList.length - 1) {
           following = 0;
         } else {
           following = index + 1;
         }
-      } else if (str == "previous") {
+      } else if (str === "previous") {
         console.log("previous");
         if (index <= 0) {
           following = this.playList.length - 1;
@@ -674,7 +675,7 @@ export default {
      * 切换播放顺序
      */
     switchOrderMod(str) {
-      if (str == "sequence" || str == "loop" || str == "random") {
+      if (str === "sequence" || str === "loop" || str === "random") {
         this.order = str;
       }
     },
@@ -683,21 +684,21 @@ export default {
       /**
        * 顺序播放
        */
-      if (this.order == "sequence") {
+      if (this.order === "sequence") {
         this.switchSong("next");
       }
       //单曲循环
-      else if (this.order == "loop") {
+      else if (this.order === "loop") {
         console.log("单曲循环");
       }
       //随机播放
-      else if (this.order == "random") {
+      else if (this.order === "random") {
         var index = (this.playList || []).findIndex(
           (song) => song === this.song
         );
         let following = index;
         let len = this.playList.length;
-        while (following == index) {
+        while (following === index) {
           following = Math.floor(Math.random() * len); // 随机获取下标
         }
         this.song = this.playList[following];
@@ -714,7 +715,7 @@ export default {
      * 切歌时，获取新的歌词
      */
     getLyric() {
-      
+
     },
     /**
      * 更新目前播放时间
@@ -727,11 +728,11 @@ export default {
      * 启动或暂停音乐
      */
     changeStatus(str){
-      if(str == "play"){
+      if(str === "play"){
         console.log("play")
         //this.$refs.wave.play();
       }
-      if(str == "pause"){
+      if(str === "pause"){
        // this.$refs.wave.pause();
       }
     }
@@ -862,7 +863,7 @@ body {
 
 .main-btn_wrapper {
   position: absolute;
-  right: -25%;
+  right: 43%;
   top: calc(50% - 18px);
   width: 36px;
   height: 36px;
