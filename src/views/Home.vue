@@ -1,8 +1,5 @@
 <template>
   <el-container>
-    <el-header>
-      <Menu></Menu>
-    </el-header>
     <el-main>
       <div class="warp">
         <div
@@ -25,7 +22,6 @@
 <script>
 import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
 import Player from "../components/home/player.vue";
-import Menu from "@/components/Menu";
 
 export default {
   name: "Home",
@@ -119,12 +115,12 @@ export default {
       song.picUrl = res.songs[0].al.picUrl; //海报url
       this.playList.push(song);
       console.log("加入歌单" + song.url);
-      if (i == 0) this.song = song
+      if (i === 0) this.song = song
     }
     this.song = this.playList[0];
 
   },
-  components: {Menu, Player },
+  components: {Player },
 };
 </script>
 

@@ -1,8 +1,10 @@
 <template >
-  <body>  
     <div class="bgd">
       <div class="tip">
-        <span>选择你感兴趣的标签吧！</span>
+        <p class="AIsing">选择您感兴趣的标签吧！</p>
+        <div class="connect_btn">
+          <div class="connect_btn_text" @click="this.$router.push('/index/face')">我选好了!</div>
+        </div>
       </div>
       <div class='items'>
         <div class='item' @click="changeTag(0)">
@@ -42,21 +44,23 @@
         </div>
         <div class='item'>
           <card :tag_name="taglist[11]" :img_src="require('../assets/tag/影视.jpg')"></card>
-        </div>   
-      
+        </div>
+
+        </div>
+        <div id="nextbutton">
+            <i class="el-icon-d-arrow-right"></i>
+        </div>
     </div>
-    <div id="nextbutton">
-        <i class="el-icon-d-arrow-right"></i>
-    </div>
-</div>
 <!-- <div class='options'>
   <button class='dark'></button>
   <button class='light'></button>
 </div> -->
-  </body>
+
 </template>
 
 <script>
+import $ from "jquery";
+import { gsap, Power2 } from "gsap";
 import card from "../components/Card.vue"
 export default {
   name: "TagSelect",
@@ -67,12 +71,21 @@ export default {
     return{
       taglist:["华语","欧美","粤语","民谣","复古","摇滚","电音","流行","纯音乐","后摇","rap","影视"],
       tagselect:[0,0,0,0,0,0,0,0,0,0,0,0]
-    }  
+    }
   },
-
+  mounted() {
+    $('.connect_btn').hover(function(){
+          gsap.to($(this), 0.1, {y: -10, ease: Power2.easeInOut}),
+              $(this).addClass('shadow')
+        },
+        function(){
+          gsap.to($(this), 0.1, {y: 0, ease: Power2.easeInOut}),
+              $(this).removeClass('shadow')
+        });
+  },
   methods:{
     changeTag(param){
-      if(this.tagselect[param]==0)
+      if(this.tagselect[param]===0)
       {
         this.tagselect[param]=1;
       }
@@ -82,20 +95,61 @@ export default {
       }
       console.log(this.tagselect);
     }
-    
+
   },
 }
 </script>
 
 <style scoped>
+.AIsing {
+  font-size: 30px;
+  font-style: italic;
+  color: #ffffff;
+  text-shadow: 0px 0px 8px #fff, 0px 0px 42px #f72, 0px 0px 72px #f84, 0px 0px 150px #fa5;
+}
+.shadow {
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.4);
+}
+.connect_btn {
+  border-radius: 12px;
+  width: 24vh;
+  height: 7vh;
+  background-image: linear-gradient(280deg, #2f2a29 0%, #2f2a29 100%);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  position:absolute;
+  left:28vw;
+  top:2vh;
+}
+.connect_btn .connect_btn_text {
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 0px 0px 8px #fff, 0px 0px 42px #f72, 0px 0px 72px #f84, 0px 0px 150px #fa5;
+  z-index: 9;
+}
 
+.connect_btn:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  transition: opacity 0.5s ease-out;
+  opacity: 0;
+  background-image: linear-gradient(225deg, #ff6700 0%, #ff2df0 100%);
+  transition: 0.5s;
+}
+
+.connect_btn:hover:before {
+  opacity: 1;
+}
 
  * {
   margin: 0;
   box-sizing: border-box;
-}
-body{
-  margin: 0px;
 }
 
 #nextbutton{
@@ -107,18 +161,16 @@ body{
   font-size: 70px;
 }
 
-.bgd{
-  background: rgb(135, 135, 146);
-  height:705px;
-  width:1520px;
-}
+/*.bgd{*/
+/*  background: rgb(135, 135, 146);*/
+/*  height:705px;*/
+/*  width:1520px;*/
+/*}*/
 
 .tip{
   position:absolute;
-  left:160px;
-  top:20px;
-  font-family: YouYuan;
-  font-size: 30px;
+  left:12vw;
+  top:4vh;
 }
 
 .container {
@@ -155,7 +207,7 @@ text {
   flex-flow: row wrap;
   justify-content: center;
   position: absolute;
-  top:70px;
+  top:18vh;
 }
 
 .item {
@@ -164,12 +216,11 @@ text {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  width: 300px;
-  height: 200px;
+  width: 20vw;
+  height: 25vh;
   margin: 5px;
   cursor: pointer;
-  border-radius: 0px;
-  box-shadow: 0 5px 5px rgba(255, 255, 255, 0.02), inset 0 0px 0px 1px rgba(252, 252, 252, 0.07);
+  box-shadow: 0 5px 5px rgba(255, 255, 255, 0.02), inset 0 0 0 1px rgba(252, 252, 252, 0.07);
   transform: translateZ(0);
   border-radius:15px;
 }

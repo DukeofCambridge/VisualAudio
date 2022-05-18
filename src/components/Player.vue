@@ -21,7 +21,7 @@
         style="
           text-align: left;
           margin: -4px 0 0 10px;
-        
+
           font-size: 18px;
         "
       >
@@ -287,8 +287,8 @@
       ></el-image
     ></el-col>
   </el-row>
-
-  <div class="dim"></div>
+  <!--遮罩层,写成组件后会挂载多个div,故加序号区分-->
+  <div class="dim-2"></div>
   <div class="player" id="player">
     <div class="playback_wrapper">
       <div class="playback_blur"></div>
@@ -313,13 +313,13 @@
           ></i
           ><i
             class="btn-pause fa fa-pause"
-            
+
             @click="btn_pause"
           ></i>
         </div>
         <i
           class="btn-next fa fa-step-forward"
-          
+
           @click="switchNext()"
         ></i>
       </div>
@@ -357,8 +357,8 @@
           v-for="item in playList"
           :key="item.id"
           v-bind:class="{
-            'list_item selected': item == song,
-            list_item: item != song,
+            'list_item selected': item === song,
+            list_item: item !== song,
           }"
           @click="switchList(item)"
         >
@@ -381,8 +381,8 @@
     @ended="end()"
     @timeupdate="getCurr"
     @canplay="showLong"
-    @pause="control.is_stop == true"
-    @play="control.is_stop == false"
+    @pause="control.is_stop === true"
+    @play="control.is_stop === false"
     @durationchange="updateSong"
     crossOrigin="anonymous"
   ></audio>
@@ -435,7 +435,7 @@ export default {
   methods: {
     // ===== Open Player + dim on =====
     play() {
-      gsap.to(".dim", 0.5, {
+      gsap.to(".dim2", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -516,7 +516,7 @@ export default {
      * 更改显示的播放时间
      */
     getCurr() {
-      
+
       this.control.currentTime = parseInt(this.$refs.audio.currentTime);
       this.control.progress =
         (this.control.currentTime / this.control.duration) * 100;
@@ -830,7 +830,7 @@ export default {
           barHeight = dataArray[i] / 3;
           multi = a * i + 0.75;
           barHeight *= multi;
-          
+
           // Create gradient
           var grd = ctx.createLinearGradient(0, 865, 0, 882);
 
@@ -859,7 +859,7 @@ export default {
 
       renderFrame();
       // setInterval(renderFrame, 44);
-    }, 
+    },
   },
   mounted() {
     this.$refs.audio.volume = 0.5;
@@ -870,7 +870,7 @@ export default {
     this.canvas.analyser.fftSize = 32;
     this.canvas.source = this.canvas.context.createMediaElementSource(
       this.$refs.audio
-    ); 
+    );
 
     // ===== List  =====
     $(".item").hover(
@@ -1031,7 +1031,7 @@ export default {
 .playback_btn_wrapper .btn-switch {
   margin-right: 0;
   color: #FF645A;
-  
+
 }
 
 .btn-play,
@@ -1045,14 +1045,13 @@ export default {
   opacity: 0;
 }
 
-.dim {
+.dim-2 {
   will-change: opacity;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(37, 33, 32, 0.2);
+  top: 0;
   position: fixed;
   background-color: rgba(224, 221, 209, 0.701961);
-  z-index: 110;
   display: none;
   z-index: 2;
   opacity: 0;
@@ -1134,7 +1133,7 @@ export default {
 .playback_btn_wrapper {
   position: absolute;
   z-index: 10;
-  
+
   width: 124px;
   left: 55px;
   top: 240px;

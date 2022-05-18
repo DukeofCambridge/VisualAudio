@@ -3,9 +3,10 @@ import Home from '@/views/Home.vue'
 import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
-import Emotion from "@/components/Emotion";
+import Emotion from "@/views/Emotion";
 import AudioWave from "@/components/home/AudioWave";
 import Index from "@/views/Index"
+import Main from "@/views/Main";
 const routes = [
   {
     path: '/home',
@@ -18,29 +19,46 @@ const routes = [
     component: Start
   },
   {
-    path: '/square',
-    name: 'MusicSquare',
-    component: MusicSquare
-  },
-  {
-    path: '/TagSelect',
-    name: 'TagSelect',
-    component: TagSelect
-  },
-  {
-    path:'/face',
-    name: 'Face',
-    component: Emotion
-  },
-   {
     path:'/audioWave',
     name: 'AudioWave',
     component: AudioWave
   },
   {
+    path:'/tag',
+    component: TagSelect
+  },
+  {
     path: '/index',
     name: 'Index',
-    component: Index
+    component: Index,
+    redirect: '/index/main',
+    children: [
+      {
+        path: 'main',
+        name: 'Main',
+        component: Main
+      },
+      {
+        path: 'tag',
+        name: 'Tag',
+        component: TagSelect
+      },
+      {
+        path: 'face',
+        name: 'Face',
+        component: Emotion
+      },
+      {
+        path: 'square',
+        name: 'Square',
+        component: MusicSquare
+      },
+      {
+        path: 'player',
+        name: 'Player',
+        component: Home
+      }
+    ]
   }
 ]
 
