@@ -18,7 +18,7 @@ export default {
   name: "Start",
   methods:{
     changePage(){
-      this.$router.push('/TagSelect');
+      this.$router.push('/index/tag');
     }
 
   }

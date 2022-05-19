@@ -14,30 +14,29 @@
     <el-col :span="1" :offset="15">
       <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image
     ></el-col>
-    <el-col :span="2">
-      <div style="word-wrap: break-word">
-        <p
-          style="
-            text-align: left;
-            margin: -4px 0 0 10px;
+    <el-col :span="2"
+      >
+      <div style="word-wrap:break-word;"><p
+        style="
+          text-align: left;
+          margin: -4px 0 0 10px;
 
-            font-size: 18px;
-          "
-        >
-          {{ song.name }}
-        </p>
-        <p
-          style="
-            text-align: left;
-            margin: 5px 0 0 10px;
-            text-overflow: ellipsis;
-            font-size: 15px;
-            color: rgba(37, 33, 32, 0.7);
-          "
-        >
-          {{ song.singer }}
-        </p>
-      </div>
+          font-size: 18px;
+        "
+      >
+        {{ song.name }}
+      </p>
+      <p
+        style="
+          text-align: left;
+          margin: 5px 0 0 10px;
+          text-overflow: ellipsis;
+          font-size: 15px;
+          color: rgba(37, 33, 32, 0.7);
+        "
+      >
+        {{ song.singer }}
+      </p></div>
       <div
         style="
           position: absolute;
@@ -287,8 +286,8 @@
       ></el-image
     ></el-col>
   </el-row>
-
-  <div class="dim" @click="close()"></div>
+  <!--遮罩层,写成组件后会挂载多个div,故加序号区分-->
+  <div class="dim-2"></div>
   <div class="player" id="player">
     <div class="playback_wrapper">
       <div class="playback_blur"></div>
@@ -308,9 +307,17 @@
             aria-hidden="true"
             @click="songPlay"
           ></i
-          ><i class="btn-pause fa fa-pause" @click="songPause"></i>
+          ><i
+            class="btn-pause fa fa-pause"
+
+            @click="btn_pause"
+          ></i>
         </div>
-        <i class="btn-next fa fa-step-forward" @click="switchNext()"></i>
+        <i
+          class="btn-next fa fa-step-forward"
+
+          @click="switchNext()"
+        ></i>
       </div>
       <i class="timeStr" style="position: absolute; top: 73.5%; right: 50%">{{
         control.proStr
@@ -342,8 +349,8 @@
           v-for="item in playList"
           :key="item.id"
           v-bind:class="{
-            'list_item selected': item == song,
-            list_item: item != song,
+            'list_item selected': item === song,
+            list_item: item !== song,
           }"
           @click="switchList(item)"
         >
@@ -366,8 +373,8 @@
     @ended="end()"
     @timeupdate="getCurr"
     @canplay="showLong"
-    @pause="control.is_stop == true"
-    @play="control.is_stop == false"
+    @pause="control.is_stop === true"
+    @play="control.is_stop === false"
     @durationchange="updateSong"
     crossOrigin="anonymous"
   ></audio>
@@ -422,7 +429,7 @@ export default {
      * 打开界面右侧的播放列表
      */
     play() {
-      gsap.to(".dim", 0.5, {
+      gsap.to(".dim2", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -952,7 +959,8 @@ export default {
 
 .playback_btn_wrapper .btn-switch {
   margin-right: 0;
-  color: #ff645a;
+  color: #FF645A;
+
 }
 
 .btn-play,
@@ -966,14 +974,13 @@ export default {
   opacity: 0;
 }
 
-.dim {
+.dim-2 {
   will-change: opacity;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(37, 33, 32, 0.2);
+  top: 0;
   position: fixed;
   background-color: rgba(224, 221, 209, 0.701961);
-  z-index: 110;
   display: none;
   z-index: 2;
   opacity: 0;

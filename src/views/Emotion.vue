@@ -1,8 +1,12 @@
 <template>
-  <div class="body">
-    <div style="height: 1px"></div>
+  <div class="tip">
+    <p class="AIsing" style="font-size: 20px; color: #ffffff;">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
+    <div class="connect_btn">
+      <div class="connect_btn_text" @click="this.$router.push('/index/main')">开始听歌!</div>
+    </div>sh
+  </div>
 <!--    <div id="chart">-->
-<!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->
+<!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->dg
 <!--      <div id="main"></div>-->
 <!--    </div>-->
     <div id="login-box">
@@ -29,7 +33,6 @@
         <li>🥶</li>
       </ul>
     </div>
-  </div>
 </template>
 
 <script>
@@ -211,16 +214,55 @@ export default {
 </script>
 
 <style scoped>
-.body {
-  background-image: url("../assets/face/bg2.jpg");
-  background-repeat: no-repeat;
-  background-size: 100%;
+.tip{
+  position:absolute;
+  left:12vw;
+  top:4vh;
+}
+.shadow {
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.4);
+}
+.connect_btn {
+  border-radius: 12px;
+  width: 24vh;
+  height: 7vh;
+  background-image: linear-gradient(280deg, #2f2a29 0%, #2f2a29 100%);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  position:absolute;
+  left:34vw;
+  top:2vh;
+}
+.connect_btn .connect_btn_text {
+  font-size: 20px;
+  font-style: italic;
+  text-shadow: 0px 0px 8px #fff, 0px 0px 42px #f72, 0px 0px 72px #f84, 0px 0px 150px #fa5;
+  z-index: 9;
+}
+
+.connect_btn:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  transition: opacity 0.5s ease-out;
+  opacity: 0;
+  background-image: linear-gradient(225deg, #ff6700 0%, #ff2df0 100%);
+  transition: 0.5s;
+}
+
+.connect_btn:hover:before {
+  opacity: 1;
 }
 
 #login-box {
   width: 30%;
   height: 450px;
-  margin: 8% auto 0;
+  margin: 2% auto 0;
   border-radius: 40px;
   text-align: center;
   background: #00000060;

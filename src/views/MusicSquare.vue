@@ -1,6 +1,6 @@
 <template>
   <div class="start">
-    <h1>This is musicsquare page</h1>
+    <h1>This is MusicSquare page</h1>
   </div>
 </template>
 

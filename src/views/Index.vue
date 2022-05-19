@@ -1,45 +1,12 @@
 <template>
   <body>
     <div class="wrapper">
-      <!-- Wave bg-->
-      <div class="wave-container">
-        <div class="wave -one"></div>
-        <div class="wave -two"></div>
-        <div class="wave -three"></div>
-      </div>
-      <div class="line"></div>
-      <div class="text-wrap">
-        <div class="text">
-          <span>L</span><span>I</span><span>S</span><span>T</span><span>E</span
-          ><span>N</span>
-          <div class="main-btn_wrapper">
-            <i class="main-btn fa fa-play" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <div class="header">
-        <div class="burger-wrapper" @click="nav">
-          <div class="burger"></div>
-        </div>
-        <div class="logo-text">Listeners Playlist</div>
-        <div class="back_btn">
-          <div class="circle"></div>
-          <div class="text">Back</div>
-        </div>
-      </div>
-      <div class="nav">
-        <ul class="nav_main">
-          <li><a class="nav_link">Home </a></li>
-          <li><a class="nav_link">Listeners</a></li>
-          <li><a class="nav_link">Compilations</a></li>
-          <li><a class="nav_link">LP. Mix</a></li>
-        </ul>
-        <div class="nav_divider"></div>
-        <ul class="nav_sub">
-          <li><a class="nav_link" href="">About </a></li>
-          <li><a class="nav_link" href="">Contact </a></li>
-        </ul>
-      </div>
+      <!--公共部分-->
+      <!--遮罩层-->
+      <div class="dim"></div>
+      <!--左导航栏-->
+      <Nav></Nav>
+      <!--右播放器-->
       <div style="margin-top: 25px">
         <Player
           ref="player"
@@ -53,92 +20,31 @@
           @change="changeStatus"
         ></Player>
       </div>
-      
-     <suspense>
-<AudioWave v-if="song.url" v-model:song.sync="song" ref="wave" ></AudioWave></suspense>
-
+     <!--  <AudioWave :song="song" ref="wave" ></AudioWave> -->
       <Lyric ref="lyric" :song="song" ></Lyric>
-      <div class="page" id="curator">
-        <div class="curator_title_wrapper">
-          <span>LP</span>
-          <div class="curator_line"></div>
-          <div class="curator_title">Listeners</div>
-          <div class="curator_line"></div>
-          <span>14</span>
-        </div>
-        <div class="curator_list">
-          <div class="curator_list_content">
-            <div class="connect_btn_wrapper item">
-              <div class="connect_btn">
-                <div class="connect_btn_text">Connect <br />SoundCloud</div>
-              </div>
-            </div>
-            <div class="curator_list_content_desc">
-              Or Select <br />a Listener of <br />L.P.
-            </div>
-            <div class="item">
-              <div class="thumb"></div>
-              <div class="info">
-                <div class="name">Fantasy</div>
-                <div class="desc">Sam</div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="thumb"></div>
-              <div class="info">
-                <div class="name">Fantasy</div>
-                <div class="desc">Sam</div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="thumb"></div>
-              <div class="info">
-                <div class="name">Fantasy</div>
-                <div class="desc">Sam</div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="thumb"></div>
-              <div class="info">
-                <div class="name">Fantasy</div>
-                <div class="desc">Sam</div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="thumb"></div>
-              <div class="info">
-                <div class="name">Fantasy</div>
-                <div class="desc">Sam</div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="thumb"></div>
-              <div class="info">
-                <div class="name">Fantasy</div>
-                <div class="desc">Sam</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <!--子路由方式切换界面-->
+      <router-view></router-view>
     </div>
   </body>
 
-    
+
 </template>
 
 <script>
 import $ from "jquery";
-import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
+import { gsap, Power2 } from "gsap";
 import Player from "@/components/Player.vue";
 import AudioWave from "@/components/home/AudioWave.vue";
 import Lyric from "@/components/Lyric.vue";
 
 import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
+import Nav from "@/components/Nav";
 
 
 export default {
   name: "Index",
+  components: {Nav, Player, Lyric },
   data() {
     return {
       is_stop: true,
@@ -158,96 +64,18 @@ export default {
   },
 
   mounted: async function () {
-    
-    // ===== Open Nav =====
-    $(".burger-wrapper").click(function () {
-      // ===== If Nav is not open
-      if ($(".nav").css("display") == "none") {
-        gsap.to(".dim", 0.5, {
-          opacity: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        });
-        gsap.fromTo(
-          ".nav",
-          0.5,
-          { xPercent: -100 },
-          { xPercent: 0, display: "block", ease: Expo.easeOut }
-        );
-        gsap.staggerFrom(
-          ".nav li",
-          0.5,
-          { opacity: 0, y: 20, ease: Power2.easeInOut },
-          0.1
-        );
-
-        $(".logo-text").css({ opacity: "0", display: "none" });
-      }
-      // ===== If Nav is open	and in Curation page
-      else if (
-        $(".nav").css("display") == "block" &&
-        $("#curator").css("display") == "block"
-      ) {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        // $('.logo-text').css({'opacity': '1', 'display': 'block'});
-      } else {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        $(".logo-text").css({ opacity: "1", display: "block" });
-      }
-    });
-
-    // ===== Open Player + dim on =====
-
-    $(".btn-open-player, .track_info").click(function () {
-      gsap.to(".dim", 0.5, {
-        opacity: 1,
-        display: "block",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        "#player",
-        0.5,
-        { xPercent: 100 },
-        { xPercent: 0, display: "block", ease: Expo.easeOut }
-      );
-      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
-    });
-
-    $(".dim").click(function () {
+    // 点击遮罩层或跳转界面后关闭侧边栏、去除遮罩层
+    $(".dim,.nav_link").click(function () {
       gsap.to(".dim", 0.5, {
         opacity: 0,
         display: "none",
         ease: Power2.easeInOut,
-      });
-      gsap.to("#player", 0.5, {
-        xPercent: 100,
-        display: "none",
-        ease: Expo.easeOut,
       });
       gsap.to(".nav", 0.5, {
         xPercent: -100,
         display: "none",
         ease: Power2.easeInOut,
       });
-      gsap.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
     });
 
     // ===== Mini Player - Play/Pause Switch =====
@@ -283,7 +111,7 @@ export default {
         { x: 0, opacity: 1, display: "block", scale: 1, ease: Power2.easeInOut }
       );
     });
-
+    //当前音乐磁带，鼠标悬浮
     // ===== HoverIn/HoverOut Flash Effect =====
 
     $(".track_info").hover(
@@ -300,256 +128,12 @@ export default {
       }
     );
 
-    $(".burger-wrapper, .logo-text, .back_btn").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    $(".btn-open-player").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    $(".nav a").hover(
-      function () {
-        gsap.fromTo(
-          $(this),
-          0.5,
-          { opacity: 0.5, ease: Power2.easeInOut },
-          { opacity: 1 }
-        );
-      },
-      function () {
-        $(this).css("opacity", "1");
-      }
-    );
-
-    // ===== Player - List Items =====
-    $(".list_item").click(function () {
-      $(".list_item").removeClass("selected");
-      $(this).addClass("selected");
-    });
-
-    // ===== Main Play Button - Hover =====
-
-    $(".text-wrap .text").hover(
-      function () {
-        gsap.to($(".main-btn_wrapper"), 0.5, {
-          opacity: 1,
-          display: "block",
-          position: "absolute",
-          scale: 1,
-          ease: Elastic.easeOut.config(1, 0.75),
-        }),
-          gsap.to($(".line"), 0.5, {
-            css: { scaleY: 0.6, transformOrigin: "center center" },
-            ease: Expo.easeOut,
-          });
-      },
-
-      function () {
-        gsap.to($(".main-btn_wrapper"), 0.5, {
-          opacity: 0,
-          display: "none",
-          scale: 0,
-          ease: Elastic.easeOut.config(1, 0.75),
-        }),
-          gsap.to($(".line"), 0.5, {
-            css: { scaleY: 1, transformOrigin: "center center" },
-            ease: Expo.easeOut,
-          });
-      }
-    );
-
-    // ===== Curation Page  =====
-    // ===== List  =====
-    $(".item").hover(
-      function () {
-        gsap.to($(this), 0.5, { y: -30, ease: Power2.easeInOut }),
-          $(this).children(".thumb").addClass("shadow"),
-          $(this).children(".connect_btn").addClass("shadow"),
-          gsap.to($(this).children(".info"), 0.5, {
-            opacity: 1,
-            ease: Power2.easeInOut,
-          });
-      },
-
-      function () {
-        gsap.to($(this), 0.5, { y: 0, ease: Power2.easeInOut }),
-          $(this).children(".thumb").removeClass("shadow"),
-          $(this).children(".connect_btn").removeClass("shadow"),
-          gsap.to($(this).children(".info"), 0.5, {
-            opacity: 0,
-            ease: Power2.easeInOut,
-          });
-      }
-    );
-
-    // ===== Home Page to Curation Page Transition  =====
-    // ===== Main Play Button Activate =====
-
-    $(".text-wrap .text").click(function () {
-      var homeToMain = new TimelineMax({});
-
-      // Hide
-      $(".logo-text").css("display", "none"),
-        homeToMain.to(
-          $(".line, .text-wrap"),
-          0.5,
-          { display: "none", opacity: 0, y: -20, ease: Power2.easeInOut },
-          0
-        ),
-        // Background down
-        homeToMain.to(
-          $(".wave-container"),
-          1,
-          { yPercent: 30, ease: Power2.easeInOut },
-          0
-        ),
-        // Show
-        $("#curator").css("display", "block"),
-        homeToMain.fromTo(
-          $(".back_btn"),
-          0.8,
-          { x: 15 },
-          { display: "flex", opacity: 1, x: 0, ease: Power2.easeInOut },
-          1
-        ),
-        homeToMain.fromTo(
-          $(".curator_title_wrapper"),
-          0.8,
-          { opacity: 0, x: 30 },
-          { opacity: 1, x: 0, ease: Power2.easeInOut },
-          1
-        ),
-        homeToMain.fromTo(
-          $(".curator_list"),
-          0.8,
-          { opacity: 0, display: "none", x: 30 },
-          { opacity: 1, x: 0, display: "block", ease: Power2.easeInOut },
-          1.2
-        );
-    });
-
-    // ===== Curation Page to Playlist Page Transition  =====
-    // ===== Item Activate =====
-    $(".item").click(function () {
-      var mainToPlaylist = new TimelineMax({});
-
-      // Hide
-      mainToPlaylist.to(
-        $("#curator"),
-        0.8,
-        { display: "none", opacity: 0, scale: 1.1, ease: Power2.easeInOut },
-        0
-      );
-
-      // mainToPlaylist.fromTo($('.curator_list'), 0.5, {opacity: 1, display: 'block', x: 0},
-      // 									{opacity: 0, x: 30, display: 'none', ease: Power2.easeInOut}, 0.5),
-    });
-
-    // ===== Back Button Activate =====
-
-    $(".back_btn").click(function () {
-      // ===== From Playlist(3) to Main(2)
-      if ($("#curator").css("display") == "none") {
-        var playlistToMain = new TimelineMax({});
-
-        // Hide
-        playlistToMain.fromTo(
-          $("#curator"),
-          0.8,
-          { display: "none", opacity: 0, scale: 1.1 },
-          { display: "block", opacity: 1, scale: 1, ease: Power2.easeInOut },
-          0
-        );
-      }
-
-      // From Main(2) to Home(1)
-      else {
-        var mainToHome = new TimelineMax({});
-        // Hide
-        mainToHome.fromTo(
-          $(".curator_title_wrapper"),
-          0.5,
-          { opacity: 1, x: 0 },
-          { opacity: 0, x: 30, ease: Power2.easeInOut },
-          0.2
-        ),
-          mainToHome.fromTo(
-            $(".curator_list"),
-            0.5,
-            { opacity: 1, display: "block", x: 0 },
-            { opacity: 0, x: 30, display: "none", ease: Power2.easeInOut },
-            0.5
-          ),
-          mainToHome.to(
-            $(".back_btn"),
-            0.5,
-            { display: "none", opacity: 0, x: 15, ease: Power2.easeInOut },
-            0.5
-          ),
-          mainToHome.to(
-            $("#curator"),
-            0,
-            { display: "none", ease: Power2.easeInOut },
-            1
-          ),
-          // Background Up
-          mainToHome.to(
-            $(".wave-container"),
-            1,
-            { yPercent: 0, ease: Power2.easeInOut },
-            1
-          ),
-          // 	Show
-          mainToHome.to(
-            $(".text-wrap"),
-            0.5,
-            { display: "flex", opacity: 1, y: 0, ease: Power2.easeInOut },
-            1.2
-          ),
-          mainToHome.to(
-            $(".logo-text, .line"),
-            0.5,
-            { display: "block", opacity: 1, y: 0, ease: Power2.easeInOut },
-            1.2
-          ),
-          // 	Force to redraw by using y translate
-          mainToHome.fromTo(
-            $(".text-wrap .text"),
-            0.1,
-            { y: 0.1, position: "absolute" },
-            { y: 0, position: "relative", ease: Power2.easeInOut },
-            1.3
-          );
-        // $('.text-wrap .text').css('position', 'relative');
-      }
-    });
-
     //搜索歌曲部分
     //根据关键词搜索，获取音乐id列表
     //var idList = new Array();
-    var res = await searchByKey({ keywords: "Nothing's Gonna Change My Love For You" });
+    let res = await searchByKey({ keywords: "方大同" });
     let songs = res.result.songs;
+    console.log('songs:',songs)
     for (let i = 0; i < songs.length && i < 10; i++) {
       let element = songs[i];
       let id = element.id;
@@ -577,96 +161,28 @@ export default {
 
       this.playList.push(song);
       console.log("加入歌单" + song.url);
-      if (i == 0) this.song = song;
+      if (i === 0) this.song = song;
 
-      
+
     }
     this.song = this.playList[0];
     //console.log("歌词："+this.song.lyric)
   },
   methods: {
-    // ===== Open Nav =====
-    nav() {
-      // ===== If Nav is not open
-      if ($(".nav").css("display") === "none") {
-        gsap.to(".dim", 0.5, {
-          opacity: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        });
-        gsap.fromTo(
-          ".nav",
-          0.5,
-          { xPercent: -100 },
-          { xPercent: 0, display: "block", ease: Expo.easeOut }
-        );
-        gsap.staggerFrom(
-          ".nav li",
-          0.5,
-          { opacity: 0, y: 20, ease: Power2.easeInOut },
-          0.1
-        );
 
-        $(".logo-text").css({ opacity: "0", display: "none" });
-      }
-      // ===== If Nav is open	and in Curation page
-      else if (
-        $(".nav").css("display") === "block" &&
-        $("#curator").css("display") === "block"
-      ) {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        // $('.logo-text').css({'opacity': '1', 'display': 'block'});
-      } else {
-        gsap.to(".dim", 0.5, {
-          opacity: 0,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.to(".nav", 0.5, {
-          xPercent: -100,
-          display: "none",
-          ease: Expo.easeOut,
-        });
-        $(".logo-text").css({ opacity: "1", display: "block" });
-      }
-    },
-    // ===== Open Player + dim on =====
-    play() {
-      gsap.to(".dim", 0.5, {
-        opacity: 1,
-        display: "block",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        "#player",
-        0.5,
-        { xPercent: 100 },
-        { xPercent: 0, display: "block", ease: Expo.easeOut }
-      );
-      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
-    },
     /**
      * 切歌
      */
     switchSong(str) {
       var index = (this.playList || []).findIndex((song) => song === this.song);
       let following = index;
-      if (str == "next") {
+      if (str === "next") {
         if (index >= this.playList.length - 1) {
           following = 0;
         } else {
           following = index + 1;
         }
-      } else if (str == "previous") {
+      } else if (str === "previous") {
         console.log("previous");
         if (index <= 0) {
           following = this.playList.length - 1;
@@ -680,7 +196,7 @@ export default {
      * 切换播放顺序
      */
     switchOrderMod(str) {
-      if (str == "sequence" || str == "loop" || str == "random") {
+      if (str === "sequence" || str === "loop" || str === "random") {
         this.order = str;
       }
     },
@@ -689,21 +205,21 @@ export default {
       /**
        * 顺序播放
        */
-      if (this.order == "sequence") {
+      if (this.order === "sequence") {
         this.switchSong("next");
       }
       //单曲循环
-      else if (this.order == "loop") {
+      else if (this.order === "loop") {
         console.log("单曲循环");
       }
       //随机播放
-      else if (this.order == "random") {
+      else if (this.order === "random") {
         var index = (this.playList || []).findIndex(
           (song) => song === this.song
         );
         let following = index;
         let len = this.playList.length;
-        while (following == index) {
+        while (following === index) {
           following = Math.floor(Math.random() * len); // 随机获取下标
         }
         this.song = this.playList[following];
@@ -720,7 +236,7 @@ export default {
      * 切歌时，获取新的歌词
      */
     getLyric() {
-      
+
     },
     /**
      * 更新目前播放时间
@@ -733,16 +249,15 @@ export default {
      * 启动或暂停音乐
      */
     changeStatus(str){
-      if(str == "play"){
+      if(str === "play"){
         console.log("play")
         this.$refs.wave.play();
       }
-      if(str == "pause"){
-        this.$refs.wave.pause();
+      if(str === "pause"){
+       // this.$refs.wave.pause();
       }
     }
   },
-  components: { Player, Lyric, AudioWave },
 };
 </script>
 
@@ -781,45 +296,6 @@ body {
   width: 100vw;
 }
 
-.wave-container {
-  width: 300vw;
-  height: 100%;
-  position: fixed;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
-}
-
-.wave {
-  opacity: 1;
-  position: absolute;
-  top: 60%;
-  left: -28%;
-  background: #18dfad;
-  width: 100%;
-  height: 300vw;
-  transform-origin: 50% 49%;
-  border-radius: 49%;
-  -webkit-animation: drift 3000ms infinite linear;
-  animation: drift 8000ms infinite linear;
-  will-change: transform;
-}
-
-.wave.-two {
-  animation: drift 9000ms infinite linear;
-  opacity: 1;
-  background: #33476a;
-  top: 60%;
-  left: -32%;
-}
-
-.wave.-three {
-  animation: drift 4000ms infinite linear;
-  opacity: 1;
-  background: #f12645;
-  top: 60%;
-  left: -36%;
-  z-index: -2;
-}
 
 @keyframes drift {
   from {
@@ -828,180 +304,6 @@ body {
   from {
     transform: rotate(360deg);
   }
-}
-.bg {
-  position: fixed;
-  bottom: 0;
-  width: 100vw;
-  height: 50%;
-  background-color: #33476a;
-  z-index: -1;
-}
-
-.line {
-  position: fixed;
-  left: 50vw;
-  width: 2px;
-  height: 80px;
-  top: 24vh;
-  background-color: white;
-}
-
-.text-wrap {
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.text-wrap .text {
-  cursor: pointer;
-  position: relative;
-}
-.text-wrap span {
-  color: #fff9e1;
-  font-size: 100px;
-  font-weight: 300;
-  padding: 0 2%;
-}
-
-.main-btn_wrapper {
-  position: absolute;
-  right: -25%;
-  top: calc(50% - 18px);
-  width: 36px;
-  height: 36px;
-  background-color: #fff9e1;
-  border-radius: 50%;
-  text-align: center;
-  display: none;
-  opacity: 0;
-  transform: scale(0);
-  transform-origin: bottom;
-}
-.main-btn_wrapper .main-btn {
-  line-height: 36px;
-}
-
-.header {
-  position: fixed;
-  left: 2.2vw;
-  top: 2.2vw;
-  margin-left: -4px;
-  margin-top: -6px;
-  color: #252120;
-  z-index: 103;
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  height: 30px;
-}
-.header .burger-wrapper {
-  width: 20px;
-  height: 30px;
-  margin-right: 20px;
-  display: flex;
-  align-items: center;
-}
-.header .burger {
-  width: 20px;
-  height: 3px;
-  background-color: #252120;
-  position: relative;
-}
-.header .burger:before,
-.header .burger:after {
-  content: "";
-  width: 20px;
-  height: 3px;
-  background-color: #252120;
-  position: absolute;
-  left: 0;
-}
-.header .burger:before {
-  top: -6px;
-}
-.header .burger:after {
-  top: 6px;
-  width: 14px;
-}
-.header .logo-text {
-  font-size: 20px;
-  color: #252120;
-}
-
-.back_btn {
-  cursor: pointer;
-  position: relative;
-  color: rgba(37, 33, 32, 0.4);
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  display: none;
-  opacity: 0;
-}
-.back_btn .circle {
-  background-color: rgba(37, 33, 32, 0.3);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  margin-right: 8px;
-}
-
-.nav {
-  will-change: transform;
-  position: fixed;
-  background-color: #fff;
-  width: 50vw;
-  min-width: 500px;
-  height: 100vh;
-  z-index: 10;
-  box-shadow: 0 30px 80px 0 rgba(97, 45, 45, 0.25);
-  display: none;
-}
-.nav ul {
-  color: #444444;
-}
-.nav ul.nav_main {
-  margin-top: 20vh;
-}
-.nav ul.nav_sub {
-  margin-top: 3vh;
-}
-.nav ul.nav_sub a {
-  font-size: 2.4vw;
-}
-.nav ul li {
-  margin-left: 6vw;
-  margin-bottom: 0.5vw;
-  position: relative;
-}
-
-.nav_link {
-  font-size: 3.8vw;
-  cursor: pointer;
-}
-.nav_link:before {
-  content: "";
-  position: absolute;
-  width: 4vw;
-  height: 2px;
-  background-color: #444444;
-  left: -12vw;
-  top: 50%;
-  transition: 0.4s;
-}
-
-.nav_divider {
-  width: 3vw;
-  height: 1px;
-  background-color: rgba(37, 33, 32, 0.12);
-  margin: 4vh 6vw;
-}
-
-.nav li .nav_link:hover:before {
-  left: -6vw;
 }
 
 .mini-player {
@@ -1081,60 +383,15 @@ body {
   will-change: opacity;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(37, 33, 32, 0.2);
+  top: 0;
+  /*background-color: rgba(37, 33, 32, 0.2);*/
   position: fixed;
   background-color: rgba(224, 221, 209, 0.701961);
-  z-index: 110;
   display: none;
   z-index: 2;
   opacity: 0;
 }
 
-.player {
-  will-change: transform;
-  display: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 600px;
-  height: 100%;
-  margin-top: 0px;
-  background-color: #fff;
-  box-shadow: 0px 25px 60px 0px rgba(97, 45, 45, 0.4);
-  font-size: 14px;
-  z-index: 999;
-}
-
-.playback_wrapper {
-  height: 310px;
-  position: relative;
-  overflow: hidden;
-  background-color: #fff9e1;
-}
-
-.playback_blur {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  transform: scale(1.1);
-  filter: blur(32px);
-  opacity: 0.24;
-  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
-}
-
-.playback_thumb {
-  transition: 0.5s;
-  width: 164px;
-  height: 164px;
-  border-radius: 5px;
-  background-size: cover;
-  position: absolute;
-  margin: 35px;
-  box-shadow: 0px 12px 30px 0px rgba(97, 45, 45, 0.2);
-  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-t500x500.jpg);
-}
 
 .playback_info {
   display: block;
@@ -1445,33 +702,16 @@ body {
   margin-bottom: 20px;
   transition: 0.5s;
 }
-
-.curator_list_content .item:nth-child(3) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000202649537-6368nw-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(4) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000249865900-64rve1-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(5) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000270812013-6zuevs-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(6) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000213988027-6nutce-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(7) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000187841543-7rhmm0-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(8) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000248045110-uq3jhv-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(9) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000276749358-7c1upz-t250x250.jpg);
-}
-.curator_list_content .item:nth-child(10) .thumb {
-  background-image: url(https://i1.sndcdn.com/avatars-000265518371-amlg8s-t250x250.jpg);
-}
-
-.shadow {
-  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.4);
+.dim {
+  will-change: opacity;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  /*background-color: rgba(37, 33, 32, 0.2);*/
+  position: fixed;
+  background-color: rgba(224, 221, 209, 0.701961);
+  display: none;
+  z-index: 2;
+  opacity: 0;
 }
 </style>
