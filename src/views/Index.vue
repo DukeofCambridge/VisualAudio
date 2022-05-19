@@ -54,7 +54,8 @@
         ></Player>
       </div>
       
-     <!--  <AudioWave :song="song" ref="wave" ></AudioWave> -->
+     <suspense>
+<AudioWave v-if="song.url" v-model:song.sync="song" ref="wave" ></AudioWave></suspense>
 
       <Lyric ref="lyric" :song="song" ></Lyric>
       <div class="page" id="curator">
@@ -130,6 +131,7 @@
 import $ from "jquery";
 import { TimelineMax, gsap, Power2, Expo, Elastic } from "gsap";
 import Player from "@/components/Player.vue";
+import AudioWave from "@/components/home/AudioWave.vue";
 import Lyric from "@/components/Lyric.vue";
 
 import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
@@ -154,6 +156,7 @@ export default {
       playList: Array(),
     };
   },
+
   mounted: async function () {
     
     // ===== Open Nav =====
@@ -545,7 +548,7 @@ export default {
     //搜索歌曲部分
     //根据关键词搜索，获取音乐id列表
     //var idList = new Array();
-    var res = await searchByKey({ keywords: "方大同" });
+    var res = await searchByKey({ keywords: "Nothing's Gonna Change My Love For You" });
     let songs = res.result.songs;
     for (let i = 0; i < songs.length && i < 10; i++) {
       let element = songs[i];
@@ -553,8 +556,11 @@ export default {
 
       let albumId = element.album.id;
       let song = {
+        name: String,
+        singer: String,
         url: String,
         picUrl: String,
+        lyric: String
       };
       song.name = element.name;
       song.singer = element.artists[0].name;
@@ -729,14 +735,14 @@ export default {
     changeStatus(str){
       if(str == "play"){
         console.log("play")
-        //this.$refs.wave.play();
+        this.$refs.wave.play();
       }
       if(str == "pause"){
-       // this.$refs.wave.pause();
+        this.$refs.wave.pause();
       }
     }
   },
-  components: { Player, Lyric },
+  components: { Player, Lyric, AudioWave },
 };
 </script>
 

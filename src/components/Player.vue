@@ -11,42 +11,42 @@
     </el-slider>
   </el-row> -->
   <el-row :gutter="0">
-
     <el-col :span="1" :offset="15">
       <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image
     ></el-col>
-    <el-col :span="2"
-      >
-      <div style="word-wrap:break-word;"><p
-        style="
-          text-align: left;
-          margin: -4px 0 0 10px;
-        
-          font-size: 18px;
-        "
-      >
-        {{ song.name }}
-      </p>
-      <p
-        style="
-          text-align: left;
-          margin: 5px 0 0 10px;
-          text-overflow: ellipsis;
-          font-size: 15px;
-          color: rgba(37, 33, 32, 0.7);
-        "
-      >
-        {{ song.singer }}
-      </p></div>
+    <el-col :span="2">
+      <div style="word-wrap: break-word">
+        <p
+          style="
+            text-align: left;
+            margin: -4px 0 0 10px;
+
+            font-size: 18px;
+          "
+        >
+          {{ song.name }}
+        </p>
+        <p
+          style="
+            text-align: left;
+            margin: 5px 0 0 10px;
+            text-overflow: ellipsis;
+            font-size: 15px;
+            color: rgba(37, 33, 32, 0.7);
+          "
+        >
+          {{ song.singer }}
+        </p>
+      </div>
       <div
         style="
-        position: absolute;
+          position: absolute;
           width: 1px;
           height: 60px;
           background: #8a8a8a;
           opacity: 0.3;
           top: 5%;
-          right:25%
+          right: 25%;
         "
       ></div>
     </el-col>
@@ -191,7 +191,7 @@
           effect="light"
           trigger="click"
           popper-class="myPopover"
-          class = "progress"
+          class="progress"
         >
           <template #reference>
             <el-image
@@ -288,7 +288,7 @@
     ></el-col>
   </el-row>
 
-  <div class="dim"></div>
+  <div class="dim" @click="close()"></div>
   <div class="player" id="player">
     <div class="playback_wrapper">
       <div class="playback_blur"></div>
@@ -297,38 +297,25 @@
         :style="{ backgroundImage: 'url(' + song.picUrl + ')' }"
       ></div>
       <div class="playback_info">
-        <div class="title" style="color: #252120;">{{ song.name }}</div>
+        <div class="title" style="color: #252120">{{ song.name }}</div>
         <div class="artist">{{ song.singer }}</div>
       </div>
       <div class="playback_btn_wrapper">
-        <i
-          class="btn-prev fa fa-step-backward"
-          @click="switchPrevious()"
-        ></i>
+        <i class="btn-prev fa fa-step-backward" @click="switchPrevious()"></i>
         <div class="btn-switch">
           <i
             class="btn-play fa fa-play"
             aria-hidden="true"
-            @click="btn_play"
+            @click="songPlay"
           ></i
-          ><i
-            class="btn-pause fa fa-pause"
-            
-            @click="btn_pause"
-          ></i>
+          ><i class="btn-pause fa fa-pause" @click="songPause"></i>
         </div>
-        <i
-          class="btn-next fa fa-step-forward"
-          
-          @click="switchNext()"
-        ></i>
+        <i class="btn-next fa fa-step-forward" @click="switchNext()"></i>
       </div>
-      <i
-        class="timeStr"
-        style="position: absolute; top:73.5%;right:50% "
-        >{{ control.proStr }}</i
-      >
-      <el-row style="height: 20%; width: 40%; bottom:500px">
+      <i class="timeStr" style="position: absolute; top: 73.5%; right: 50%">{{
+        control.proStr
+      }}</i>
+      <el-row style="height: 20%; width: 40%; bottom: 500px">
         <canvas id="canvas"></canvas>
       </el-row>
       <el-slider
@@ -337,7 +324,7 @@
         @change="changeLong"
         class="process"
         style="
-          box-shadow: #FFD110;
+          box-shadow: #ffd110;
           width: 35%;
           margin-left: 52%;
           margin-top: 31%;
@@ -345,11 +332,9 @@
         :show-tooltip="false"
       >
       </el-slider>
-      <i
-        class="timeStr"
-        style="position: absolute; top:73.5%;right:5% "
-        >{{ control.durStr }}</i
-      >
+      <i class="timeStr" style="position: absolute; top: 73.5%; right: 5%">{{
+        control.durStr
+      }}</i>
     </div>
     <div class="list_wrapper">
       <ul class="list">
@@ -390,7 +375,7 @@
 
 <script >
 import $ from "jquery";
-import { gsap, Power2, Expo } from "gsap";
+import { gsap, Power2, Expo, TweenMax } from "gsap";
 
 export default {
   name: "Player",
@@ -402,7 +387,7 @@ export default {
       picUrl: String, //海报url
       name: String, //歌曲名称
       singer: String, //歌手名称
-      lyric: String
+      lyric: String,
     },
   },
   data() {
@@ -433,7 +418,9 @@ export default {
   },
 
   methods: {
-    // ===== Open Player + dim on =====
+    /**
+     * 打开界面右侧的播放列表
+     */
     play() {
       gsap.to(".dim", 0.5, {
         opacity: 1,
@@ -449,19 +436,13 @@ export default {
       gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
     },
     /**
-     * <el-image>
-     * 单击播放键icon触发事件，播放或暂停
+     * 播放歌曲
      */
-    change() {
-      var audio = document.querySelector("#audio");
-      //暂停 -> 启动
-      if (this.control.is_stop == true) {
-        console.log("启动");
-        this.control.is_stop = false;
-        audio.play();
-        this.onLoadAudio();
-        this.$emit("change","play")
+    async songPlay() {
+      var _audio = $("#audio");
+      console.log("启动");
 
+      if (this.control.is_stop == true) {
         gsap.to($(".btn-play"), 0.2, {
           x: 20,
           opacity: 0,
@@ -482,13 +463,34 @@ export default {
           }
         );
       }
-      //启动 -> 暂停
-      else {
-        console.log("暂停");
-        this.control.is_stop = true;
-        audio.pause();
-        this.$emit("change","pause")
+      this.control.is_stop = false;
 
+      //获取音量值，从0开始渐入增大音量
+      let vol = _audio[0].volume;
+
+      this.$refs.audio.volume = 0.01;
+
+      //this.$refs.audio.volume = 0.01;
+      _audio[0].play();
+
+      //声音淡入
+      _audio.animate({ volume: vol }, 2000, "swing", () => {
+          this.$refs.audio.volume = vol;
+      this.control.volume = Math.round(vol * 100)
+
+      });
+
+      
+      this.onLoadAudio();
+      this.$emit("change", "play");
+    },
+    /**
+     * 暂停歌曲
+     */
+    async songPause() {
+      var _audio = $("#audio");
+      console.log("暂停");
+      if (this.control.is_stop == false) {
         gsap.to($(".btn-pause"), 0.2, {
           x: 20,
           opacity: 0,
@@ -509,6 +511,33 @@ export default {
           }
         );
       }
+      this.control.is_stop = true;
+      //获取音量值，从目前音量渐弱至0
+      let vol = _audio[0].volume;
+
+      console.log("原来的音量" + vol);
+      //this.$refs.audio.volume = vol;
+
+      _audio.animate({ volume: 0.01 }, 2000, "swing", () => {
+        _audio[0].pause();
+        _audio[0].volume = vol;
+      });
+      this.control.volume = Math.round(vol * 100);
+      this.$emit("change", "pause");
+    },
+    /**
+     * <el-image>
+     * 单击播放键icon触发事件，播放或暂停
+     */
+    change() {
+      //暂停 -> 启动
+      if (this.control.is_stop == true) {
+        this.songPlay();
+      }
+      //启动 -> 暂停
+      else {
+        this.songPause();
+      }
     },
     /**
      * <audio>
@@ -516,7 +545,6 @@ export default {
      * 更改显示的播放时间
      */
     getCurr() {
-      
       this.control.currentTime = parseInt(this.$refs.audio.currentTime);
       this.control.progress =
         (this.control.currentTime / this.control.duration) * 100;
@@ -536,7 +564,7 @@ export default {
 
       this.control.proStr = proStr;
 
-      this.$emit("timeUpdate",time)
+      this.$emit("timeUpdate", time);
     },
     /**
      * <audio>
@@ -545,7 +573,7 @@ export default {
      */
     showLong() {
       this.control.duration = parseInt(this.$refs.audio.duration);
-      this.control.volume = this.$refs.audio.volume * 100;
+      this.control.volume = parseInt(this.$refs.audio.volume * 100);
     },
     /**
      * <el-slider>
@@ -557,28 +585,8 @@ export default {
       if (!isNaN(ct)) {
         this.$refs.audio.currentTime = ct;
       }
-      this.control.is_stop = false;
-      this.$refs.audio.play();
-      this.onLoadAudio();
-      gsap.to($(".btn-play"), 0.2, {
-          x: 20,
-          opacity: 0,
-          scale: 0.3,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.fromTo(
-          $(".btn-pause"),
-          0.2,
-          { x: -20, opacity: 0, scale: 0.3, display: "none" },
-          {
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            display: "block",
-            ease: Power2.easeInOut,
-          }
-        );
+      //拖动进度条后会自动播放
+      this.songPlay();
     },
     changeVolume() {
       let volume = this.control.volume / 100;
@@ -614,60 +622,16 @@ export default {
       audio.autoplay = true;
       this.$emit("switch", "next");
 
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        {
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        }
-      );
+      //切歌后将会自动播放
+      this.songPlay();
     },
     switchPrevious() {
       var audio = document.querySelector("#audio");
       audio.autoplay = true;
       this.$emit("switch", "previous");
 
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        {
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        }
-      );
+      //切歌后将会自动播放
+      this.songPlay();
     },
     /**
      * 改变播放模式
@@ -692,8 +656,36 @@ export default {
      * 打开播放列表
      */
     open() {
-      //this.$emit("openList");
-      this.play();
+      gsap.to(".dim", 0.5, {
+        opacity: 1,
+        display: "block",
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        "#player",
+        0.5,
+        { xPercent: 100 },
+        { xPercent: 0, display: "block", ease: Expo.easeOut }
+      );
+      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
+    },
+    close() {
+      TweenMax.to(".dim", 0.5, {
+        opacity: 0,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      TweenMax.to("#player", 0.5, {
+        xPercent: 100,
+        display: "none",
+        ease: Expo.easeOut,
+      });
+      TweenMax.to(".nav", 0.5, {
+        xPercent: -100,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      TweenMax.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
     },
     /**
      * 点击播放列表切歌
@@ -705,30 +697,7 @@ export default {
 
       audio.autoplay = true;
 
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        {
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        }
-      );
+      this.songPlay();
     },
     /**
      * 歌曲切换时，改变显示的总时长
@@ -751,54 +720,8 @@ export default {
       durStr += sec;
       this.control.durStr = durStr;
     },
-    /**
-     *
-     */
-    btn_play() {
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        { x: 0, opacity: 1, scale: 1, display: "block", ease: Power2.easeInOut }
-      );
 
-      var audio = document.querySelector("#audio");
-      //暂停 -> 启动
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-    },
-    btn_pause() {
-      gsap.to($(".btn-pause"), 0.2, {
-        x: 20,
-        opacity: 0,
-        display: "none",
-        scale: 0.3,
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-play"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        { x: 0, opacity: 1, display: "block", scale: 1, ease: Power2.easeInOut }
-      );
-
-      var audio = document.querySelector("#audio");
-
-      console.log("暂停");
-      this.control.is_stop = true;
-      audio.pause();
-    },
-
-     onLoadAudio() {
+    onLoadAudio() {
       //var audio = this.$refs.audio;
       var context = this.canvas.context;
       var analyser = this.canvas.analyser;
@@ -830,7 +753,7 @@ export default {
           barHeight = dataArray[i] / 3;
           multi = a * i + 0.75;
           barHeight *= multi;
-          
+
           // Create gradient
           var grd = ctx.createLinearGradient(0, 865, 0, 882);
 
@@ -859,18 +782,18 @@ export default {
 
       renderFrame();
       // setInterval(renderFrame, 44);
-    }, 
+    },
   },
   mounted() {
     this.$refs.audio.volume = 0.5;
     this.control.volume = 50;
-     this.canvas.context = new (window.AudioContext ||
+    this.canvas.context = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.canvas.analyser = this.canvas.context.createAnalyser();
     this.canvas.analyser.fftSize = 32;
     this.canvas.source = this.canvas.context.createMediaElementSource(
       this.$refs.audio
-    ); 
+    );
 
     // ===== List  =====
     $(".item").hover(
@@ -943,7 +866,6 @@ export default {
 </style>
 
 <style lang="scss">
-
 .el-popover.myPopover {
   padding: 0 0 0 20px;
   margin: 0 0 0 90px;
@@ -966,21 +888,21 @@ export default {
 }
 
 .timeStr {
-  font:  18px, monospace;
-  color: #FFD110;
+  font: 18px, monospace;
+  color: #ffd110;
 }
 </style>
 <style  lang="scss" scoped>
 /* 引入两个style是为了改变el-slider的内置样式 */
 
-:deep()  .el-slider__button {
+:deep() .el-slider__button {
   width: 6px;
   height: 6px;
   background: #00cc99;
   margin: 11px 0 0 13px;
   visibility: hidden;
 }
-:deep()  .el-slider__runway:hover .el-slider__button {
+:deep() .el-slider__runway:hover .el-slider__button {
   visibility: visible;
 }
 
@@ -989,7 +911,7 @@ export default {
   height: 3px;
 }
 :deep() .el-slider__runway {
-  background-color: #FFF4C8;
+  background-color: #fff4c8;
   height: 3px;
   border-radius: 0;
   margin-top: 6px;
@@ -1024,20 +946,19 @@ export default {
   display: flex;
   margin-right: 30px;
   justify-content: center;
-  color: #FF645A;
-  font-size:20px;
+  color: #ff645a;
+  font-size: 20px;
 }
 
 .playback_btn_wrapper .btn-switch {
   margin-right: 0;
-  color: #FF645A;
-  
+  color: #ff645a;
 }
 
 .btn-play,
 .btn-pause {
   position: absolute;
-  color: #FF645A;
+  color: #ff645a;
 }
 
 .btn-pause {
@@ -1078,7 +999,7 @@ export default {
   position: relative;
   //overflow: hidden;
   background-color: #fff9e1;
-  font-size:20px;
+  font-size: 20px;
 }
 
 .playback_blur {
@@ -1116,25 +1037,24 @@ export default {
   color: #252120;
 }
 .playback_info .title {
-		font-size: 30px;
-		display: inline;
-		color: #252120;
-    font-weight: 500;
-    font-family:Oswald;
+  font-size: 30px;
+  display: inline;
+  color: #252120;
+  font-weight: 500;
+  font-family: Oswald;
 }
 .playback_info .artist {
   margin-top: 14px;
   font-size: 20px;
-  opacity:0.8;
+  opacity: 0.8;
   color: #252120;
-  font-family:Oswald;
-
+  font-family: Oswald;
 }
 
 .playback_btn_wrapper {
   position: absolute;
   z-index: 10;
-  
+
   width: 124px;
   left: 55px;
   top: 240px;
@@ -1144,11 +1064,11 @@ export default {
 }
 .playback_btn_wrapper i {
   margin: 0;
-  color:#FF645A
+  color: #ff645a;
 }
 
 .list_wrapper {
-    // 修改滚动条样式
+  // 修改滚动条样式
   &::-webkit-scrollbar {
     width: 0px;
   }
