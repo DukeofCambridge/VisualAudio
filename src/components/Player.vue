@@ -49,9 +49,10 @@
         "
       ></div>
     </el-col>
-    <div style="margin-right: 80px; margin-top: 7px">
+    <div>
       <el-col :span="1" style="">
-        <div>
+      模式
+        <!-- <div>
           <el-popover
             placement="bottom"
             :width="0"
@@ -145,19 +146,21 @@
               </div>
             </div>
           </el-popover>
-        </div>
+        </div> -->
       </el-col>
-      <el-col :span="1" style="margin-left: -20px">
-        <el-image
+      <el-col :span="1" >
+       <!--  <el-image
           :src="require(`/src/assets/home/previous.svg`)"
           style="cursor: pointer"
           @click="switchPrevious()"
           class="icon"
           v-on:click.stop
         ></el-image
-      ></el-col>
-      <el-col :span="1" style="margin-left: -15px">
-        <el-image
+      > --></el-col>
+      后退
+      <el-col :span="1" >
+      播放
+       <!--  <el-image
           :src="require(`/src/assets/home/play.svg`)"
           :style="{ opacity: control.is_stop ? '1' : '0', cursor: 'pointer' }"
         ></el-image>
@@ -171,19 +174,21 @@
           }"
           @click="change()"
           v-on:click.stop
-        ></el-image>
+        ></el-image> -->
       </el-col>
-      <el-col :span="1" style="margin-left: -15px">
-        <el-image
+      <el-col :span="1">
+      前进
+       <!--  <el-image
           :src="require(`/src/assets/home/next.svg`)"
           style="cursor: pointer"
           class="icon"
           @click="switchNext()"
           v-on:click.stop
-        ></el-image>
+        ></el-image> -->
       </el-col>
-      <el-col :span="1" style="margin-left: -15px">
-        <el-popover
+      <el-col :span="1" >
+      音量
+        <!-- <el-popover
           placement="bottom"
           :width="0"
           show-arrow="true"
@@ -275,19 +280,21 @@
           :style="{
             opacity: control.volume > 0 && control.muted == false ? '0' : '1',
           }"
-        ></el-image>
+        ></el-image> -->
       </el-col>
     </div>
     <el-col :span="1" style="margin-left: -15px; margin-top: 10px"
-      ><el-image
+      >
+      菜单
+      <!-- <el-image
         :src="require(`/src/assets/home/menu.svg`)"
         style="cursor: pointer"
         @click="open()"
       ></el-image
-    ></el-col>
+    > --></el-col>
   </el-row>
   <!--遮罩层,写成组件后会挂载多个div,故加序号区分-->
-  <div class="dim-2"></div>
+  <div class="dim-2" @click="close"></div>
   <div class="player" id="player">
     <div class="playback_wrapper">
       <div class="playback_blur"></div>
@@ -310,7 +317,7 @@
           ><i
             class="btn-pause fa fa-pause"
 
-            @click="btn_pause"
+            @click="songPause"
           ></i>
         </div>
         <i
@@ -429,7 +436,7 @@ export default {
      * 打开界面右侧的播放列表
      */
     play() {
-      gsap.to(".dim2", 0.5, {
+      gsap.to(".dim-2", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -663,7 +670,7 @@ export default {
      * 打开播放列表
      */
     open() {
-      gsap.to(".dim", 0.5, {
+      gsap.to(".dim-2", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -677,7 +684,7 @@ export default {
       gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
     },
     close() {
-      TweenMax.to(".dim", 0.5, {
+      TweenMax.to(".dim-2", 0.5, {
         opacity: 0,
         display: "none",
         ease: Power2.easeInOut,

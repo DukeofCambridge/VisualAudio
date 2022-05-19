@@ -35,7 +35,7 @@
 import $ from "jquery";
 import { gsap, Power2 } from "gsap";
 import Player from "@/components/Player.vue";
-import AudioWave from "@/components/home/AudioWave.vue";
+//import AudioWave from "@/components/home/AudioWave.vue";
 import Lyric from "@/components/Lyric.vue";
 
 import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
@@ -54,7 +54,7 @@ export default {
       order: "sequence",
       song: {
         url: String, //歌曲url
-        picUrl: "https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg", //海报url
+        picUrl: "", //海报url
         name: "", //歌曲名称
         singer: "", //歌手名称
         lyric: String //歌曲歌词
