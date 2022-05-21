@@ -9,7 +9,7 @@ Overall Structure
              -- MusicSquare   音乐广场界面
 
 ./src/components  组件
-
+./src/apis    请求外部接口
 ./scr/assets  图片等静态资源
 ./src/router  路由
 ./src/store   状态管理（如有需要）

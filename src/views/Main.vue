@@ -2,7 +2,7 @@
   <!--返回Main-->
   <div class="back_btn">
     <div class="circle"></div>
-    <div class="text">Back</div>
+    <div class="text">返回</div>
   </div>
   <!-- 波浪区域 -->
   <div class="wave-container">
@@ -31,6 +31,10 @@ import {Elastic, Expo, gsap, Power2} from "gsap";
 
 export default {
   name: "Main",
+  data(){
+    return{
+    }
+  },
   mounted() {
     // 屏幕中央 主播放按钮 鼠标悬浮动画效果
     // ===== Main Play Button - Hover =====
@@ -86,13 +90,9 @@ export default {
           0
       ),
       // Show
-      gsap.fromTo(
-          $(".back_btn"),
-          0.5,
-          { x: 15 },
-          { display: "flex", opacity: 1, x: 0, ease: Power2.easeInOut },
-          1
-          )
+      gsap.to($('.back_btn'), 0.5, {display: 'flex', opacity: 1, x: -15, ease: Power2.easeInOut}, 0.5)
+      gsap.fromTo($('.lyric'), 1.8, {display: 'none', opacity: 0},
+          {display: 'block', opacity: 1, ease: Expo.easeInOut}, 1)
     });
     $('.back_btn').click(function(){
         // Hide
@@ -109,6 +109,8 @@ export default {
         // 	Force to redraw by using y translate
         gsap.fromTo($('.text-wrap .text'), 0.1, {y: 0.1, position: 'absolute'},
             {y: 0, position: 'relative', ease: Power2.easeInOut}, 1.3)
+        gsap.fromTo($('.lyric'), 2.8, {display: 'block', opacity: 1},
+          {display: 'none', opacity: 0, ease: Expo.easeIn}, 1)
         // $('.text-wrap .text').css('position', 'relative');
     });
   }

@@ -10,35 +10,29 @@
     >
     </el-slider>
   </el-row> -->
+  <!--顶部播放小组件-->
   <el-row :gutter="0">
+    <!--封面-->
     <el-col :span="1" :offset="15">
-      <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image
-    ></el-col>
-    <el-col :span="2"
-      >
+      <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image></el-col>
+    <!--歌曲信息-->
+    <el-col :span="2">
       <div style="word-wrap:break-word;"><p
         style="
           text-align: left;
           margin: -4px 0 0 10px;
-
-          font-size: 18px;
-        "
-      >
+          font-size: 18px;">
         {{ song.name }}
       </p>
-      <p
-        style="
+      <p style="
           text-align: left;
           margin: 5px 0 0 10px;
           text-overflow: ellipsis;
           font-size: 15px;
-          color: rgba(37, 33, 32, 0.7);
-        "
-      >
+          color: rgba(37, 33, 32, 0.7);">
         {{ song.singer }}
       </p></div>
-      <div
-        style="
+      <div style="
           position: absolute;
           width: 1px;
           height: 60px;
@@ -46,13 +40,12 @@
           opacity: 0.3;
           top: 5%;
           right: 25%;
-        "
-      ></div>
+        "></div>
     </el-col>
-    <div>
+
       <el-col :span="1" style="">
-      模式
-        <!-- <div>
+        <!--播放模式-->
+        <div>
           <el-popover
             placement="bottom"
             :width="0"
@@ -146,24 +139,21 @@
               </div>
             </div>
           </el-popover>
-        </div> -->
+        </div>
       </el-col>
       <el-col :span="1" >
-       <!--  <el-image
+        <!--返回/后退键-->
+       <el-image
           :src="require(`/src/assets/home/previous.svg`)"
           style="cursor: pointer"
           @click="switchPrevious()"
           class="icon"
-          v-on:click.stop
-        ></el-image
-      > --></el-col>
-      后退
+          v-on:click.stop></el-image> </el-col>
       <el-col :span="1" >
-      播放
-       <!--  <el-image
+        <!--播放键-->
+       <el-image
           :src="require(`/src/assets/home/play.svg`)"
-          :style="{ opacity: control.is_stop ? '1' : '0', cursor: 'pointer' }"
-        ></el-image>
+          :style="{ opacity: control.is_stop ? '1' : '0', cursor: 'pointer' }"></el-image>
         <el-image
           :src="require(`/src/assets/home/pause.svg`)"
           :style="{
@@ -174,21 +164,21 @@
           }"
           @click="change()"
           v-on:click.stop
-        ></el-image> -->
+        ></el-image>
       </el-col>
       <el-col :span="1">
-      前进
-       <!--  <el-image
+        <!--前进键-->
+       <el-image
           :src="require(`/src/assets/home/next.svg`)"
           style="cursor: pointer"
           class="icon"
           @click="switchNext()"
           v-on:click.stop
-        ></el-image> -->
+        ></el-image>
       </el-col>
       <el-col :span="1" >
-      音量
-        <!-- <el-popover
+        <!--音量-->
+        <el-popover
           placement="bottom"
           :width="0"
           show-arrow="true"
@@ -202,7 +192,7 @@
               :src="require(`/src/assets/home/volume.svg`)"
               :style="{
                 opacity:
-                  control.volume > 0 && control.muted == false ? '1' : '0',
+                  control.volume > 0 && control.muted === false ? '1' : '0',
                 cursor: 'pointer',
                 margin: '9px 0 0 0',
               }"
@@ -231,7 +221,7 @@
             width="22"
             height="22"
             :style="{
-              opacity: control.volume == 0 || control.muted == true ? '1' : '0',
+              opacity: control.volume === 0 || control.muted === true ? '1' : '0',
             }"
             @click="closeVolume()"
             v-on:click.stop
@@ -254,7 +244,7 @@
             width="22"
             height="22"
             :style="{
-              opacity: control.volume > 0 && control.muted == false ? '1' : '0',
+              opacity: control.volume > 0 && control.muted === false ? '1' : '0',
             }"
             style="margin-bottom: 6.5px"
             @click="closeVolume()"
@@ -278,23 +268,20 @@
             pointer-events: none;
           "
           :style="{
-            opacity: control.volume > 0 && control.muted == false ? '0' : '1',
+            opacity: control.volume > 0 && control.muted === false ? '0' : '1',
           }"
-        ></el-image> -->
+        ></el-image>
       </el-col>
-    </div>
-    <el-col :span="1" style="margin-left: -15px; margin-top: 10px"
-      >
-      菜单
-      <!-- <el-image
+
+    <!--打开歌单菜单-->
+    <el-col :span="1" style="margin-left: -15px; margin-top: 10px">
+      <el-image
         :src="require(`/src/assets/home/menu.svg`)"
         style="cursor: pointer"
         @click="open()"
-      ></el-image
-    > --></el-col>
+      ></el-image> </el-col>
   </el-row>
-  <!--遮罩层,写成组件后会挂载多个div,故加序号区分-->
-  <div class="dim-2" @click="close"></div>
+  <!--歌单侧边栏-->
   <div class="player" id="player">
     <div class="playback_wrapper">
       <div class="playback_blur"></div>
@@ -373,6 +360,7 @@
       </ul>
     </div>
   </div>
+
   <audio
     :src="song.url"
     id="audio"
@@ -389,7 +377,7 @@
 
 <script >
 import $ from "jquery";
-import { gsap, Power2, Expo, TweenMax } from "gsap";
+import { gsap, Power2, Expo } from "gsap";
 
 export default {
   name: "Player",
@@ -436,7 +424,7 @@ export default {
      * 打开界面右侧的播放列表
      */
     play() {
-      gsap.to(".dim-2", 0.5, {
+      gsap.to(".dim", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -456,7 +444,7 @@ export default {
       var _audio = $("#audio");
       console.log("启动");
 
-      if (this.control.is_stop == true) {
+      if (this.control.is_stop === true) {
         gsap.to($(".btn-play"), 0.2, {
           x: 20,
           opacity: 0,
@@ -494,7 +482,7 @@ export default {
 
       });
 
-      
+
       this.onLoadAudio();
       this.$emit("change", "play");
     },
@@ -504,7 +492,7 @@ export default {
     async songPause() {
       var _audio = $("#audio");
       console.log("暂停");
-      if (this.control.is_stop == false) {
+      if (this.control.is_stop === false) {
         gsap.to($(".btn-pause"), 0.2, {
           x: 20,
           opacity: 0,
@@ -545,7 +533,7 @@ export default {
      */
     change() {
       //暂停 -> 启动
-      if (this.control.is_stop == true) {
+      if (this.control.is_stop === true) {
         this.songPlay();
       }
       //启动 -> 暂停
@@ -654,7 +642,7 @@ export default {
       this.$refs.orderList.hide();
       this.control.order = order;
       this.$emit("switchOrder", order);
-      if (order == "loop") {
+      if (order === "loop") {
         this.$refs.audio.loop = true;
       } else {
         this.$refs.audio.loop = false;
@@ -670,7 +658,7 @@ export default {
      * 打开播放列表
      */
     open() {
-      gsap.to(".dim-2", 0.5, {
+      gsap.to(".dim", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -684,22 +672,22 @@ export default {
       gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
     },
     close() {
-      TweenMax.to(".dim-2", 0.5, {
+      gsap.to(".dim", 0.5, {
         opacity: 0,
         display: "none",
         ease: Power2.easeInOut,
       });
-      TweenMax.to("#player", 0.5, {
+      gsap.to("#player", 0.5, {
         xPercent: 100,
         display: "none",
-        ease: Expo.easeOut,
+        ease: Power2.easeOut,
       });
-      TweenMax.to(".nav", 0.5, {
+      gsap.to(".nav", 0.5, {
         xPercent: -100,
         display: "none",
         ease: Power2.easeInOut,
       });
-      TweenMax.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
+      gsap.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
     },
     /**
      * 点击播放列表切歌
@@ -981,7 +969,7 @@ export default {
   opacity: 0;
 }
 
-.dim-2 {
+.dim {
   will-change: opacity;
   width: 100vw;
   height: 100vh;

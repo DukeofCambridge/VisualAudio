@@ -21,19 +21,18 @@
         ></Player>
       </div>
      <!--  <AudioWave :song="song" ref="wave" ></AudioWave> -->
-      <Lyric ref="lyric" :song="song" ></Lyric>
+      <!--歌词-->
+      <Lyric class="lyric" ref="lyric" :song="song" ></Lyric>
 
       <!--子路由方式切换界面-->
       <router-view></router-view>
     </div>
   </body>
-
-
 </template>
 
 <script>
 import $ from "jquery";
-import { gsap, Power2 } from "gsap";
+import {gsap, Power2} from "gsap";
 import Player from "@/components/Player.vue";
 //import AudioWave from "@/components/home/AudioWave.vue";
 import Lyric from "@/components/Lyric.vue";
@@ -75,6 +74,11 @@ export default {
         xPercent: -100,
         display: "none",
         ease: Power2.easeInOut,
+      });
+      gsap.to("#player", 0.5, {
+        xPercent: 100,
+        display: "none",
+        ease: Power2.easeOut,
       });
     });
 
@@ -166,6 +170,7 @@ export default {
 
     }
     this.song = this.playList[0];
+    this.$store.commit('loadSong', this.song)
     //console.log("歌词："+this.song.lyric)
   },
   methods: {
@@ -174,7 +179,7 @@ export default {
      * 切歌
      */
     switchSong(str) {
-      var index = (this.playList || []).findIndex((song) => song === this.song);
+      let index = (this.playList || []).findIndex((song) => song === this.song);
       let following = index;
       if (str === "next") {
         if (index >= this.playList.length - 1) {
@@ -254,7 +259,7 @@ export default {
         this.$refs.wave.play();
       }
       if(str === "pause"){
-       // this.$refs.wave.pause();
+       this.$refs.wave.pause();
       }
     }
   },
@@ -713,5 +718,8 @@ body {
   display: none;
   z-index: 2;
   opacity: 0;
+}
+.lyric{
+  display: none;
 }
 </style>
