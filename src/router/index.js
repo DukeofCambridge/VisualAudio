@@ -7,7 +7,6 @@ import Emotion from "@/views/Emotion";
 import AudioWave from "@/components/home/AudioWave";
 import Index from "@/views/Index"
 import Main from "@/views/Main";
-import Test from "@/views/Test";
 const routes = [
   {
     path: '/home',
@@ -28,10 +27,10 @@ const routes = [
     path:'/tag',
     component: TagSelect
   },
-  {
+/*   {
     path: '/test',
     component: Test
-  },
+  }, */
   {
     path: '/index',
     name: 'Index',

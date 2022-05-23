@@ -65,7 +65,7 @@
                 p-id="1003"
                 width="22"
                 height="22"
-                style="margin: 10px 0px 0px -10px; cursor: pointer"
+                style="margin: 10px 0px 0px 0px; cursor: pointer"
               >
                 <path
                   d="M106 85.5c-22.1 0-40 17.9-40 40v760.6c0 22.1 17.9 40 40 40s40-17.9 40-40V125.5c0-22.1-17.9-40-40-40zM457.3 85.5c-22.1 0-40 17.9-40 40v760.6c0 22.1 17.9 40 40 40s40-17.9 40-40V125.5c0-22.1-17.9-40-40-40zM955.1 661.4c-7.1-12.4-20.3-20-34.6-20h-72c0-0.8 0.1-1.5 0.1-2.3V125.5c0-22.1-17.9-40-40-40s-40 17.9-40 40v513.6c0 0.8 0 1.5 0.1 2.3h-87c-14.3 0-27.5 7.6-34.6 20-7.1 12.4-7.1 27.6 0 40l119.4 206.8c7.1 12.4 20.3 20 34.6 20s27.5-7.6 34.6-20l119.4-206.8c7.2-12.4 7.2-27.7 0-40z m-154 146.8L751 721.4h100.2l-50.1 86.8z"
@@ -113,11 +113,11 @@
                 ></path>
               </svg>
             </template>
-            <div style="font: bold 14px arial, sans-serif; cursor: pointer">
+            <div style="font: bold 14px arial, sans-serif; cursor: pointer;">
               <div class="option" v-on:click="changeOrder('random')">
                 <el-image
                   :src="require('@/assets/home/random.svg')"
-                  style="margin: 0px 0px -6.5px 0px"
+                  style="margin: 0px 0px -0.7vh 1vw"
                 ></el-image
                 ><b class="font">随机播放</b>
               </div>
@@ -125,7 +125,7 @@
               <div class="option" v-on:click="changeOrder('sequence')">
                 <el-image
                   :src="require('@/assets/home/sequence.svg')"
-                  style="margin: 0px 0px -6.5px 0px"
+                  style="margin: 0px 0px -0.7vh 1vw"
                 ></el-image
                 ><b class="font">顺序播放</b>
               </div>
@@ -133,7 +133,7 @@
               <div class="option" v-on:click="changeOrder('loop')">
                 <el-image
                   :src="require('@/assets/home/loop.svg')"
-                  style="margin: 0px 0px -6.5px 0px"
+                  style="margin: 0px 0px -0.7vh 1vw"
                 ></el-image
                 ><b class="font">单曲循环</b>
               </div>
@@ -176,16 +176,16 @@
           v-on:click.stop
         ></el-image>
       </el-col>
-      <el-col :span="1" >
+      <el-col :span="1">
         <!--音量-->
+        
         <el-popover
           placement="bottom"
-          :width="0"
+          style="width: 20px;"
           show-arrow="true"
           effect="light"
           trigger="click"
           popper-class="myPopover"
-          class="progress"
         >
           <template #reference>
             <el-image
@@ -200,17 +200,25 @@
           </template>
           <el-slider
             :show-tooltip="false"
-            class="volumepro"
             v-model="control.volume"
             vertical
             height="120px"
             @change="changeVolume"
-            style="margin-top: 20px"
+            style="margin-top: 1vh; margin-left:1vw;"
           />
-          <div style="margin: 12px 0; font-size: 17px">
+          <div style="margin: 3vh 0 0 1vw; font-size: 17px">
             {{ control.volume }}%
           </div>
-          <hr size="1px" style="margin: 15px 0px 15px -20px; opacity: 0.3" />
+          <div style="
+          position: absolute;
+          width: 0.11vw;
+          height: 23vh;
+          background: #8a8a8a;
+          opacity: 0.3;
+          top: 7%;
+          right: 50%;
+          "></div>
+          <!-- <hr size="1px" style="margin: 15px 0px 15px -20px; opacity: 0.3" /> -->
           <svg
             t="1651917648019"
             id="volumeIcon1"
@@ -220,9 +228,7 @@
             p-id="5325"
             width="22"
             height="22"
-            :style="{
-              opacity: control.volume === 0 || control.muted === true ? '1' : '0',
-            }"
+            v-show = "control.volume === 0 || control.muted === true"
             @click="closeVolume()"
             v-on:click.stop
           >
@@ -243,10 +249,7 @@
             p-id="9945"
             width="22"
             height="22"
-            :style="{
-              opacity: control.volume > 0 && control.muted === false ? '1' : '0',
-            }"
-            style="margin-bottom: 6.5px"
+            v-show = "control.volume > 0 && control.muted === false"
             @click="closeVolume()"
             v-on:click.stop
           >
@@ -259,6 +262,7 @@
             ></path>
           </svg>
         </el-popover>
+        
         <el-image
           :src="require(`/src/assets/home/silence.svg`)"
           class="volume icon"
@@ -328,7 +332,7 @@
           box-shadow: #ffd110;
           width: 35%;
           margin-left: 52%;
-          margin-top: 31%;
+          margin-top: 30%;
         "
         :show-tooltip="false"
       >
@@ -825,83 +829,15 @@ export default {
 </script>
 
 
-<style lang="scss">
-/* 播放器组件 */
-.player {
-  position: relative;
-  margin-top: -5.8%;
-}
 
-#volumeIcon1 {
-  cursor: pointer;
-  margin: 1px 6px -13px 8px;
-}
-#volumeIcon2 {
-  cursor: pointer;
-  margin: -15px 0 12px 8px;
-}
-.icon {
-  margin: 6px 0 0 0;
-}
-.icon:hover {
-  -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 204, 153, 0.5));
-  width: 50%;
-}
-
-.option:hover {
-  -webkit-filter: brightness(-50%);
-}
-.example-showcase .el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-
-#canvas {
-  position: fixed;
-  left: 230px;
-  top: -430px;
-  width: 60%;
-  height: 100%;
-}
-</style>
-
-<style lang="scss">
-.el-popover.myPopover {
-  padding: 0 0 0 20px;
-  margin: 0 0 0 90px;
-  min-width: 60px;
-  .popper__arrow,
-  .popper__arrow::after {
-    display: none !important;
-  }
-}
-.el-popover.modPopover {
-  margin: 0px 0 10px 0px;
-  min-width: 100px;
-  .popper__arrow,
-  .popper__arrow::after {
-    display: none !important;
-  }
-}
-.font {
-  margin: 0px 0px 0px 8px;
-}
-
-.timeStr {
-  font: 18px, monospace;
-  color: #ffd110;
-}
-</style>
 <style  lang="scss" scoped>
 /* 引入两个style是为了改变el-slider的内置样式 */
 
 :deep() .el-slider__button {
-  width: 6px;
-  height: 6px;
+  width: 0.5vw;
+  height: 0.5vw;
   background: #00cc99;
-  margin: 11px 0 0 13px;
+  margin-bottom: 4px;
   visibility: hidden;
 }
 :deep() .el-slider__runway:hover .el-slider__button {
@@ -913,35 +849,12 @@ export default {
   height: 3px;
 }
 :deep() .el-slider__runway {
-  background-color: #fff4c8;
+  background-color: #fff;
   height: 3px;
   border-radius: 0;
-  margin-top: 6px;
-  margin-bottom: 11px;
+
 }
 
-/* .track_info_wrapper .track_info .thumb {
-  width: 32px;
-  height: 32px;
-  margin-right: 10px;
-  background-color: #d3d6da;
-  border-radius: 1px;
-  background-size: cover;
-  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
-}
-.track_info_wrapper .track_info .title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 14px;
-}
-.track_info_wrapper .track_info .artist {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 12px;
-  color: rgba(37, 33, 32, 0.7);
-} */
 
 .btn-switch {
   width: 30px;
@@ -1168,3 +1081,76 @@ export default {
 }
 </style>
 
+
+<style >  
+.font {
+  margin: 0 0 0 1.5vw;
+}
+
+.timeStr {
+  font: 18px, monospace;
+  color: #ffd110;
+}
+
+
+/* 播放器组件 */
+.player {
+  position: relative;
+  margin-top: -5.8%;
+}
+
+#volumeIcon1 {
+  position: absolute;
+  cursor: pointer;
+  margin: -12vh 0 0 6.5vw;
+}
+#volumeIcon2 {
+  position: absolute;
+  cursor: pointer;
+  margin: -12vh 0 0 6.5vw;
+}
+.icon {
+  margin: 6px 0 0 0;
+}
+.icon:hover {
+  -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 204, 153, 0.5));
+  width: 50%;
+}
+
+.option:hover {
+  -webkit-filter: brightness(-50%);
+}
+
+.example-showcase .el-dropdown-link {
+  cursor: pointer;
+  color: var(--el-color-primary);
+  display: flex;
+  align-items: center;
+}
+
+#canvas {
+  position: fixed;
+  left: 38%;
+  top: -56%;
+  width: 60%;
+  height: 100%;
+}
+
+</style>
+
+
+<style>
+
+.el-popover.myPopover {
+  padding: 0 0 0 20px;
+  margin: 0 0 0 90px;
+  min-width: 60px;
+  opacity: 0.8;
+}
+.el-popover.modPopover {
+  margin: 0px 0 10px 0px;
+  width: 300px;
+  opacity: 0.8;
+}
+
+</style>

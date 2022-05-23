@@ -721,5 +721,6 @@ body {
 }
 .lyric{
   display: none;
+  margin-top:-60px;
 }
 </style>

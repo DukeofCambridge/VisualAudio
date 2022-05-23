@@ -128,7 +128,7 @@ export default {
 
 <style  lang="scss" scoped >
 .lyricBlock {
-  top: 40%;
+  top: 35%;
   scroll-behavior: smooth;
     text-align:center;
 }
@@ -136,7 +136,7 @@ export default {
 
 .topBlock {
 
-  margin-top: 20px;
+  /* margin-top: 20px;  */
   left: 64.5%;
   text-align: center;
 }
@@ -148,7 +148,7 @@ export default {
     color: #fff;
 }
 .singer{
-    margin-top: 5px;
+    margin-top: 5%;
     font-size: 16px;
     color:rgb(129, 129, 129)
 }
@@ -156,7 +156,7 @@ export default {
 
     scroll-behavior: smooth;
   width: auto;
-  height: 450px;
+  height: 550px;
 
   left: 61%;
   top: 27%;
@@ -196,7 +196,7 @@ export default {
 
 .topBlur{
     width: 100%;
-    height: 20px;
+    height: 2%;
     margin-bottom: -10px;
     box-shadow: 0 0 15px 10px #F2D7D3;
     background-image: url('../assets/lyric/blur.png');
