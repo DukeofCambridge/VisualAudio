@@ -2,11 +2,11 @@
   <div class="tip">
     <p class="AIsing" style="font-size: 20px; color: #ffffff;">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
     <div class="connect_btn">
-      <div class="connect_btn_text" @click="this.$router.push('/index/main')">开始听歌!</div>
-    </div>sh
+      <div class="connect_btn_text" @click="listen">开始听歌!</div>
+    </div>
   </div>
 <!--    <div id="chart">-->
-<!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->dg
+<!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->
 <!--      <div id="main"></div>-->
 <!--    </div>-->
     <div id="login-box">
@@ -18,7 +18,7 @@
 
       <div class="media">
         <video id="video" width="320" height="240" preload autoplay loop muted></video>
-        <canvas id="canvas" width="320" height="240"></canvas>
+        <canvas id="canvas" width="320" height="240" style="display: none"></canvas>
       </div>
     </div>
 
@@ -37,6 +37,8 @@
 
 <script>
 // tracking 模块是复制进来的，npm install的看不到摄像头画面，暂时不知道原因
+import {searchAlbumById, searchById, searchByKey, searchLyricById} from "@/apis/songs";
+
 require('tracking/build/tracking-min.js')
 require('tracking/build/data/face-min.js')
 // const echarts = require('echarts');
@@ -129,7 +131,7 @@ export default {
       //拿到bash64格式的照片信息: 去除标签 --- data:image/png;base64,
       let faceBase = userImgSrc.split(",")[1];
       // alert(faceBase);
-      console.log(faceBase)
+      // console.log(faceBase)
       // 封装请求数据
       let formData = new FormData()
       formData.append('api_key', 'om8OB46dLROuWqeBrFAzBmF9kGCy2Syg')
@@ -150,6 +152,85 @@ export default {
       }).catch(failResponse => {
         console.log(failResponse)})
     },
+    async listen() {
+      let emo = ''
+      if (this.emotion != null) {
+        let val = Object.values(this.emotion)
+        let max = Math.max(...val);
+        let argmax = val.indexOf(max);
+        emo = Object.keys(this.emotion)[argmax]
+        // console.log(max)
+        // console.log(Object.keys(this.emotion)[argmax])
+      }
+      let emoSong = ''
+      switch (emo) {
+        case "anger":
+          emoSong = "Titan";
+          break;
+        case "disgust":
+          emoSong = "numb";
+          break;
+        case "fear":
+          emoSong = "light";
+          break;
+        case "happiness":
+          emoSong = "conqueror";
+          break;
+        case "neutral":
+          emoSong = "天空之城";
+          break;
+        case "sadness":
+          emoSong = "平凡之路";
+          break;
+        case "surprise":
+          emoSong = "sugar";
+          break;
+      }
+      //根据关键词搜索，获取音乐id列表
+      //var idList = new Array();
+      let res = await searchByKey({keywords: emoSong});
+      let songs = res.result.songs;
+      console.log('songs:', songs)
+
+        let element = songs[0];
+        let id = element.id;
+
+        let albumId = element.album.id;
+        let song = {
+          name: String,
+          singer: String,
+          url: String,
+          picUrl: String,
+          lyric: String
+        };
+        song.name = element.name;
+        song.singer = element.artists[0].name;
+
+        res = await searchById({id: id});
+        song.url = res.data[0].url; //音乐url
+
+        res = await searchAlbumById({id: albumId});
+        song.picUrl = res.songs[0].al.picUrl; //海报url
+
+        // 获取歌词
+        res = await searchLyricById({id: id})
+        song.lyric = res.lrc.lyric
+        this.$store.commit('pushEmo', song)
+        this.$router.push('/index/main')
+      },
+
+    }
+    // 情绪识别结果格式：
+    // "emotion": {
+    //   "anger": 0.003,
+    //   "disgust": 0.04,
+    //   "fear": 0.003,
+    //   "happiness": 13.737,
+    //   "neutral": 86.128,
+    //   "sadness": 0.085,
+    //   "surprise": 0.003
+    // }
+
     // 情绪可视化
     /*
     visualize(){
@@ -209,7 +290,6 @@ export default {
       });
     }
      */
-  }
 }
 </script>
 

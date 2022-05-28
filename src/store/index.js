@@ -4,7 +4,8 @@ export default createStore({
   // state: 仓库存储数据
   state: {
     songList:[],
-    song:{}
+    song:{},
+    emo:''
   },
   // mutations: 修改state的唯一手段
   mutations: {
@@ -13,6 +14,9 @@ export default createStore({
     },
     loadSong(state, info) {
       state.song = info
+    },
+    pushEmo(state, info){
+      state.songList.push(info)
     }
   },
   // action: 处理action，可以书写业务逻辑，处理异步
@@ -26,6 +30,9 @@ export default createStore({
     },
     song(state) {
       return state.song || {};
+    },
+    emo(state) {
+      return state.emo || '';
     }
   }
 })

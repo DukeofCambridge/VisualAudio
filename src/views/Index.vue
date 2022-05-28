@@ -36,7 +36,7 @@ import {gsap, Power2} from "gsap";
 import Player from "@/components/Player.vue";
 //import AudioWave from "@/components/home/AudioWave.vue";
 import Lyric from "@/components/Lyric.vue";
-
+import { mapState } from "vuex";
 import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
 import Nav from "@/components/Nav";
 
@@ -44,6 +44,9 @@ import Nav from "@/components/Nav";
 export default {
   name: "Index",
   components: {Nav, Player, Lyric },
+  computed: {
+    ...mapState(["songList","song"]),    // userid是store/index.js的state里面定义的变量名
+  },
   data() {
     return {
       is_stop: true,
@@ -166,7 +169,7 @@ export default {
       this.playList.push(song);
       console.log("加入歌单" + song.url);
       if (i === 0) this.song = song;
-
+      this.$store.commit('loadList',this.playList)
 
     }
     this.song = this.playList[0];
@@ -179,10 +182,10 @@ export default {
      * 切歌
      */
     switchSong(str) {
-      let index = (this.playList || []).findIndex((song) => song === this.song);
+      let index = (this.songList || []).findIndex((song) => song === this.song);
       let following = index;
       if (str === "next") {
-        if (index >= this.playList.length - 1) {
+        if (index >= this.songList.length - 1) {
           following = 0;
         } else {
           following = index + 1;
@@ -190,12 +193,12 @@ export default {
       } else if (str === "previous") {
         console.log("previous");
         if (index <= 0) {
-          following = this.playList.length - 1;
+          following = this.songList.length - 1;
         } else {
           following = index - 1;
         }
       }
-      this.song = this.playList[following];
+      this.song = this.songList[following];
     },
     /**
      * 切换播放顺序
@@ -219,15 +222,15 @@ export default {
       }
       //随机播放
       else if (this.order === "random") {
-        var index = (this.playList || []).findIndex(
+        var index = (this.songList || []).findIndex(
           (song) => song === this.song
         );
         let following = index;
-        let len = this.playList.length;
+        let len = this.songList.length;
         while (following === index) {
           following = Math.floor(Math.random() * len); // 随机获取下标
         }
-        this.song = this.playList[following];
+        this.song = this.songList[following];
       }
     },
     /**
@@ -261,6 +264,12 @@ export default {
       if(str === "pause"){
        this.$refs.wave.pause();
       }
+    },
+    /**
+     * 情绪推荐音乐
+     */
+    pushEmo(){
+
     }
   },
 };
@@ -706,18 +715,6 @@ body {
   background-size: cover;
   margin-bottom: 20px;
   transition: 0.5s;
-}
-.dim {
-  will-change: opacity;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  /*background-color: rgba(37, 33, 32, 0.2);*/
-  position: fixed;
-  background-color: rgba(224, 221, 209, 0.701961);
-  display: none;
-  z-index: 2;
-  opacity: 0;
 }
 .lyric{
   display: none;
