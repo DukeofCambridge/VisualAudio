@@ -3,46 +3,48 @@
       <div class="tip">
         <p class="AIsing">选择您感兴趣的标签吧！</p>
         <div class="connect_btn">
-          <div class="connect_btn_text" @click="this.$router.push('/index/face')">我选好了!</div>
+          <div class="connect_btn_text" @click="store">我选好了!</div>
         </div>
       </div>
       <div class='items'>
         <div class='item' @click="changeTag(0)">
-          <card :tag_name="taglist[0]" :img_src="require('../assets/tag/华语.png')" ></card>
+          <card :tag_name="taglist[0]" :img_src="require('../assets/tag/华语.png')" >
+            <audio id="audioMusic" class="audio" src="../assets/piano/c-#2.mp3" controls autoplay="autoplay"      hidden="true" ref="audio"></audio>
+          </card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(1)">
           <card :tag_name="taglist[1]" :img_src="require('../assets/tag/欧美.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(2)">
           <card :tag_name="taglist[2]" :img_src="require('../assets/tag/粤语.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(3)">
           <card :tag_name="taglist[3]" :img_src="require('../assets/tag/民谣.png')"></card>
         </div>
 
-        <div class='item'>
+        <div class='item' @click="changeTag(4)">
           <card :tag_name="taglist[4]" :img_src="require('../assets/tag/复古.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(5)">
           <card :tag_name="taglist[5]" :img_src="require('../assets/tag/摇滚.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(6)">
           <card :tag_name="taglist[6]" :img_src="require('../assets/tag/电音.png')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(7)">
           <card :tag_name="taglist[7]" :img_src="require('../assets/tag/流行.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(8)">
           <card :tag_name="taglist[8]" :img_src="require('../assets/tag/纯音乐.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(9)">
           <card :tag_name="taglist[9]" :img_src="require('../assets/tag/后摇.png')"></card>
         </div>
 
-        <div class='item'>
+        <div class='item' @click="changeTag(10)">
           <card :tag_name="taglist[10]" :img_src="require('../assets/tag/rap.jpg')"></card>
         </div>
-        <div class='item'>
+        <div class='item' @click="changeTag(11)">
           <card :tag_name="taglist[11]" :img_src="require('../assets/tag/影视.jpg')"></card>
         </div>
 
@@ -69,8 +71,11 @@ export default {
   },
   data: function(){
     return{
-      taglist:["华语","欧美","粤语","民谣","复古","摇滚","电音","流行","纯音乐","后摇","rap","影视"],
-      tagselect:[0,0,0,0,0,0,0,0,0,0,0,0]
+      taglist:["华语","欧美","粤语","民谣","复古","摇滚","电音","流行,","纯音乐","后摇","rap","影视"],
+      catID:[2746193185,433008347,2811695732,939320758,926939573,2100636362,2554594486,167966646,2457752542,6860376211,2345048322,2560753628],
+      tagselect:[0,0,0,0,0,0,0,0,0,0,0,0],
+      songsID:[],
+      songs:[],
     }
   },
   mounted() {
@@ -94,6 +99,36 @@ export default {
         this.tagselect[param]=0;
       }
       console.log(this.tagselect);
+    },
+    async store(){
+      var i=0;
+      for(i=0;i<this.tagselect.length;i++)
+      {
+        if(this.tagselect[i]==1)
+        {
+          await this.$axios({
+          method: 'get',
+          url: 'http://101.43.31.168:3000/playlist/detail?id='+this.catID[i],
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+          }).then((res) => {
+            console.log(res.data.playlist.tracks)
+            for(var j=0;j<10;j++)
+            {
+              this.songsID.push(res.data.playlist.tracks[j].id)
+            }
+            
+              
+          }).catch(failResponse => {
+            console.log(failResponse)})
+        }
+      }
+     
+      console.log(this.songsID)
+      this.$store.state.tagRecommendSongsID=this.songsID;      
+      this.$router.push('/index/face')
+       
     }
 
   },

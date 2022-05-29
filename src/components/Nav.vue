@@ -9,16 +9,22 @@
   <!--左导航栏-->
   <div class="nav">
     <ul class="nav_main">
-      <li><a class="nav_link" @click="this.$router.push('/index/main')">主页 </a></li>
-      <li><a class="nav_link" @click="this.$router.push('/index/tag')">标签选择</a></li>
-      <li><a class="nav_link" @click="this.$router.push('/index/face')">情绪分析</a></li>
-      <li><a class="nav_link" @click="this.$router.push('/index/square')">音乐广场</a></li>
+      <li> <img src="../assets/side_nav/home.png" class="tag"/> <a class="nav_link" @click="this.$router.push('/index/main')">播放主页 </a></li>
+      <li> <img src="../assets/side_nav/tag.png" class="tag"/> <a class="nav_link" @click="this.$router.push('/index/tag')">标签选择</a></li>
+      <li> <img src="../assets/side_nav/emo.png" class="tag"/> <a class="nav_link" @click="this.$router.push('/index/face')">情绪分析</a></li>
+      <li> <img src="../assets/side_nav/music.png" class="tag"/> <a class="nav_link" @click="this.$router.push('/index/square')">音乐广场</a></li>
     </ul>
-    <div class="nav_divider"></div>
+    <!-- <div class="nav_divider"></div>
     <ul class="nav_sub">
       <li><a>成员: 邵国诚 吴渭 时守格 段文涛 </a></li>
       <li><a>指导教师: 梁爽 </a></li>
-    </ul>
+    </ul> -->
+    
+    <div>
+      <span id="title">Visual Audio</span>
+    </div>
+
+
   </div>
 
 </template>
@@ -125,10 +131,36 @@ ul,
 li {
   list-style: none;
   padding: 0;
+  margin:20px;
 }
 a {
   color: inherit;
   text-decoration: none;
+}
+.tag{
+  margin-right: 1vw;
+  width: 20px;
+  margin-top:0.5vw;
+}
+#title{
+  display: block;
+  background: black;
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-animation: gradient 3s ease-in-out infinite;
+  -webkit-animation: gradient 3s ease-in-out infinite;
+  animation: gradient 3s ease-in-out infinite;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 2px;
+  line-height: 70px;
+  font-family: 'Squada One', cursive;
+  font-size: 45px;
+  letter-spacing:5px;
+  margin-top: 5vw;
+  margin-left:5.5vw;
 }
 .header {
   position: fixed;
@@ -199,7 +231,7 @@ a {
   will-change: transform;
   position: fixed;
   background-color: #fff;
-  width: 50vw;
+  width: 30vw;
   top: 0;
   min-width: 500px;
   height: 100vh;
@@ -215,7 +247,7 @@ a {
   margin-top: 3vh;
 }
 .nav ul.nav_main a{
-  font-size: 2.8vw;
+  font-size: 1.4vw;
   color: #444444;
 }
 .nav ul.nav_sub a {
@@ -229,13 +261,13 @@ a {
 }
 
 .nav_link {
-  font-size: 2.8vw;
+  font-size: 0.4vw;
   cursor: pointer;
 }
 .nav_link:before {
   content: "";
   position: absolute;
-  width: 8vw;
+  width: 4vw;
   height: 2px;
   background-color: #444444;
   left: -12vw;
@@ -246,7 +278,7 @@ a {
 .nav_divider {
   width: 16vw;
   height: 1px;
-  left: 14vw;
+  left: 5vw;
   background-color: rgba(37, 33, 32, 0.12);
   margin: 4vh 19vw;
 }
