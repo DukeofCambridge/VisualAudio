@@ -36,3 +36,12 @@ export async function searchAlbumById(params) {
  export async function searchLyricById(params) {
     return await httpRequest.get("/lyric",{params})
 }
+
+/**
+ * 根据类别id查找歌单
+ * @param {*} id
+ * @returns 
+ */
+ export async function searchListById(params) {
+    return await httpRequest.get("/playlist/detail",{params})
+}

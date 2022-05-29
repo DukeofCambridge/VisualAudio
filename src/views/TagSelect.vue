@@ -3,7 +3,7 @@
       <div class="tip">
         <p class="AIsing">选择您感兴趣的标签吧！</p>
         <div class="connect_btn">
-          <div class="connect_btn_text" @click="store">我选好了!</div>
+          <div class="connect_btn_text" @click="pushTagSelect">我选好了!</div>
         </div>
       </div>
       <div class='items'>
@@ -64,6 +64,7 @@
 import $ from "jquery";
 import { gsap, Power2 } from "gsap";
 import card from "../components/Card.vue"
+import { searchById,searchLyricById,searchListById} from "@/apis/songs";
 export default {
   name: "TagSelect",
   components:{
@@ -71,11 +72,12 @@ export default {
   },
   data: function(){
     return{
-      taglist:["华语","欧美","粤语","民谣","复古","摇滚","电音","流行,","纯音乐","后摇","rap","影视"],
+      taglist:["华语","欧美","粤语","民谣","复古","摇滚","电音","流行","纯音乐","后摇","rap","影视"],
       catID:[2746193185,433008347,2811695732,939320758,926939573,2100636362,2554594486,167966646,2457752542,6860376211,2345048322,2560753628],
       tagselect:[0,0,0,0,0,0,0,0,0,0,0,0],
       songsID:[],
       songs:[],
+      singers:["nue_ni","Smile_小千","崔子格","Seredris","不才","陈希同","Jori King","郁欢","石白其"],
     }
   },
   mounted() {
@@ -100,35 +102,106 @@ export default {
       }
       console.log(this.tagselect);
     },
-    async store(){
-      var i=0;
-      for(i=0;i<this.tagselect.length;i++)
+    // async store(){
+    //   var i=0;
+    //   for(i=0;i<this.tagselect.length;i++)
+    //   {
+    //     if(this.tagselect[i]==1)
+    //     {
+    //       this.$axios({
+    //       method: 'get',
+    //       url: 'http://101.43.31.168:3000/playlist/detail?id='+this.catID[i],
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data'
+    //       }
+    //       }).then((res) => {
+    //         console.log(res.data.playlist.tracks)
+    //         for(var j=0;j<10;j++)
+    //         {
+              
+    //           this.songsID.push(res.data.playlist.tracks[j].id)
+    //            this.$axios({
+    //             method: 'get',
+    //             url: 'http://101.43.31.168:3000/playlist/detail?id='+this.catID[i],
+    //             headers: {
+    //               'Content-Type': 'multipart/form-data'
+    //             }
+    //             }).then((res)=>{
+    //               console.log(res.data)
+    //             })
+    //           let song = {
+    //           name: String,
+    //           singer: String,
+    //           url: String,
+    //           picUrl: String,
+    //           lyric: String
+    //           };
+    //           song.name=res.data.playlist.tracks[j].name;
+
+    //           var index = Math.floor((Math.random()*this.singers.length)); 
+    //           song.singer=this.singers[index];
+
+    //           console.log(res.data.playlist.tracks[j].id)
+    //           let _res =  searchById({id: res.data.playlist.tracks[j].id});
+    //           console.log(_res.data)
+    //           song.url = _res.data[0].url; //音乐url
+
+    //           song.picUrl=res.data.playlist.tracks[j].al.picUrl;
+    //           _res =  searchLyricById({id: res.data.playlist.tracks[j].id})
+    //           song.lyric = res.lrc.lyric
+    //           console.log("song")
+    //           console.log(song)
+    //           //this.$store.commit('pushEmo', song)
+    //         }
+            
+              
+    //       }).catch(failResponse => {
+    //         console.log(failResponse)})
+    //     }
+    //   }
+    //   console.log("songID")
+    //   console.log(this.songsID)
+    //   this.$store.state.tagRecommendSongsID=this.songsID;      
+    //   this.$router.push('/index/face')
+       
+    // },
+    async pushTagSelect()
+    {
+      for(var i=0;i<this.tagselect.length;i++)
       {
         if(this.tagselect[i]==1)
         {
-          await this.$axios({
-          method: 'get',
-          url: 'http://101.43.31.168:3000/playlist/detail?id='+this.catID[i],
-          headers: {
-            'Content-Type': 'multipart/form-data'
+          let res=await searchListById({id:this.catID[i]})
+          for(var j=0;j<10;j++)
+          {
+            let song = {
+              name: String,
+              singer: String,
+              url: String,
+              picUrl: String,
+              lyric: String
+              };
+            song.name=res.playlist.tracks[j].name;
+
+            var index = Math.floor((Math.random()*this.singers.length)); 
+            song.singer=this.singers[index];
+
+            let _res = await searchById({id: res.playlist.tracks[j].id});    
+            song.url=_res.data[0].url
+
+
+            song.picUrl = res.playlist.tracks[j].al.picUrl; //海报url
+
+            _res = await searchLyricById({id: res.playlist.tracks[j].id})
+            song.lyric=_res.lrc.lyric
+
+            this.$store.commit('pushEmo', song)
+
           }
-          }).then((res) => {
-            console.log(res.data.playlist.tracks)
-            for(var j=0;j<10;j++)
-            {
-              this.songsID.push(res.data.playlist.tracks[j].id)
-            }
-            
-              
-          }).catch(failResponse => {
-            console.log(failResponse)})
         }
+        
       }
-     
-      console.log(this.songsID)
-      this.$store.state.tagRecommendSongsID=this.songsID;      
-      this.$router.push('/index/face')
-       
+        this.$router.push('/index/face')
     }
 
   },
@@ -164,6 +237,7 @@ export default {
   font-style: italic;
   text-shadow: 0px 0px 8px #fff, 0px 0px 42px #f72, 0px 0px 72px #f84, 0px 0px 150px #fa5;
   z-index: 9;
+  top: 1vh;
 }
 
 .connect_btn:before {

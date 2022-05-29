@@ -900,7 +900,7 @@ export default {
   position: fixed;
   right: 0;
   top: 0;
-  width: 600px;
+  width: 500px;
   height: 100%;
   margin-top: 0px;
   background-color: #fff;
@@ -952,7 +952,7 @@ export default {
   color: #252120;
 }
 .playback_info .title {
-  font-size: 30px;
+  font-size: 25px;
   display: inline;
   color: #252120;
   font-weight: 500;
@@ -960,7 +960,7 @@ export default {
 }
 .playback_info .artist {
   margin-top: 14px;
-  font-size: 20px;
+  font-size: 18px;
   opacity: 0.8;
   color: #252120;
   font-family: Oswald;

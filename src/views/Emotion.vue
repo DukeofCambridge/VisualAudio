@@ -215,6 +215,7 @@ export default {
         // 获取歌词
         res = await searchLyricById({id: id})
         song.lyric = res.lrc.lyric
+        console.log(song)
         this.$store.commit('pushEmo', song)
         this.$router.push('/index/main')
       },
