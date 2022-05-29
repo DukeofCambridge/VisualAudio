@@ -297,7 +297,7 @@
         <div class="title" style="color: #252120">{{ song.name }}</div>
         <div class="artist">{{ song.singer }}</div>
       </div>
-      <div class="playback_btn_wrapper">
+      <div class="playback_btn_wrapper" style="margin: -9vh 0 0 11vw">
         <i class="btn-prev fa fa-step-backward" @click="switchPrevious()"></i>
         <div class="btn-switch">
           <i
@@ -317,10 +317,10 @@
           @click="switchNext()"
         ></i>
       </div>
-      <i class="timeStr" style="position: absolute; top: 73.5%; right: 50%">{{
+      <i class="timeStr" style="position: absolute; top: 80%; right: 85%">{{
         control.proStr
       }}</i>
-      <el-row style="height: 20%; width: 40%; bottom: 500px">
+      <el-row style="height: 20%; width: 40%; bottom: 5vh">
         <canvas id="canvas"></canvas>
       </el-row>
       <el-slider
@@ -330,14 +330,14 @@
         class="process"
         style="
           box-shadow: #ffd110;
-          width: 35%;
-          margin-left: 52%;
-          margin-top: 30%;
+          width: 62%;
+          margin-left: 18%;
+          margin-top: 40%;
         "
         :show-tooltip="false"
       >
       </el-slider>
-      <i class="timeStr" style="position: absolute; top: 73.5%; right: 5%">{{
+      <i class="timeStr" style="position: absolute; top: 80%; right: 10%">{{
         control.durStr
       }}</i>
     </div>
@@ -749,22 +749,22 @@ export default {
       var barWidth = (WIDTH / bufferLength) * 1.5;
       var barHeight;
       var halfWidth = WIDTH / 2;
-      let a = 0.75 / bufferLength;
+      //let a = 0.75 / bufferLength;
       function renderFrame() {
         requestAnimationFrame(renderFrame);
         analyser.getByteFrequencyData(dataArray);
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
-        let multi = 0;
+        //let multi = 0;
         for (var i = 0, x = 0; i < bufferLength; i++) {
           barHeight = dataArray[i] / 3;
-          multi = a * i + 0.75;
-          barHeight *= multi;
+          //multi = a * i + 0.75;
+          //barHeight *= multi;
 
           // Create gradient
           var grd = ctx.createLinearGradient(0, 865, 0, 882);
 
           //调节明暗
-          let down = parseInt((256 - dataArray[i]) / 2);
+          let down = parseInt((256 - dataArray[i]) / 2) / 2 + 30;
           let g1 = 255 - down;
           let g2 = 255 - down;
           let b1 = 180 - down;
@@ -796,7 +796,7 @@ export default {
     this.canvas.context = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.canvas.analyser = this.canvas.context.createAnalyser();
-    this.canvas.analyser.fftSize = 32;
+    this.canvas.analyser.fftSize = 64;
     this.canvas.source = this.canvas.context.createMediaElementSource(
       this.$refs.audio
     );
@@ -865,19 +865,19 @@ export default {
   font-size: 20px;
 }
 
+playback_btn_wrapper{
+  position:absolute;
+  margin-left: 10vw;
+}
+
 .playback_btn_wrapper .btn-switch {
   margin-right: 0;
   color: #FF645A;
 
 }
 
-.btn-play,
 .btn-pause {
-  position: absolute;
   color: #ff645a;
-}
-
-.btn-pause {
   display: none;
   opacity: 0;
 }
@@ -1129,13 +1129,17 @@ export default {
 }
 
 #canvas {
-  position: fixed;
+/*   position: fixed;
   left: 38%;
   top: -56%;
   width: 60%;
-  height: 100%;
+  height: 100%; */
+top: -53%;
 }
 
+.fa{
+  cursor: pointer;
+}
 </style>
 
 
