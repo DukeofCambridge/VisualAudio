@@ -10,48 +10,41 @@
     >
     </el-slider>
   </el-row> -->
+  <!--顶部播放小组件-->
   <el-row :gutter="0">
-
+    <!--封面-->
     <el-col :span="1" :offset="15">
-      <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image
-    ></el-col>
-    <el-col :span="2"
-      >
+      <el-image :src="song.picUrl" style="border-radius: 10%"> </el-image></el-col>
+    <!--歌曲信息-->
+    <el-col :span="2">
       <div style="word-wrap:break-word;"><p
         style="
           text-align: left;
           margin: -4px 0 0 10px;
-
-          font-size: 18px;
-        "
-      >
+          font-size: 18px;">
         {{ song.name }}
       </p>
-      <p
-        style="
+      <p style="
           text-align: left;
           margin: 5px 0 0 10px;
           text-overflow: ellipsis;
           font-size: 15px;
-          color: rgba(37, 33, 32, 0.7);
-        "
-      >
+          color: rgba(37, 33, 32, 0.7);">
         {{ song.singer }}
       </p></div>
-      <div
-        style="
-        position: absolute;
+      <div style="
+          position: absolute;
           width: 1px;
           height: 60px;
           background: #8a8a8a;
           opacity: 0.3;
           top: 5%;
-          right:25%
-        "
-      ></div>
+          right: 25%;
+        "></div>
     </el-col>
-    <div style="margin-right: 80px; margin-top: 7px">
+
       <el-col :span="1" style="">
+        <!--播放模式-->
         <div>
           <el-popover
             placement="bottom"
@@ -72,7 +65,7 @@
                 p-id="1003"
                 width="22"
                 height="22"
-                style="margin: 10px 0px 0px -10px; cursor: pointer"
+                style="margin: 10px 0px 0px 0px; cursor: pointer"
               >
                 <path
                   d="M106 85.5c-22.1 0-40 17.9-40 40v760.6c0 22.1 17.9 40 40 40s40-17.9 40-40V125.5c0-22.1-17.9-40-40-40zM457.3 85.5c-22.1 0-40 17.9-40 40v760.6c0 22.1 17.9 40 40 40s40-17.9 40-40V125.5c0-22.1-17.9-40-40-40zM955.1 661.4c-7.1-12.4-20.3-20-34.6-20h-72c0-0.8 0.1-1.5 0.1-2.3V125.5c0-22.1-17.9-40-40-40s-40 17.9-40 40v513.6c0 0.8 0 1.5 0.1 2.3h-87c-14.3 0-27.5 7.6-34.6 20-7.1 12.4-7.1 27.6 0 40l119.4 206.8c7.1 12.4 20.3 20 34.6 20s27.5-7.6 34.6-20l119.4-206.8c7.2-12.4 7.2-27.7 0-40z m-154 146.8L751 721.4h100.2l-50.1 86.8z"
@@ -120,11 +113,11 @@
                 ></path>
               </svg>
             </template>
-            <div style="font: bold 14px arial, sans-serif; cursor: pointer">
+            <div style="font: bold 14px arial, sans-serif; cursor: pointer;">
               <div class="option" v-on:click="changeOrder('random')">
                 <el-image
                   :src="require('@/assets/home/random.svg')"
-                  style="margin: 0px 0px -6.5px 0px"
+                  style="margin: 0px 0px -0.7vh 1vw"
                 ></el-image
                 ><b class="font">随机播放</b>
               </div>
@@ -132,7 +125,7 @@
               <div class="option" v-on:click="changeOrder('sequence')">
                 <el-image
                   :src="require('@/assets/home/sequence.svg')"
-                  style="margin: 0px 0px -6.5px 0px"
+                  style="margin: 0px 0px -0.7vh 1vw"
                 ></el-image
                 ><b class="font">顺序播放</b>
               </div>
@@ -140,7 +133,7 @@
               <div class="option" v-on:click="changeOrder('loop')">
                 <el-image
                   :src="require('@/assets/home/loop.svg')"
-                  style="margin: 0px 0px -6.5px 0px"
+                  style="margin: 0px 0px -0.7vh 1vw"
                 ></el-image
                 ><b class="font">单曲循环</b>
               </div>
@@ -148,20 +141,19 @@
           </el-popover>
         </div>
       </el-col>
-      <el-col :span="1" style="margin-left: -20px">
-        <el-image
+      <el-col :span="1" >
+        <!--返回/后退键-->
+       <el-image
           :src="require(`/src/assets/home/previous.svg`)"
           style="cursor: pointer"
           @click="switchPrevious()"
           class="icon"
-          v-on:click.stop
-        ></el-image
-      ></el-col>
-      <el-col :span="1" style="margin-left: -15px">
-        <el-image
+          v-on:click.stop></el-image> </el-col>
+      <el-col :span="1" >
+        <!--播放键-->
+       <el-image
           :src="require(`/src/assets/home/play.svg`)"
-          :style="{ opacity: control.is_stop ? '1' : '0', cursor: 'pointer' }"
-        ></el-image>
+          :style="{ opacity: control.is_stop ? '1' : '0', cursor: 'pointer' }"></el-image>
         <el-image
           :src="require(`/src/assets/home/pause.svg`)"
           :style="{
@@ -174,8 +166,9 @@
           v-on:click.stop
         ></el-image>
       </el-col>
-      <el-col :span="1" style="margin-left: -15px">
-        <el-image
+      <el-col :span="1">
+        <!--前进键-->
+       <el-image
           :src="require(`/src/assets/home/next.svg`)"
           style="cursor: pointer"
           class="icon"
@@ -183,22 +176,23 @@
           v-on:click.stop
         ></el-image>
       </el-col>
-      <el-col :span="1" style="margin-left: -15px">
+      <el-col :span="1">
+        <!--音量-->
+        
         <el-popover
           placement="bottom"
-          :width="0"
+          style="width: 20px;"
           show-arrow="true"
           effect="light"
           trigger="click"
           popper-class="myPopover"
-          class = "progress"
         >
           <template #reference>
             <el-image
               :src="require(`/src/assets/home/volume.svg`)"
               :style="{
                 opacity:
-                  control.volume > 0 && control.muted == false ? '1' : '0',
+                  control.volume > 0 && control.muted === false ? '1' : '0',
                 cursor: 'pointer',
                 margin: '9px 0 0 0',
               }"
@@ -206,17 +200,25 @@
           </template>
           <el-slider
             :show-tooltip="false"
-            class="volumepro"
             v-model="control.volume"
             vertical
             height="120px"
             @change="changeVolume"
-            style="margin-top: 20px"
+            style="margin-top: 1vh; margin-left:1vw;"
           />
-          <div style="margin: 12px 0; font-size: 17px">
+          <div style="margin: 3vh 0 0 1vw; font-size: 17px">
             {{ control.volume }}%
           </div>
-          <hr size="1px" style="margin: 15px 0px 15px -20px; opacity: 0.3" />
+          <div style="
+          position: absolute;
+          width: 0.11vw;
+          height: 23vh;
+          background: #8a8a8a;
+          opacity: 0.3;
+          top: 7%;
+          right: 50%;
+          "></div>
+          <!-- <hr size="1px" style="margin: 15px 0px 15px -20px; opacity: 0.3" /> -->
           <svg
             t="1651917648019"
             id="volumeIcon1"
@@ -226,9 +228,7 @@
             p-id="5325"
             width="22"
             height="22"
-            :style="{
-              opacity: control.volume == 0 || control.muted == true ? '1' : '0',
-            }"
+            v-show = "control.volume === 0 || control.muted === true"
             @click="closeVolume()"
             v-on:click.stop
           >
@@ -249,10 +249,7 @@
             p-id="9945"
             width="22"
             height="22"
-            :style="{
-              opacity: control.volume > 0 && control.muted == false ? '1' : '0',
-            }"
-            style="margin-bottom: 6.5px"
+            v-show = "control.volume > 0 && control.muted === false"
             @click="closeVolume()"
             v-on:click.stop
           >
@@ -265,6 +262,7 @@
             ></path>
           </svg>
         </el-popover>
+        
         <el-image
           :src="require(`/src/assets/home/silence.svg`)"
           class="volume icon"
@@ -274,21 +272,20 @@
             pointer-events: none;
           "
           :style="{
-            opacity: control.volume > 0 && control.muted == false ? '0' : '1',
+            opacity: control.volume > 0 && control.muted === false ? '0' : '1',
           }"
         ></el-image>
       </el-col>
-    </div>
-    <el-col :span="1" style="margin-left: -15px; margin-top: 10px"
-      ><el-image
+
+    <!--打开歌单菜单-->
+    <el-col :span="1" style="margin-left: -15px; margin-top: 10px">
+      <el-image
         :src="require(`/src/assets/home/menu.svg`)"
         style="cursor: pointer"
         @click="open()"
-      ></el-image
-    ></el-col>
+      ></el-image> </el-col>
   </el-row>
-  <!--遮罩层,写成组件后会挂载多个div,故加序号区分-->
-  <div class="dim-2"></div>
+  <!--歌单侧边栏-->
   <div class="player" id="player">
     <div class="playback_wrapper">
       <div class="playback_blur"></div>
@@ -297,24 +294,21 @@
         :style="{ backgroundImage: 'url(' + song.picUrl + ')' }"
       ></div>
       <div class="playback_info">
-        <div class="title" style="color: #252120;">{{ song.name }}</div>
+        <div class="title" style="color: #252120">{{ song.name }}</div>
         <div class="artist">{{ song.singer }}</div>
       </div>
       <div class="playback_btn_wrapper">
-        <i
-          class="btn-prev fa fa-step-backward"
-          @click="switchPrevious()"
-        ></i>
+        <i class="btn-prev fa fa-step-backward" @click="switchPrevious()"></i>
         <div class="btn-switch">
           <i
             class="btn-play fa fa-play"
             aria-hidden="true"
-            @click="btn_play"
+            @click="songPlay"
           ></i
           ><i
             class="btn-pause fa fa-pause"
 
-            @click="btn_pause"
+            @click="songPause"
           ></i>
         </div>
         <i
@@ -323,12 +317,10 @@
           @click="switchNext()"
         ></i>
       </div>
-      <i
-        class="timeStr"
-        style="position: absolute; top:73.5%;right:50% "
-        >{{ control.proStr }}</i
-      >
-      <el-row style="height: 20%; width: 40%; bottom:500px">
+      <i class="timeStr" style="position: absolute; top: 73.5%; right: 50%">{{
+        control.proStr
+      }}</i>
+      <el-row style="height: 20%; width: 40%; bottom: 500px">
         <canvas id="canvas"></canvas>
       </el-row>
       <el-slider
@@ -337,19 +329,17 @@
         @change="changeLong"
         class="process"
         style="
-          box-shadow: #FFD110;
+          box-shadow: #ffd110;
           width: 35%;
           margin-left: 52%;
-          margin-top: 31%;
+          margin-top: 30%;
         "
         :show-tooltip="false"
       >
       </el-slider>
-      <i
-        class="timeStr"
-        style="position: absolute; top:73.5%;right:5% "
-        >{{ control.durStr }}</i
-      >
+      <i class="timeStr" style="position: absolute; top: 73.5%; right: 5%">{{
+        control.durStr
+      }}</i>
     </div>
     <div class="list_wrapper">
       <ul class="list">
@@ -374,6 +364,7 @@
       </ul>
     </div>
   </div>
+
   <audio
     :src="song.url"
     id="audio"
@@ -402,7 +393,7 @@ export default {
       picUrl: String, //海报url
       name: String, //歌曲名称
       singer: String, //歌手名称
-      lyric: String
+      lyric: String,
     },
   },
   data() {
@@ -433,9 +424,11 @@ export default {
   },
 
   methods: {
-    // ===== Open Player + dim on =====
+    /**
+     * 打开界面右侧的播放列表
+     */
     play() {
-      gsap.to(".dim2", 0.5, {
+      gsap.to(".dim", 0.5, {
         opacity: 1,
         display: "block",
         ease: Power2.easeInOut,
@@ -449,19 +442,13 @@ export default {
       gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
     },
     /**
-     * <el-image>
-     * 单击播放键icon触发事件，播放或暂停
+     * 播放歌曲
      */
-    change() {
-      var audio = document.querySelector("#audio");
-      //暂停 -> 启动
-      if (this.control.is_stop == true) {
-        console.log("启动");
-        this.control.is_stop = false;
-        audio.play();
-        this.onLoadAudio();
-        this.$emit("change","play")
+    async songPlay() {
+      var _audio = $("#audio");
+      console.log("启动");
 
+      if (this.control.is_stop === true) {
         gsap.to($(".btn-play"), 0.2, {
           x: 20,
           opacity: 0,
@@ -482,13 +469,34 @@ export default {
           }
         );
       }
-      //启动 -> 暂停
-      else {
-        console.log("暂停");
-        this.control.is_stop = true;
-        audio.pause();
-        this.$emit("change","pause")
+      this.control.is_stop = false;
 
+      //获取音量值，从0开始渐入增大音量
+      let vol = _audio[0].volume;
+
+      this.$refs.audio.volume = 0.01;
+
+      //this.$refs.audio.volume = 0.01;
+      _audio[0].play();
+
+      //声音淡入
+      _audio.animate({ volume: vol }, 2000, "swing", () => {
+          this.$refs.audio.volume = vol;
+      this.control.volume = Math.round(vol * 100)
+
+      });
+
+
+      this.onLoadAudio();
+      this.$emit("change", "play");
+    },
+    /**
+     * 暂停歌曲
+     */
+    async songPause() {
+      var _audio = $("#audio");
+      console.log("暂停");
+      if (this.control.is_stop === false) {
         gsap.to($(".btn-pause"), 0.2, {
           x: 20,
           opacity: 0,
@@ -509,6 +517,33 @@ export default {
           }
         );
       }
+      this.control.is_stop = true;
+      //获取音量值，从目前音量渐弱至0
+      let vol = _audio[0].volume;
+
+      console.log("原来的音量" + vol);
+      //this.$refs.audio.volume = vol;
+
+      _audio.animate({ volume: 0.01 }, 2000, "swing", () => {
+        _audio[0].pause();
+        _audio[0].volume = vol;
+      });
+      this.control.volume = Math.round(vol * 100);
+      this.$emit("change", "pause");
+    },
+    /**
+     * <el-image>
+     * 单击播放键icon触发事件，播放或暂停
+     */
+    change() {
+      //暂停 -> 启动
+      if (this.control.is_stop === true) {
+        this.songPlay();
+      }
+      //启动 -> 暂停
+      else {
+        this.songPause();
+      }
     },
     /**
      * <audio>
@@ -516,7 +551,6 @@ export default {
      * 更改显示的播放时间
      */
     getCurr() {
-
       this.control.currentTime = parseInt(this.$refs.audio.currentTime);
       this.control.progress =
         (this.control.currentTime / this.control.duration) * 100;
@@ -536,7 +570,7 @@ export default {
 
       this.control.proStr = proStr;
 
-      this.$emit("timeUpdate",time)
+      this.$emit("timeUpdate", time);
     },
     /**
      * <audio>
@@ -545,7 +579,7 @@ export default {
      */
     showLong() {
       this.control.duration = parseInt(this.$refs.audio.duration);
-      this.control.volume = this.$refs.audio.volume * 100;
+      this.control.volume = parseInt(this.$refs.audio.volume * 100);
     },
     /**
      * <el-slider>
@@ -557,28 +591,8 @@ export default {
       if (!isNaN(ct)) {
         this.$refs.audio.currentTime = ct;
       }
-      this.control.is_stop = false;
-      this.$refs.audio.play();
-      this.onLoadAudio();
-      gsap.to($(".btn-play"), 0.2, {
-          x: 20,
-          opacity: 0,
-          scale: 0.3,
-          display: "none",
-          ease: Power2.easeInOut,
-        });
-        gsap.fromTo(
-          $(".btn-pause"),
-          0.2,
-          { x: -20, opacity: 0, scale: 0.3, display: "none" },
-          {
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            display: "block",
-            ease: Power2.easeInOut,
-          }
-        );
+      //拖动进度条后会自动播放
+      this.songPlay();
     },
     changeVolume() {
       let volume = this.control.volume / 100;
@@ -614,60 +628,16 @@ export default {
       audio.autoplay = true;
       this.$emit("switch", "next");
 
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        {
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        }
-      );
+      //切歌后将会自动播放
+      this.songPlay();
     },
     switchPrevious() {
       var audio = document.querySelector("#audio");
       audio.autoplay = true;
       this.$emit("switch", "previous");
 
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        {
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        }
-      );
+      //切歌后将会自动播放
+      this.songPlay();
     },
     /**
      * 改变播放模式
@@ -676,7 +646,7 @@ export default {
       this.$refs.orderList.hide();
       this.control.order = order;
       this.$emit("switchOrder", order);
-      if (order == "loop") {
+      if (order === "loop") {
         this.$refs.audio.loop = true;
       } else {
         this.$refs.audio.loop = false;
@@ -692,8 +662,36 @@ export default {
      * 打开播放列表
      */
     open() {
-      //this.$emit("openList");
-      this.play();
+      gsap.to(".dim", 0.5, {
+        opacity: 1,
+        display: "block",
+        ease: Power2.easeInOut,
+      });
+      gsap.fromTo(
+        "#player",
+        0.5,
+        { xPercent: 100 },
+        { xPercent: 0, display: "block", ease: Expo.easeOut }
+      );
+      gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
+    },
+    close() {
+      gsap.to(".dim", 0.5, {
+        opacity: 0,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      gsap.to("#player", 0.5, {
+        xPercent: 100,
+        display: "none",
+        ease: Power2.easeOut,
+      });
+      gsap.to(".nav", 0.5, {
+        xPercent: -100,
+        display: "none",
+        ease: Power2.easeInOut,
+      });
+      gsap.to(".mini-player", 0.5, { x: 0, ease: Expo.easeOut });
     },
     /**
      * 点击播放列表切歌
@@ -705,30 +703,7 @@ export default {
 
       audio.autoplay = true;
 
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        {
-          x: 0,
-          opacity: 1,
-          scale: 1,
-          display: "block",
-          ease: Power2.easeInOut,
-        }
-      );
+      this.songPlay();
     },
     /**
      * 歌曲切换时，改变显示的总时长
@@ -751,54 +726,8 @@ export default {
       durStr += sec;
       this.control.durStr = durStr;
     },
-    /**
-     *
-     */
-    btn_play() {
-      gsap.to($(".btn-play"), 0.2, {
-        x: 20,
-        opacity: 0,
-        scale: 0.3,
-        display: "none",
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-pause"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        { x: 0, opacity: 1, scale: 1, display: "block", ease: Power2.easeInOut }
-      );
 
-      var audio = document.querySelector("#audio");
-      //暂停 -> 启动
-      console.log("启动");
-      this.control.is_stop = false;
-      audio.play();
-      this.onLoadAudio();
-    },
-    btn_pause() {
-      gsap.to($(".btn-pause"), 0.2, {
-        x: 20,
-        opacity: 0,
-        display: "none",
-        scale: 0.3,
-        ease: Power2.easeInOut,
-      });
-      gsap.fromTo(
-        $(".btn-play"),
-        0.2,
-        { x: -20, opacity: 0, scale: 0.3, display: "none" },
-        { x: 0, opacity: 1, display: "block", scale: 1, ease: Power2.easeInOut }
-      );
-
-      var audio = document.querySelector("#audio");
-
-      console.log("暂停");
-      this.control.is_stop = true;
-      audio.pause();
-    },
-
-     onLoadAudio() {
+    onLoadAudio() {
       //var audio = this.$refs.audio;
       var context = this.canvas.context;
       var analyser = this.canvas.analyser;
@@ -864,7 +793,7 @@ export default {
   mounted() {
     this.$refs.audio.volume = 0.5;
     this.control.volume = 50;
-     this.canvas.context = new (window.AudioContext ||
+    this.canvas.context = new (window.AudioContext ||
       window.webkitAudioContext)();
     this.canvas.analyser = this.canvas.context.createAnalyser();
     this.canvas.analyser.fftSize = 32;
@@ -900,87 +829,18 @@ export default {
 </script>
 
 
-<style lang="scss">
-/* 播放器组件 */
-.player {
-  position: relative;
-  margin-top: -5.8%;
-}
 
-#volumeIcon1 {
-  cursor: pointer;
-  margin: 1px 6px -13px 8px;
-}
-#volumeIcon2 {
-  cursor: pointer;
-  margin: -15px 0 12px 8px;
-}
-.icon {
-  margin: 6px 0 0 0;
-}
-.icon:hover {
-  -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 204, 153, 0.5));
-  width: 50%;
-}
-
-.option:hover {
-  -webkit-filter: brightness(-50%);
-}
-.example-showcase .el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
-
-#canvas {
-  position: fixed;
-  left: 230px;
-  top: -430px;
-  width: 60%;
-  height: 100%;
-}
-</style>
-
-<style lang="scss">
-
-.el-popover.myPopover {
-  padding: 0 0 0 20px;
-  margin: 0 0 0 90px;
-  min-width: 60px;
-  .popper__arrow,
-  .popper__arrow::after {
-    display: none !important;
-  }
-}
-.el-popover.modPopover {
-  margin: 0px 0 10px 0px;
-  min-width: 100px;
-  .popper__arrow,
-  .popper__arrow::after {
-    display: none !important;
-  }
-}
-.font {
-  margin: 0px 0px 0px 8px;
-}
-
-.timeStr {
-  font:  18px, monospace;
-  color: #FFD110;
-}
-</style>
 <style  lang="scss" scoped>
 /* 引入两个style是为了改变el-slider的内置样式 */
 
-:deep()  .el-slider__button {
-  width: 6px;
-  height: 6px;
+:deep() .el-slider__button {
+  width: 0.5vw;
+  height: 0.5vw;
   background: #00cc99;
-  margin: 11px 0 0 13px;
+  margin-bottom: 4px;
   visibility: hidden;
 }
-:deep()  .el-slider__runway:hover .el-slider__button {
+:deep() .el-slider__runway:hover .el-slider__button {
   visibility: visible;
 }
 
@@ -989,43 +849,20 @@ export default {
   height: 3px;
 }
 :deep() .el-slider__runway {
-  background-color: #FFF4C8;
+  background-color: #fff;
   height: 3px;
   border-radius: 0;
-  margin-top: 6px;
-  margin-bottom: 11px;
+
 }
 
-/* .track_info_wrapper .track_info .thumb {
-  width: 32px;
-  height: 32px;
-  margin-right: 10px;
-  background-color: #d3d6da;
-  border-radius: 1px;
-  background-size: cover;
-  background-image: url(https://i1.sndcdn.com/artworks-000167527289-p3zpfg-large.jpg);
-}
-.track_info_wrapper .track_info .title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 14px;
-}
-.track_info_wrapper .track_info .artist {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 12px;
-  color: rgba(37, 33, 32, 0.7);
-} */
 
 .btn-switch {
   width: 30px;
   display: flex;
   margin-right: 30px;
   justify-content: center;
-  color: #FF645A;
-  font-size:20px;
+  color: #ff645a;
+  font-size: 20px;
 }
 
 .playback_btn_wrapper .btn-switch {
@@ -1037,7 +874,7 @@ export default {
 .btn-play,
 .btn-pause {
   position: absolute;
-  color: #FF645A;
+  color: #ff645a;
 }
 
 .btn-pause {
@@ -1045,7 +882,7 @@ export default {
   opacity: 0;
 }
 
-.dim-2 {
+.dim {
   will-change: opacity;
   width: 100vw;
   height: 100vh;
@@ -1077,7 +914,7 @@ export default {
   position: relative;
   //overflow: hidden;
   background-color: #fff9e1;
-  font-size:20px;
+  font-size: 20px;
 }
 
 .playback_blur {
@@ -1115,19 +952,18 @@ export default {
   color: #252120;
 }
 .playback_info .title {
-		font-size: 30px;
-		display: inline;
-		color: #252120;
-    font-weight: 500;
-    font-family:Oswald;
+  font-size: 30px;
+  display: inline;
+  color: #252120;
+  font-weight: 500;
+  font-family: Oswald;
 }
 .playback_info .artist {
   margin-top: 14px;
   font-size: 20px;
-  opacity:0.8;
+  opacity: 0.8;
   color: #252120;
-  font-family:Oswald;
-
+  font-family: Oswald;
 }
 
 .playback_btn_wrapper {
@@ -1143,11 +979,11 @@ export default {
 }
 .playback_btn_wrapper i {
   margin: 0;
-  color:#FF645A
+  color: #ff645a;
 }
 
 .list_wrapper {
-    // 修改滚动条样式
+  // 修改滚动条样式
   &::-webkit-scrollbar {
     width: 0px;
   }
@@ -1245,3 +1081,76 @@ export default {
 }
 </style>
 
+
+<style >  
+.font {
+  margin: 0 0 0 1.5vw;
+}
+
+.timeStr {
+  font: 18px, monospace;
+  color: #ffd110;
+}
+
+
+/* 播放器组件 */
+.player {
+  position: relative;
+  margin-top: -5.8%;
+}
+
+#volumeIcon1 {
+  position: absolute;
+  cursor: pointer;
+  margin: -12vh 0 0 6.5vw;
+}
+#volumeIcon2 {
+  position: absolute;
+  cursor: pointer;
+  margin: -12vh 0 0 6.5vw;
+}
+.icon {
+  margin: 6px 0 0 0;
+}
+.icon:hover {
+  -webkit-filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 204, 153, 0.5));
+  width: 50%;
+}
+
+.option:hover {
+  -webkit-filter: brightness(-50%);
+}
+
+.example-showcase .el-dropdown-link {
+  cursor: pointer;
+  color: var(--el-color-primary);
+  display: flex;
+  align-items: center;
+}
+
+#canvas {
+  position: fixed;
+  left: 38%;
+  top: -56%;
+  width: 60%;
+  height: 100%;
+}
+
+</style>
+
+
+<style>
+
+.el-popover.myPopover {
+  padding: 0 0 0 20px;
+  margin: 0 0 0 90px;
+  min-width: 60px;
+  opacity: 0.8;
+}
+.el-popover.modPopover {
+  margin: 0px 0 10px 0px;
+  width: 300px;
+  opacity: 0.8;
+}
+
+</style>

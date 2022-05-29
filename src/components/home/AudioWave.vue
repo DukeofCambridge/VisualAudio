@@ -5,7 +5,7 @@
 <script>
 import * as THREE from "three";
 import { TimelineMax, Power3, TweenLite, Power2 } from "gsap";
-import { watch } from "vue";
+import {watch} from "vue";
 
 export default {
   name: "AudioWave",
@@ -21,31 +21,22 @@ export default {
   },
   data() {
     return {
-      //audio:String
+      audio:String
     };
   },
   methods: {
     play() {
-      console.log("播放");
+      console.log("播放wave");
+      console.log(this.song.url)
+      this.URL = this.song.url
       this.audio.play();
     },
     pause() {
-      console.log("暂停");
+      console.log("暂停wave");
       this.audio.pause();
     },
   },
-  setup(props) {
-    watch(
-      () => props.song.url,
-      (url) => {
-        var bridge = renderWebGL(document.body, {
-          audioSrc: url,
-        });
-
-        audio = new AudioSystem();
-        bridge.start();
-      }
-    );
+  mounted (){ 
     function AudioSystem() {
       var listener = new THREE.AudioListener();
       var sound = new THREE.Audio(listener);
@@ -59,6 +50,7 @@ export default {
       listener.setMasterVolume(MASTER_VOLUME);
       loader.load(URL, function (buffer) {
         console.log("audio loaded.");
+        console.log(URL)
         sound.setBuffer(buffer);
         sound.setLoop(false);
         sound.setVolume(0.2);
@@ -832,14 +824,41 @@ export default {
     }
 
     // =====================================================
-    /* var URL =
-      "https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001"; */
+     var URL =
+      "https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001"; 
+    
+    //const {song}  = toRefs(props)
 
-    //audio.play();
-    return {
+    //URL = this.song.url
+    var bridge = renderWebGL(document.body, {
+          audioSrc: URL,
+        });
+    audio = new AudioSystem();
+    bridge.start();
+
+    this.audio = audio
+    console.log("bridge2"+bridge.transition);
+    console.log(this.audio)
+       
+   /*  return {
       audio,
-    };
+      URL
+    }; */
   },
+  setup(props){
+    watch(
+      () => props.song.url,
+      (url) => {
+        // var bridge = renderWebGL(document.body, {
+        //  audioSrc: url,
+        //}); 
+        console.log("启动wave"+url);
+        
+        //audio = new AudioSystem();
+        //bridge.start();
+      }
+    ); 
+  }
 };
 </script>
 

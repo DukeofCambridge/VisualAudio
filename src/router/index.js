@@ -27,6 +27,10 @@ const routes = [
     path:'/tag',
     component: TagSelect
   },
+/*   {
+    path: '/test',
+    component: Test
+  }, */
   {
     path: '/index',
     name: 'Index',

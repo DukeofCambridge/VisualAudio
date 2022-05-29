@@ -9,7 +9,7 @@
   <div class="lyricBlock">
     <ul class="lyric" ref="lyric">
       <li
-        :class="{ each: true, choose: index == lyricIndex }"
+        :class="{ each: true, choose: index === lyricIndex }"
         v-for="(item, key, index) in lrcObj"
         :key="key"
         str="item"
@@ -107,7 +107,7 @@ export default {
           //计算当前歌词与下一条歌词的间隔
           this.gapTime = (this.timeList[i+1] - key);
           $('li').css('animation-duration', this.gapTime + 's')
-          
+
           // 当歌词进度大于4，即播放到了第5句歌词，开始滚动
           if (i > 4) {
             this.$refs.lyric.scrollTop = 52 * (i - 4);
@@ -128,35 +128,35 @@ export default {
 
 <style  lang="scss" scoped >
 .lyricBlock {
-  top: 40%;
-  scroll-behavior: smooth; 
+  top: 35%;
+  scroll-behavior: smooth;
     text-align:center;
 }
 
 
 .topBlock {
 
-  margin-top: 20px;
+  /* margin-top: 20px;  */
   left: 64.5%;
   text-align: center;
 }
 
 
 .name{
-    
+
     font-size: 28px;
     color: #fff;
 }
 .singer{
-    margin-top: 5px;
+    margin-top: 5%;
     font-size: 16px;
     color:rgb(129, 129, 129)
 }
 .lyric {
 
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
   width: auto;
-  height: 450px;
+  height: 550px;
 
   left: 61%;
   top: 27%;
@@ -196,9 +196,9 @@ export default {
 
 .topBlur{
     width: 100%;
-    height: 20px;
+    height: 2%;
     margin-bottom: -10px;
-    box-shadow: 0 0 15px 10px #F2D7D3; 
+    box-shadow: 0 0 15px 10px #F2D7D3;
     background-image: url('../assets/lyric/blur.png');
     filter: blur(15px);
 }
@@ -207,7 +207,7 @@ export default {
     width: 100%;
     height: 20px;
     margin-top: -10px;
-    
+
     background-image: url('../assets/lyric/lucency.png');
     filter: blur(15px);
 } */
