@@ -6,7 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-
+import 'element-ui/lib/theme-chalk/index.css'
 
 const app = createApp(App)
 // 全局注册

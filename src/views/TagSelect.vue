@@ -201,6 +201,8 @@ export default {
         }
         
       }
+      console.log("ssg")
+      console.log(this.$store.state.songList)
         this.$router.push('/index/face')
     }
 

@@ -7,6 +7,7 @@ import Emotion from "@/views/Emotion";
 import AudioWave from "@/components/home/AudioWave";
 import Index from "@/views/Index"
 import Main from "@/views/Main";
+import Search from "@/views/Search";
 const routes = [
   {
     path: '/home',
@@ -46,6 +47,11 @@ const routes = [
         path: 'tag',
         name: 'Tag',
         component: TagSelect
+      },
+      {
+        path: 'search',
+        name: 'Search',
+        component: Search
       },
       {
         path: 'face',
