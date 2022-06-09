@@ -1,4 +1,5 @@
 import axios from 'axios'
+//import store from "@/store/index.js"
 
 // 创建一个 axios 实例
 const service = axios.create({
@@ -17,6 +18,7 @@ const service = axios.create({
 service.interceptors.request.use(
 	function (config) {
 		// 在发送请求之前做些什么
+		//store.state.loadingShow = true
 		return config
 	},
 	function (error) {
@@ -29,6 +31,7 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
 	function (response) {
+		//store.state.loadingShow = false
 		console.log(response)
 		// 2xx 范围内的状态码都会触发该函数。
 		// 对响应数据做点什么

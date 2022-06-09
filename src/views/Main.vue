@@ -93,6 +93,7 @@ export default {
       gsap.to($('.back_btn'), 0.5, {display: 'flex', opacity: 1, x: -15, ease: Power2.easeInOut}, 0.5)
       gsap.fromTo($('.lyric'), 1.8, {display: 'none', opacity: 0},
           {display: 'block', opacity: 1, ease: Expo.easeInOut}, 1)
+          
     });
     $('.back_btn').click(function(){
         // Hide

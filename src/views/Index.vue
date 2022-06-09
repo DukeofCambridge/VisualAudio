@@ -10,8 +10,6 @@
       <div style="margin-top: 25px">
         <Player
           ref="player"
-          :song="song"
-          :playList="playList"
           @switch="switchSong"
           @switchOrder="switchOrderMod"
           @switchList="switchList"
@@ -20,9 +18,13 @@
           @change="changeStatus"
         ></Player>
       </div>
-     <!--  <AudioWave :song="song" ref="wave" ></AudioWave> -->
+      <AudioWave
+        v-if="wave"
+        ref="wave"
+        class="audioWave"
+      ></AudioWave>
       <!--歌词-->
-      <Lyric class="lyric" ref="lyric" :song="song" ></Lyric>
+      <Lyric class="lyric" ref="lyric" :song="song"></Lyric>
 
       <!--子路由方式切换界面-->
       <router-view></router-view>
@@ -32,20 +34,84 @@
 
 <script>
 import $ from "jquery";
-import {gsap, Power2} from "gsap";
+import { gsap, Power2 } from "gsap";
 import Player from "@/components/Player.vue";
-//import AudioWave from "@/components/home/AudioWave.vue";
+import AudioWave from "@/components/home/AudioWave.vue";
 import Lyric from "@/components/Lyric.vue";
 import { mapState } from "vuex";
-import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
+//import { searchByKey, searchById, searchAlbumById, searchLyricById } from "@/apis/songs.js";
 import Nav from "@/components/Nav";
-
 
 export default {
   name: "Index",
-  components: {Nav, Player, Lyric },
-  computed: {
+  components: { Nav, Player, Lyric, AudioWave },
+  /*  computed: {
     ...mapState(["songList","song"]),    // userid是store/index.js的state里面定义的变量名
+  }, */
+  computed: mapState({
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    song: "song",
+    songList: "songList",
+  }),
+  watch: {
+    song(newVal, oldVal) {
+      console.log("index监听song")
+      console.log("newVal")
+      console.log(newVal)
+      console.log("oldVal")
+      console.log(oldVal)
+      //判断oldVal是否在歌曲列表中，若oldValue为空，证明为第一次渲染
+      if(this.songList.indexOf(oldVal) < 0) {
+        this.wave = false;
+        this.$nextTick(() => {
+          // 重新渲染波浪组件
+          console.log("第一次更新歌曲，刷新wave");
+          this.wave = true;
+        });
+      } else {
+        //首先删除之前的wave组件
+        $("canvas").remove();
+        console.log("test1")
+        this.$refs.wave.stop()
+        this.$refs.wave.audio = null;
+        this.wave = false;
+        this.$nextTick(() => {
+          // 重新渲染波浪组件
+          console.log("更新歌曲，刷新wave");
+          this.wave = true;
+          console.log("test2")
+        });
+        
+      }
+    },
+    songList: {
+      handler(newVal, oldVal) {
+        console.log("index监听songList")
+        console.log("newVal")
+        console.log(newVal)
+        console.log("oldVal")
+        console.log(oldVal)
+
+        //歌单更新后，默认为暂停状态
+        this.$refs.player.control.is_stop = true
+        // 若为第一次渲染，则无需删除之前的组件
+        if (oldVal.length <= 0) {
+          console.log("第一次更新歌单")
+        } else {
+          console.log("更新歌单")
+          //$("canvas").remove();
+          //this.$refs.wave.audio = null;
+        }
+        /* this.wave = false;
+        //this.$parent.$refs.wave.audio = null
+        this.$nextTick(() => {
+          // 重新渲染波浪组件
+          console.log("重新加载");
+          this.wave = true;
+        }); */
+      },
+      deep: true,
+    },
   },
   data() {
     return {
@@ -54,14 +120,15 @@ export default {
       duration: 0,
       curr: 0,
       order: "sequence",
-      song: {
+      /*       song: {
         url: String, //歌曲url
         picUrl: "", //海报url
         name: "", //歌曲名称
         singer: "", //歌手名称
         lyric: String //歌曲歌词
       },
-      playList: Array(),
+      playList: Array(), */
+      wave: false,
     };
   },
 
@@ -138,7 +205,7 @@ export default {
     //搜索歌曲部分
     //根据关键词搜索，获取音乐id列表
     //var idList = new Array();
-    let res = await searchByKey({ keywords: "方大同" });
+    /* let res = await searchByKey({ keywords: "方大同" });
     let songs = res.result.songs;
     console.log('songs:',songs)
     for (let i = 0; i < songs.length && i < 10; i++) {
@@ -168,21 +235,56 @@ export default {
 
       this.playList.push(song);
       console.log("加入歌单" + song.url);
-      if (i === 0) this.song = song;
+      if (i === 0) {
+        this.song = song;
+        this.$store.state.loadingShow = false
+        this.$store.commit('loadSong', this.song)
+      }
       this.$store.commit('loadList',this.playList)
 
     }
-    this.song = this.playList[0];
-    this.$store.commit('loadSong', this.song)
+    
+ */
     //console.log("歌词："+this.song.lyric)
   },
   methods: {
+    /**
+     * 刷新AudioWave
+     */
+    refreshWave() {
+      //this.$refs.wave.pause();
+      //this.wave = false;
+      //console.log("删除");
+      //$("canvas").not('[id^="canvas"]').remove();
+      //$("canvas").remove();
+      //this.$refs.wave.audio = null;
+      this.$nextTick(() => {
+        // 重新渲染波浪组件
+        
+        console.log("重启");
+        //在waveAudio加载完毕后再重启
+        var time = setInterval(() => {
+          console.log("检测wave渲染完成情况")
+          //通过音量检测wave是否渲染完成
+          console.log(this.$refs.wave.audio.sound.getVolume())
 
+          //检测到volume<1，证明渲染完成，自动播放
+           if (this.$refs.wave.audio.sound.getVolume() < 1) {
+            console.log("渲染完成");
+            //this.$refs.wave.audio.play();
+            this.$refs.player.songPlay();
+            clearInterval(time);
+          } 
+        }, 500);
+
+      });
+    },
     /**
      * 切歌
      */
     switchSong(str) {
       let index = (this.songList || []).findIndex((song) => song === this.song);
+      console.log("index" + index);
       let following = index;
       if (str === "next") {
         if (index >= this.songList.length - 1) {
@@ -198,7 +300,10 @@ export default {
           following = index - 1;
         }
       }
-      this.song = this.songList[following];
+      console.log(this.songList[following]);
+      this.$store.commit("loadSong", this.songList[following]);
+
+      this.refreshWave();
     },
     /**
      * 切换播放顺序
@@ -230,50 +335,60 @@ export default {
         while (following === index) {
           following = Math.floor(Math.random() * len); // 随机获取下标
         }
-        this.song = this.songList[following];
+        //this.song = this.songList[following];
+        this.$store.commit("loadSong", this.songList[following]);
       }
+      this.refreshWave();
     },
     /**
      * 点击播放列表切歌
      */
     switchList(item) {
-      this.song = item
+      //this.song = item
+      this.$store.commit("loadSong", item);
+      this.refreshWave();
     },
 
     /**
      * 切歌时，获取新的歌词
      */
-    getLyric() {
-
-    },
+    getLyric() {},
     /**
      * 更新目前播放时间
      */
     updateTime(time) {
-      this.curr = time
-      this.$refs.lyric.timeUpdate(time)
+      this.curr = time;
+      this.$refs.lyric.timeUpdate(time);
     },
     /**
      * 启动或暂停音乐
      */
-    changeStatus(str){
-      if(str === "play"){
-        console.log("play")
+    changeStatus(str) {
+      if (str === "play") {
+        console.log("playMusic");
         this.$refs.wave.play();
       }
-      if(str === "pause"){
-       this.$refs.wave.pause();
+      if (str === "pause") {
+        console.log("pauseMusic");
+
+        this.$refs.wave.pause();
       }
     },
     /**
      * 情绪推荐音乐
      */
-    pushEmo(){
-
-    }
+    pushEmo() {},
   },
 };
 </script>
+
+<style>
+canvas {
+  position: absolute;
+  top: 8%;
+  left:2%
+}
+</style>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Oswald:300,400,700");
@@ -309,7 +424,6 @@ body {
   overflow: hidden;
   width: 100vw;
 }
-
 
 @keyframes drift {
   from {
@@ -405,7 +519,6 @@ body {
   z-index: 2;
   opacity: 0;
 }
-
 
 .playback_info {
   display: block;
@@ -716,8 +829,8 @@ body {
   margin-bottom: 20px;
   transition: 0.5s;
 }
-.lyric{
+.lyric {
   display: none;
-  margin-top:-60px;
+  margin-top: -60px;
 }
 </style>

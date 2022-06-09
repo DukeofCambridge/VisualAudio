@@ -1,40 +1,75 @@
 <template>
-  <a href="javascript:;" id="play-btn" @click="play">PLAY</a>
+  <a href="javascript:;" id="play-btn" @click="play">{{song.name}}</a>
+  <el-image :src="song.picUrl" id="img"></el-image>
 </template>
 
 <script>
 import * as THREE from "three";
 import { TimelineMax, Power3, TweenLite, Power2 } from "gsap";
-import {watch} from "vue";
+import { mapState } from "vuex";
 
 export default {
   name: "AudioWave",
-  props: {
-    /* curr: String, */
-    song: {
-      url: String, //音乐url
-      picUrl: String, //海报url
-      name: String, //歌曲名称
-      singer: String, //歌手名称
-      lyric: String, //歌词
-    },
-  },
+  computed: mapState({
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    song: "song",
+  }),
   data() {
     return {
-      audio:String
+      audio:String,
+      // 旋转角度
+      rotateval: 0,
+      //定时器
+			//Interval: ""
     };
   },
+
   methods: {
     play() {
       console.log("播放wave");
       console.log(this.song.url)
-      this.URL = this.song.url
       this.audio.play();
+      this.rotate()
+
     },
     pause() {
       console.log("暂停wave");
       this.audio.pause();
+      console.log("音量"+this.audio.sound.getVolume())
+      console.log
+      //console.log("进度"+this.audio.sound.context.currentTime)
+      console.log("_progress"+ this.audio.sound._progress)
+      //clearInterval(this.Interval)
     },
+    // pause后再启动会继续，stop后再启动会从头开始播放
+    stop() {
+      this.audio.stop()
+    },
+    // 更新音乐进度
+    updateProgress(progress) {
+      console.log("wave进度更新")
+      this.audio.pause();
+      this.audio.sound._progress = progress
+      this.audio.play()
+    },
+    // 改变音量
+    setVolume(volume) {
+      console.log("wave音量更新")
+      this.audio.sound.setVolume(volume)
+    },
+    //核心代码定时器
+    rotate(){
+      console.log("wave图片自旋")
+      let Interval=setInterval(() => {
+        if(this.audio.sound.isPlaying == false) {
+          clearInterval(Interval)
+        }
+        var img=document.getElementById('img');
+        this.rotateval+=1;
+        img.style.transform='rotate('+this.rotateval+'deg)'
+        img.style.transition = '0.1s linear'
+      },50)
+    }
   },
   mounted (){ 
     function AudioSystem() {
@@ -43,7 +78,7 @@ export default {
       var loader = new THREE.AudioLoader();
 
       var FFT_SIZE = 2048;
-      var MASTER_VOLUME = 0.8;
+      var MASTER_VOLUME = 1;
       var audioContext = sound.context;
       var analyser = audioContext.createAnalyser();
 
@@ -53,12 +88,17 @@ export default {
         console.log(URL)
         sound.setBuffer(buffer);
         sound.setLoop(false);
-        sound.setVolume(0.2);
+        sound.setVolume(0.5);
         sound.getOutput().connect(analyser);
 
         // sound.play();
         soundwave.transitionShowSoundwave();
-      });
+      });  
+      /* var music=document.getElementById("audio");
+      
+			sound.setMediaElementSource(music);
+      sound.getOutput().connect(analyser);
+      console.log("音频加载完成"+music.volume) */
 
       this.waveform = new Uint8Array(analyser.frequencyBinCount);
       this.frequency = new Uint8Array(analyser.frequencyBinCount);
@@ -94,7 +134,20 @@ export default {
     };
 
     AudioSystem.prototype.pause = function () {
+      this.sound.pause();
+    };
+
+    AudioSystem.prototype.stop = function () {
       this.sound.stop();
+    };
+
+    AudioSystem.prototype.volume = function () {
+      console.log()
+      this.sound.getVolume;
+    };
+
+    AudioSystem.prototype.process = function () {
+      this.sound.currentTime;
     };
 
     // =====================================================
@@ -680,7 +733,6 @@ export default {
         antialias: true,
         alpha: true,
       });
-
       camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1e3);
 
       scene = new THREE.Scene();
@@ -699,7 +751,7 @@ export default {
     }
 
     Application.prototype.setup = function () {
-      var e = window.innerWidth,
+      var e = window.innerWidth/2,
         t = window.innerHeight,
         i = window.devicePixelRatio || 1;
 
@@ -751,7 +803,7 @@ export default {
 
       // renderer.setClearColor(16185078);
 
-      camera.fov = 40;
+      camera.fov = 36;
       camera.far = 1e3;
       camera.near = 0.01;
       camera.updateProjectionMatrix();
@@ -824,12 +876,13 @@ export default {
     }
 
     // =====================================================
-     var URL =
-      "https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001"; 
+     var URL = this.song.url
+      //"https://m8.music.126.net/21180815163607/04976f67866d4b4d11575ab418904467/ymusic/515a/5508/520b/f0cf47930abbbb0562c9ea61707c4c0b.mp3?infoId=92001"; 
+    
+    console.log("新歌"+this.song.name)
     
     //const {song}  = toRefs(props)
 
-    //URL = this.song.url
     var bridge = renderWebGL(document.body, {
           audioSrc: URL,
         });
@@ -837,28 +890,25 @@ export default {
     bridge.start();
 
     this.audio = audio
-    console.log("bridge2"+bridge.transition);
     console.log(this.audio)
-       
-   /*  return {
-      audio,
-      URL
-    }; */
+
+    this.rotateval = 0;
+    //this.Interval = "";
+    
+    //this.rotate()
+    /* window.onload=function(){
+			this.rotate()
+			
+			document.getElementById('img').onmousemove=function(){
+				clearInterval(this.Interval)
+			}
+			document.getElementById('img').onmouseleave=function(){
+				this.rotate()
+			}		
+
+    } */
   },
-  setup(props){
-    watch(
-      () => props.song.url,
-      (url) => {
-        // var bridge = renderWebGL(document.body, {
-        //  audioSrc: url,
-        //}); 
-        console.log("启动wave"+url);
-        
-        //audio = new AudioSystem();
-        //bridge.start();
-      }
-    ); 
-  }
+ 
 };
 </script>
 
@@ -896,6 +946,15 @@ body {
   z-index: 1;
   text-align: center;
   text-decoration: none;
+
+}
+
+#img {
+  border-radius: 50%;
+  width: 15vw;
+  position: absolute;
+  top: 41.5%;
+  left: 19.5%
 
 }
 </style>

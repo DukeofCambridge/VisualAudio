@@ -45,3 +45,12 @@ export async function searchAlbumById(params) {
  export async function searchListById(params) {
     return await httpRequest.get("/playlist/detail",{params})
 }
+
+/**
+ * 根据歌单id查询歌单详情
+ * @param {*} id
+ * @returns 
+ */
+ export async function searchPlayListDetails(params) {
+    return await httpRequest.get("/playlist/detail",{params})
+}

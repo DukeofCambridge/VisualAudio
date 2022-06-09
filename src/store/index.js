@@ -6,7 +6,8 @@ export default createStore({
     tagRecommendSongsID:[],
     songList:[],
     song:{},
-    emo:''
+    emo:'',
+    loadingShow: false
   },
   // mutations: 修改state的唯一手段
   mutations: {
@@ -18,6 +19,14 @@ export default createStore({
     },
     pushEmo(state, info){
       state.songList.push(info)
+    },
+    // 发起请求
+    issueRequest(state) {
+      state.loadingShow = true
+    },
+    // 响应请求
+    getResponse(state) {
+      state.loadingShow = false
     }
   },
   // action: 处理action，可以书写业务逻辑，处理异步
@@ -34,6 +43,9 @@ export default createStore({
     },
     emo(state) {
       return state.emo || '';
+    },
+    loadingShow(state) {
+      return state.loadingShow;
     }
   }
 })

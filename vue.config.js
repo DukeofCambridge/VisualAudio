@@ -9,7 +9,7 @@ module.exports = {
             host: '127.0.0.1',
             proxy:{
                 '/api':{
-                    target: 'http://101.43.31.168:3030/',
+                    target: 'http://101.43.31.168:3000/',
                     changeOrigin: true,
                     withCredentials: true,
                     secure: false,
