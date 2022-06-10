@@ -7,7 +7,9 @@ export default createStore({
     songList:[],
     song:{},
     emo:'',
-    loadingShow: false
+    loadingShow: false,
+    //只有当处于main路由，并且点击按钮后才能显示wave和自旋海报，点击返回后消失
+    waveShow: 0
   },
   // mutations: 修改state的唯一手段
   mutations: {
@@ -27,6 +29,16 @@ export default createStore({
     // 响应请求
     getResponse(state) {
       state.loadingShow = false
+    },
+    // 显示wave
+    showWave(state) {
+      console.log("showWave")
+      state.waveShow = 1
+    },
+    // 隐藏wave
+    hideWave(state) {
+      console.log("hideWave")
+      state.waveShow = 0
     }
   },
   // action: 处理action，可以书写业务逻辑，处理异步

@@ -86,7 +86,6 @@ import SearchInput from "../components/SearchInput.vue";
 import { searchByKey, searchPlayListDetails, searchById, searchLyricById } from "@/apis/songs.js";
 import $ from "jquery";
 import { gsap, Power2, Expo } from "gsap";
-
 export default {
   name: "Search",
   components: { SearchInput },
@@ -193,10 +192,12 @@ export default {
           this.$store.commit("loadSong", song);
           this.$store.state.loadingShow = false;
         }
-        
+         $("canvas").css("opacity", 0)
       }
+      
       this.$store.commit("loadList", playList);
-     
+              
+
       //关闭右侧歌单栏
       gsap.to(".dim", 0.5, {
         opacity: 0,

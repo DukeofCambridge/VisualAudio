@@ -7,12 +7,14 @@
 import * as THREE from "three";
 import { TimelineMax, Power3, TweenLite, Power2 } from "gsap";
 import { mapState } from "vuex";
+//import $ from "jquery";
 
 export default {
   name: "AudioWave",
   computed: mapState({
     // 传字符串参数 'count' 等同于 `state => state.count`
     song: "song",
+    waveShow: "waveShow"
   }),
   data() {
     return {
@@ -22,6 +24,14 @@ export default {
       //定时器
 			//Interval: ""
     };
+  },
+  watch: {
+    song() {
+
+      this.rotate = 0;
+      var img=document.getElementById('img');
+      img.style.transform='rotate('+this.rotateval+'deg)'
+    }
   },
 
   methods: {
@@ -61,7 +71,8 @@ export default {
     rotate(){
       console.log("wave图片自旋")
       let Interval=setInterval(() => {
-        if(this.audio.sound.isPlaying == false) {
+        if(this.audio == null || this.audio.sound.isPlaying == false) {
+          console.log("自旋进程终止")
           clearInterval(Interval)
         }
         var img=document.getElementById('img');
@@ -892,7 +903,9 @@ export default {
     this.audio = audio
     console.log(this.audio)
 
-    this.rotateval = 0;
+    
+
+    //$("canvas").addClass("canvas")
     //this.Interval = "";
     
     //this.rotate()
@@ -954,7 +967,17 @@ body {
   width: 15vw;
   position: absolute;
   top: 41.5%;
-  left: 19.5%
+  left: 19.5%;
+  opacity: v-bind(waveShow);
+}
 
+</style>
+<style>
+canvas {
+  
+  position: absolute;
+  top: 8%;
+  left:2%;
+  opacity: v-bind(waveShow);
 }
 </style>

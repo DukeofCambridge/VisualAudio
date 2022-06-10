@@ -52,6 +52,7 @@ export default {
     // 传字符串参数 'count' 等同于 `state => state.count`
     song: "song",
     songList: "songList",
+    waveShow: "waveShow"
   }),
   watch: {
     song(newVal, oldVal) {
@@ -383,11 +384,8 @@ export default {
 </script>
 
 <style>
-canvas {
-  position: absolute;
-  top: 8%;
-  left:2%
-}
+
+
 </style>
 
 <style scoped>
@@ -833,4 +831,5 @@ body {
   display: none;
   margin-top: -60px;
 }
+
 </style>

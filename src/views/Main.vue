@@ -27,45 +27,48 @@
 
 <script>
 import $ from "jquery";
-import {Elastic, Expo, gsap, Power2} from "gsap";
-
+import { Elastic, Expo, gsap, Power2 } from "gsap";
+import { mapState } from "vuex";
+import store from "@/store/index.js"
 export default {
   name: "Main",
-  data(){
-    return{
-    }
+  data() {
+    return {};
   },
+  computed: mapState({
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    waveShow: "waveShow"
+  }),
   mounted() {
     // 屏幕中央 主播放按钮 鼠标悬浮动画效果
     // ===== Main Play Button - Hover =====
     $(".text-wrap .text").hover(
-        function () {
-          gsap.to($(".main-btn_wrapper"), 0.5, {
-            opacity: 1,
-            display: "block",
-            position: "absolute",
-            scale: 1,
-            ease: Elastic.easeOut.config(1, 0.75),
-          }),
-              gsap.to($(".line"), 0.5, {
-                css: { scaleY: 0.6, transformOrigin: "center center" },
-                ease: Expo.easeOut,
-              });
-        },
-        function () {
-          gsap.to($(".main-btn_wrapper"), 0.5, {
-            opacity: 0,
-            display: "none",
-            scale: 0,
-            ease: Elastic.easeOut.config(1, 0.75),
-          }),
-              gsap.to($(".line"), 0.5, {
-                css: { scaleY: 1, transformOrigin: "center center" },
-                ease: Expo.easeOut,
-              });
-        }
+      function () {
+        gsap.to($(".main-btn_wrapper"), 0.5, {
+          opacity: 1,
+          display: "block",
+          position: "absolute",
+          scale: 1,
+          ease: Elastic.easeOut.config(1, 0.75),
+        }),
+          gsap.to($(".line"), 0.5, {
+            css: { scaleY: 0.6, transformOrigin: "center center" },
+            ease: Expo.easeOut,
+          });
+      },
+      function () {
+        gsap.to($(".main-btn_wrapper"), 0.5, {
+          opacity: 0,
+          display: "none",
+          scale: 0,
+          ease: Elastic.easeOut.config(1, 0.75),
+        }),
+          gsap.to($(".line"), 0.5, {
+            css: { scaleY: 1, transformOrigin: "center center" },
+            ease: Expo.easeOut,
+          });
+      }
     );
-
 
     // 主标题点击动画
     // ===== Home Page to Curation Page Transition  =====
@@ -76,46 +79,86 @@ export default {
 
       // Hide
       $(".logo-text").css("display", "none"),
-      gsap.to(
+        gsap.to(
           $(".line, .text-wrap"),
           0.5,
           { display: "none", opacity: 0, y: -20, ease: Power2.easeInOut },
           0
-      ),
-      // Background down
-      gsap.to(
+        ),
+        // Background down
+        gsap.to(
           $(".wave-container"),
           1,
           { yPercent: 50, ease: Power2.easeInOut },
           0
+        ),
+        // Show
+        gsap.to(
+          $(".back_btn"),
+          0.5,
+          { display: "flex", opacity: 1, x: -15, ease: Power2.easeInOut },
+          0.5
+        );
+      gsap.fromTo(
+        $(".lyric"),
+        1.8,
+        { display: "none", opacity: 0 },
+        { display: "block", opacity: 1, ease: Expo.easeInOut },
+        1
+      );
+      
+      store.commit("showWave");
+      $("canvas").css("opacity", 1)
+
+    });
+    $(".back_btn").click(function () {
+      // Hide
+      gsap.to(
+        $(".back_btn"),
+        0.5,
+        { display: "none", opacity: 0, x: 15, ease: Power2.easeInOut },
+        0.5
       ),
-      // Show
-      gsap.to($('.back_btn'), 0.5, {display: 'flex', opacity: 1, x: -15, ease: Power2.easeInOut}, 0.5)
-      gsap.fromTo($('.lyric'), 1.8, {display: 'none', opacity: 0},
-          {display: 'block', opacity: 1, ease: Expo.easeInOut}, 1)
-          
-    });
-    $('.back_btn').click(function(){
-        // Hide
-        gsap.to($('.back_btn'), 0.5, {display: 'none', opacity: 0, x: 15, ease: Power2.easeInOut}, 0.5),
-
         // Background Up
-        gsap.to($('.wave-container'), 1, {yPercent: 0, ease: Power2.easeInOut}, 1),
-
+        gsap.to(
+          $(".wave-container"),
+          1,
+          { yPercent: 0, ease: Power2.easeInOut },
+          1
+        ),
         // 	Show
-        gsap.to($('.text-wrap'), 0.5, {display: 'flex', opacity: 1, y: 0, ease: Power2.easeInOut}, 1.2),
-
-        gsap.to($('.logo-text, .line'), 0.5, {display: 'block', opacity: 1, y: 0, ease: Power2.easeInOut}, 1.2),
-
+        gsap.to(
+          $(".text-wrap"),
+          0.5,
+          { display: "flex", opacity: 1, y: 0, ease: Power2.easeInOut },
+          1.2
+        ),
+        gsap.to(
+          $(".logo-text, .line"),
+          0.5,
+          { display: "block", opacity: 1, y: 0, ease: Power2.easeInOut },
+          1.2
+        ),
         // 	Force to redraw by using y translate
-        gsap.fromTo($('.text-wrap .text'), 0.1, {y: 0.1, position: 'absolute'},
-            {y: 0, position: 'relative', ease: Power2.easeInOut}, 1.3)
-        gsap.fromTo($('.lyric'), 2.8, {display: 'block', opacity: 1},
-          {display: 'none', opacity: 0, ease: Expo.easeIn}, 1)
-        // $('.text-wrap .text').css('position', 'relative');
+        gsap.fromTo(
+          $(".text-wrap .text"),
+          0.1,
+          { y: 0.1, position: "absolute" },
+          { y: 0, position: "relative", ease: Power2.easeInOut },
+          1.3
+        );
+      gsap.fromTo(
+        $(".lyric"),
+        2.8,
+        { display: "block", opacity: 1 },
+        { display: "none", opacity: 0, ease: Expo.easeIn },
+        1
+      );
+      store.commit("hideWave");
+      $("canvas").css("opacity", 0)
     });
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -215,8 +258,8 @@ export default {
 .back_btn {
   cursor: pointer;
   position: absolute;
-  top:4vh;
-  left:8vw;
+  top: 4vh;
+  left: 8vw;
   color: rgba(37, 33, 32, 0.4);
   font-size: 18px;
   display: flex;
