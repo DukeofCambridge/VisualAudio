@@ -207,7 +207,7 @@
 import { Search } from "@element-plus/icons-vue";
 import SearchInput from "../components/SearchInput.vue"
 import {  searchPlayListDetails ,searchById,searchLyricById} from "@/apis/songs.js";
-// import $ from "jquery";
+import $ from "jquery";
 import { gsap, Power2, Expo } from "gsap";
 export default {
   name: "MusicSquare",
@@ -500,7 +500,7 @@ export default {
           this.$store.commit("loadSong", song);
           this.$store.state.loadingShow = false;
         }
-        
+         $("canvas").css("opacity", 0)
       }
       this.$store.commit("loadList", playList);
      this.$message({

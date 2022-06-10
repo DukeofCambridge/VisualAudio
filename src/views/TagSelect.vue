@@ -185,7 +185,7 @@ export default {
           this.$store.commit("loadSong", song);
           this.$store.state.loadingShow = false;
         }
-        
+        $("canvas").css("opacity", 0)
       }
       this.$store.commit("loadList", playList);
 
