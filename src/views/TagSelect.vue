@@ -3,7 +3,7 @@
       <div class="tip">
         <p class="AIsing">选择您感兴趣的标签吧！</p>
         <div class="connect_btn">
-          <div class="connect_btn_text" @click="pushTagSelect">我选好了!</div>
+          <div class="connect_btn_text" @click="pushTagSelect" style="cursor:pointer">我选好了!</div>
         </div>
       </div>
       <div class='items'>
@@ -49,9 +49,9 @@
         </div>
 
         </div>
-        <div id="nextbutton">
+        <!-- <div id="nextbutton">
             <i class="el-icon-d-arrow-right"></i>
-        </div>
+        </div> -->
     </div>
 <!-- <div class='options'>
   <button class='dark'></button>
@@ -62,9 +62,9 @@
 
 <script>
 import $ from "jquery";
-import { gsap, Power2 } from "gsap";
+import { gsap, Power2 , Expo} from "gsap";
 import card from "../components/Card.vue"
-import { searchById,searchLyricById,searchListById} from "@/apis/songs";
+import { searchPlayListDetails,searchById,searchLyricById} from "@/apis/songs";
 export default {
   name: "TagSelect",
   components:{
@@ -91,6 +91,7 @@ export default {
         });
   },
   methods:{
+    //改变选中状态
     changeTag(param){
       if(this.tagselect[param]===0)
       {
@@ -102,102 +103,149 @@ export default {
       }
       console.log(this.tagselect);
     },
-    // async store(){
-    //   var i=0;
-    //   for(i=0;i<this.tagselect.length;i++)
-    //   {
-    //     if(this.tagselect[i]==1)
-    //     {
-    //       this.$axios({
-    //       method: 'get',
-    //       url: 'http://101.43.31.168:3000/playlist/detail?id='+this.catID[i],
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data'
-    //       }
-    //       }).then((res) => {
-    //         console.log(res.data.playlist.tracks)
-    //         for(var j=0;j<10;j++)
-    //         {
-              
-    //           this.songsID.push(res.data.playlist.tracks[j].id)
-    //            this.$axios({
-    //             method: 'get',
-    //             url: 'http://101.43.31.168:3000/playlist/detail?id='+this.catID[i],
-    //             headers: {
-    //               'Content-Type': 'multipart/form-data'
-    //             }
-    //             }).then((res)=>{
-    //               console.log(res.data)
-    //             })
-    //           let song = {
-    //           name: String,
-    //           singer: String,
-    //           url: String,
-    //           picUrl: String,
-    //           lyric: String
-    //           };
-    //           song.name=res.data.playlist.tracks[j].name;
+    
+    //获取歌单详情
+    async getPlayListDetails(id) {
+      this.$store.commit("issueRequest");
+      let res = await searchPlayListDetails({ id: id });
+      this.$store.commit("getResponse");
 
-    //           var index = Math.floor((Math.random()*this.singers.length)); 
-    //           song.singer=this.singers[index];
+      this.detailList = res.playlist;
+      this.songList = res.playlist.tracks;
+      console.log("曲目列表");
+      console.log(this.songList);
 
-    //           console.log(res.data.playlist.tracks[j].id)
-    //           let _res =  searchById({id: res.data.playlist.tracks[j].id});
-    //           console.log(_res.data)
-    //           song.url = _res.data[0].url; //音乐url
+    },
 
-    //           song.picUrl=res.data.playlist.tracks[j].al.picUrl;
-    //           _res =  searchLyricById({id: res.data.playlist.tracks[j].id})
-    //           song.lyric = res.lrc.lyric
-    //           console.log("song")
-    //           console.log(song)
-    //           //this.$store.commit('pushEmo', song)
-    //         }
-            
-              
-    //       }).catch(failResponse => {
-    //         console.log(failResponse)})
-    //     }
-    //   }
-    //   console.log("songID")
-    //   console.log(this.songsID)
-    //   this.$store.state.tagRecommendSongsID=this.songsID;      
-    //   this.$router.push('/index/face')
-       
-    // },
+    //加入歌单
+    handleClick(e) {
+      console.log(e);
+      this.getPlayListDetails(e);
+
+      //在加载完毕后才打开歌单侧边栏
+      var list = setInterval(() => {
+        if (this.$store.getters.loadingShow == false) {
+          //this.play();
+          this.playSong();
+          this.$message({
+          message: '推荐成功',
+          type: 'success'
+        });
+          clearInterval(list);
+        }
+      }, 500);
+    },
+    //打开右侧播放列表
+    play() {
+    gsap.to(".dim", 0.5, {
+      opacity: 1,
+      display: "block",
+      ease: Power2.easeInOut,
+    });
+    gsap.fromTo(
+      "#player",
+      0.5,
+      { xPercent: 100 },
+      { xPercent: 0, display: "block", ease: Expo.easeOut }
+    );
+    gsap.to(".mini-player", 0.5, { x: 50, ease: Expo.easeOut });
+  },
+
+      //点击"播放全部"后，将当前歌单加载进store并进入播放主页
+    async playSong() {
+      console.log("搜索前清空canvas")
+      //this.$store.commit("issueRequest");
+      var playList = [];
+      for (let i = 0; i < this.songList.length && i < 30; i++) {
+        let element = this.songList[i];
+        let id = element.id;
+
+        let song = {
+          name: String,
+          singer: String,
+          url: String,
+          picUrl: String,
+          lyric: String,
+        };
+        song.name = element.name;
+        song.singer = element.ar[0].name;
+
+        let res = await searchById({ id: id });
+        song.url = res.data[0].url; //音乐url
+
+        song.picUrl = element.al.picUrl; //海报url
+
+        // 获取歌词
+        res = await searchLyricById({ id: id });
+        song.lyric = res.lrc.lyric;
+
+        playList.push(song);
+        console.log("加入歌单" + song.url);
+        if (i === 0) {
+          this.$store.commit("loadSong", song);
+          this.$store.state.loadingShow = false;
+        }
+        
+      }
+      this.$store.commit("loadList", playList);
+
+      //关闭右侧歌单栏
+      // gsap.to(".dim", 0.5, {
+      //   opacity: 0,
+      //   display: "none",
+      //   ease: Power2.easeInOut,
+      // });
+      // gsap.to(".nav", 0.5, {
+      //   xPercent: -100,
+      //   display: "none",
+      //   ease: Power2.easeInOut,
+      // });
+      // gsap.to("#player", 0.5, {
+      //   xPercent: 100,
+      //   display: "none",
+      //   ease: Power2.easeOut,
+      // });
+
+      //跳转至首页
+      //this.$router.push('/index/main')
+     this.$store.commit("getResponse");
+    },
+
     async pushTagSelect()
     {
       for(var i=0;i<this.tagselect.length;i++)
       {
         if(this.tagselect[i]==1)
         {
-          let res=await searchListById({id:this.catID[i]})
-          for(var j=0;j<10;j++)
-          {
-            let song = {
-              name: String,
-              singer: String,
-              url: String,
-              picUrl: String,
-              lyric: String
-              };
-            song.name=res.playlist.tracks[j].name;
+          await this.handleClick(this.catID[i]);
+          // let res=await searchListById({id:this.catID[i]})
+          // for(var j=0;j<10;j++)
+          // {
+          //   let song = {
+          //     name: String,
+          //     singer: String,
+          //     url: String,
+          //     picUrl: String,
+          //     lyric: String
+          //     };
+          //   song.name=res.playlist.tracks[j].name;
 
-            var index = Math.floor((Math.random()*this.singers.length)); 
-            song.singer=this.singers[index];
+          //   var index = Math.floor((Math.random()*this.singers.length)); 
+          //   song.singer=this.singers[index];
 
-            let _res = await searchById({id: res.playlist.tracks[j].id});    
-            song.url=_res.data[0].url
+          //   let _res = await searchById({id: res.playlist.tracks[j].id});    
+          //   song.url=_res.data[0].url
 
 
-            song.picUrl = res.playlist.tracks[j].al.picUrl; //海报url
+          //   song.picUrl = res.playlist.tracks[j].al.picUrl; //海报url
 
-            _res = await searchLyricById({id: res.playlist.tracks[j].id})
-            song.lyric=_res.lrc.lyric
+          //   _res = await searchLyricById({id: res.playlist.tracks[j].id})
+          //   song.lyric=_res.lrc.lyric
 
-            this.$store.commit('pushEmo', song)
+          //   this.$store.commit('pushEmo', song)
 
-          }
+          // }
+
         }
         
       }

@@ -2,7 +2,7 @@
   <div class="tip">
     <p class="AIsing" style="font-size: 20px; color: #ffffff;">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
     <div class="connect_btn">
-      <div class="connect_btn_text" @click="listen">开始听歌!</div>
+      <div class="connect_btn_text" @click="listen" style="cursor:pointer">开始听歌!</div>
     </div>
   </div>
 <!--    <div id="chart">-->
@@ -23,14 +23,14 @@
     </div>
 
     <div class="glass">
-      <ul class="dock">
-        <li>😇</li>
-        <li>🥰</li>
-        <li>😜</li>
-        <li>🤩</li>
-        <li>🥳</li>
-        <li>🤯</li>
-        <li>🥶</li>
+      <ul class="dock" style="cursor:pointer">
+        <li style="cursor:pointer">😇</li>
+        <li style="cursor:pointer">🥰</li>
+        <li style="cursor:pointer">😜</li>
+        <li style="cursor:pointer">🤩</li>
+        <li style="cursor:pointer">🥳</li>
+        <li style="cursor:pointer">🤯</li>
+        <li style="cursor:pointer">🥶</li>
       </ul>
     </div>
 </template>
