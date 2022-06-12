@@ -1,8 +1,9 @@
 <template>
   <div class="tip">
-    <p class="AIsing" style="font-size: 20px; color: #ffffff;">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
+    <p class="AIsing" style="font-size: 20px; color: #ffffff;user-select: none">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
+    <p class="AIsing" style="font-size: 20px; color: #ffffff;user-select: none">如果您不想使用摄像头，也可以直接点选下方的表情符号，或跳过本步骤</p>
     <div class="connect_btn">
-      <div class="connect_btn_text" @click="listen" style="cursor:pointer">开始听歌!</div>
+      <div class="connect_btn_text" @click="listen(0)" style="cursor:pointer">开始听歌!</div>
     </div>
   </div>
 <!--    <div id="chart">-->
@@ -13,7 +14,7 @@
       <h1 class="AIsing">Visual Audio</h1>
       <!--    <button id="camera" class="camera" @click="openCamera">打开摄像头</button>-->
       <!--    <br>-->
-      <button id="analysis" class="analysis" @click="analysis">情 绪 分 析</button>
+      <button id="analysis" class="analysis" @click="analysis" style="cursor:pointer">情 绪 分 析</button>
       <br>
 
       <div class="media">
@@ -23,14 +24,14 @@
     </div>
 
     <div class="glass">
-      <ul class="dock" style="cursor:pointer">
-        <li style="cursor:pointer">😇</li>
-        <li style="cursor:pointer">🥰</li>
-        <li style="cursor:pointer">😜</li>
-        <li style="cursor:pointer">🤩</li>
-        <li style="cursor:pointer">🥳</li>
-        <li style="cursor:pointer">🤯</li>
-        <li style="cursor:pointer">🥶</li>
+      <ul class="dock">
+        <li style="cursor:pointer" @click="listen('anger')">😡</li>
+        <li style="cursor:pointer" @click="listen('disgust')">😖‍</li>
+        <li style="cursor:pointer" @click="listen('fear')">😨</li>
+        <li style="cursor:pointer" @click="listen('happiness')">😆</li>
+        <li style="cursor:pointer" @click="listen('neutral')">😐</li>
+        <li style="cursor:pointer" @click="listen('sadness')">😥</li>
+        <li style="cursor:pointer" @click="listen('surprise')">😳</li>
       </ul>
     </div>
 </template>
@@ -147,50 +148,81 @@ export default {
         }
       }).then((res) => {
         console.log(res.data.faces[0].attributes)
-        _this.emotion = res.data.faces[0].attributes.emotion
+        let emo = res.data.faces[0].attributes.emotion
+        let val = Object.values(emo)
+        let max = Math.max(...val);
+        let argmax = val.indexOf(max);
+        // console.log(max)
+        console.log(Object.keys(emo)[argmax])
+        _this.emotion = Object.keys(emo)[argmax]
+        let txt=''
+        switch (_this.emotion) {
+          case "anger":
+            txt = "愤怒";
+            break;
+          case "disgust":
+            txt = "麻了";
+            break;
+          case "fear":
+            txt = "害怕";
+            break;
+          case "happiness":
+            txt = "开心";
+            break;
+          case "neutral":
+            txt = "平静";
+            break;
+          case "sadness":
+            txt = "沮丧";
+            break;
+          case "surprise":
+            txt = "惊讶";
+            break;
+        }
+        this.$message({
+          message: '分析得到您的情绪为:'+txt+',您可以再次识别',
+          type: 'success'
+        });
         // this.visualize()
       }).catch(failResponse => {
         console.log(failResponse)})
     },
-    async listen() {
-      let emo = ''
+    async listen(e) {
+      // console.log('e:',e)
+      if(e!==0){
+        this.emotion=e
+      }
       if (this.emotion != null) {
-        let val = Object.values(this.emotion)
-        let max = Math.max(...val);
-        let argmax = val.indexOf(max);
-        emo = Object.keys(this.emotion)[argmax]
-        // console.log(max)
-        // console.log(Object.keys(this.emotion)[argmax])
-      }
-      let emoSong = ''
-      switch (emo) {
-        case "anger":
-          emoSong = "Titan";
-          break;
-        case "disgust":
-          emoSong = "numb";
-          break;
-        case "fear":
-          emoSong = "light";
-          break;
-        case "happiness":
-          emoSong = "conqueror";
-          break;
-        case "neutral":
-          emoSong = "天空之城";
-          break;
-        case "sadness":
-          emoSong = "平凡之路";
-          break;
-        case "surprise":
-          emoSong = "sugar";
-          break;
-      }
-      //根据关键词搜索，获取音乐id列表
-      //var idList = new Array();
-      let res = await searchByKey({keywords: emoSong});
-      let songs = res.result.songs;
-      console.log('songs:', songs)
+        let emoSong = ''
+        switch (this.emotion) {
+          case "anger":
+            emoSong = "Titan";
+            break;
+          case "disgust":
+            emoSong = "numb";
+            break;
+          case "fear":
+            emoSong = "light";
+            break;
+          case "happiness":
+            emoSong = "Conqueror -DANTZ Remix-";
+            break;
+          case "neutral":
+            emoSong = "天空之城";
+            break;
+          case "sadness":
+            emoSong = "平凡之路朴树";
+            break;
+          case "surprise":
+            emoSong = "sugar";
+            break;
+        }
+        //根据关键词搜索，获取音乐id列表
+        //var idList = new Array();
+        console.log(emoSong)
+        let res = await searchByKey({keywords: emoSong});
+        let songs = res.result.songs;
+        console.log('songs:', songs)
 
         let element = songs[0];
         let id = element.id;
@@ -217,8 +249,14 @@ export default {
         song.lyric = res.lrc.lyric
         console.log(song)
         this.$store.commit('pushEmo', song)
-        this.$router.push('/index/main')
-      },
+        this.$message({
+          message: '推荐成功',
+          type: 'success'
+        });
+      }
+      this.$router.push('/index/main')
+
+    }
 
     }
     // 情绪识别结果格式：
@@ -297,8 +335,8 @@ export default {
 <style scoped>
 .tip{
   position:absolute;
-  left:12vw;
-  top:4vh;
+  left:8vw;
+  top:-1vh;
 }
 .shadow {
   box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.4);
@@ -314,8 +352,8 @@ export default {
   align-items: center;
   transition: 0.5s;
   position:absolute;
-  left:34vw;
-  top:2vh;
+  left:42vw;
+  top:3vh;
 }
 .connect_btn .connect_btn_text {
   font-size: 20px;

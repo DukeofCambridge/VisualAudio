@@ -116,6 +116,8 @@ export default {
 
 <style  scoped>
 #container {
+  position:absolute;
+  top:0;
   width: 100vw;
   height: 100vh;
 }

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
+import Home from '@/components/Home.vue'
 import Start from '@/views/Start.vue'
 import MusicSquare from "@/views/MusicSquare";
 import TagSelect from "@/views/TagSelect";
@@ -63,11 +63,11 @@ const routes = [
         name: 'Square',
         component: MusicSquare
       },
-      {
-        path: 'player',
-        name: 'Player',
-        component: Home
-      }
+      // {
+      //   path: 'player',
+      //   name: 'Player',
+      //   component: Home
+      // }
     ]
   }
 ]

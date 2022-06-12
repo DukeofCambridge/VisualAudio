@@ -2,10 +2,10 @@
   <div>
     <!-- <div class="search">
        <el-input v-model="input" placeholder="请输入内容"></el-input>
-      <el-button round class="search_button" @click="dialogVisible = true">搜索</el-button> 
+      <el-button round class="search_button" @click="dialogVisible = true">搜索</el-button>
        <el-input
       v-model="input"
-      
+
       size="large"
       placeholder="Please Input"
       :suffix-icon="Search"
@@ -149,57 +149,57 @@
     </el-container>
   </div>
 
-  <!--歌单侧边栏-->
-  <div class="player" id="player">
-    <div class="playback_wrapper">
-      <div class="playback_blur"></div>
-      <div
-        class="playback_thumb"
-        :style="{ backgroundImage: 'url(' + detailList.coverImgUrl + ')' }"
-      ></div>
-      <div class="playback_info">
-        <div class="title" style="color: #252120">{{ detailList.name }}</div>
-        <div class="artist">{{ detailList.creator.nickname }}</div>
-      </div>
-      <div class="playback_btn_wrapper" style="margin: -9vh 0 0 13vw">
-        <div class="btn-switch">
-          <el-button
-            color="#fab5b0"
-            type="primary"
-            size="large"
-            class="button"
-            @click="playSong"
-          >
-            <template #icon>
-              <div class="btn-switch">
-                <i class="btn-play fa fa-play" aria-hidden="true"></i>
-              </div>
-            </template>
-            播放全部</el-button
-          >
-        </div>
-      </div>
-    </div>
-    <div class="list_wrapper">
-      <ul class="list">
-        <li
-          v-for="item in songList"
-          :key="item.id"
-          class="list_item"
-          @click="switchList(item)"
-        >
-          <div
-            class="thumb"
-            :style="{ backgroundImage: 'url(' + item.al.picUrl + ')' }"
-          ></div>
-          <div class="info">
-            <div class="title">{{ item.name }}</div>
-            <div class="artist">{{ item.ar[0].name }}</div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+<!--  &lt;!&ndash;歌单侧边栏&ndash;&gt;-->
+<!--  <div class="player" id="player">-->
+<!--    <div class="playback_wrapper">-->
+<!--      <div class="playback_blur"></div>-->
+<!--      <div-->
+<!--        class="playback_thumb"-->
+<!--        :style="{ backgroundImage: 'url(' + detailList.coverImgUrl + ')' }"-->
+<!--      ></div>-->
+<!--      <div class="playback_info">-->
+<!--        <div class="title" style="color: #252120">{{ detailList.name }}</div>-->
+<!--        <div class="artist">{{ detailList.creator.nickname }}</div>-->
+<!--      </div>-->
+<!--      <div class="playback_btn_wrapper" style="margin: -9vh 0 0 13vw">-->
+<!--        <div class="btn-switch">-->
+<!--          <el-button-->
+<!--            color="#fab5b0"-->
+<!--            type="primary"-->
+<!--            size="large"-->
+<!--            class="button"-->
+<!--            @click="playSong"-->
+<!--          >-->
+<!--            <template #icon>-->
+<!--              <div class="btn-switch">-->
+<!--                <i class="btn-play fa fa-play" aria-hidden="true"></i>-->
+<!--              </div>-->
+<!--            </template>-->
+<!--            播放全部</el-button-->
+<!--          >-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="list_wrapper">-->
+<!--      <ul class="list">-->
+<!--        <li-->
+<!--          v-for="item in songList"-->
+<!--          :key="item.id"-->
+<!--          class="list_item"-->
+<!--          @click="switchList(item)"-->
+<!--        >-->
+<!--          <div-->
+<!--            class="thumb"-->
+<!--            :style="{ backgroundImage: 'url(' + item.al.picUrl + ')' }"-->
+<!--          ></div>-->
+<!--          <div class="info">-->
+<!--            <div class="title">{{ item.name }}</div>-->
+<!--            <div class="artist">{{ item.ar[0].name }}</div>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script >

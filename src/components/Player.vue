@@ -363,7 +363,7 @@
     @timeupdate="getCurr"
     @canplay="showLong"
     @pause="control.is_stop === true"
-    @play="control.is_stop === false"
+    @play="control.is_stop === false;console.log('song.url',song.url)"
     @durationchange="updateSong"
     crossOrigin="anonymous"
   ></audio>
@@ -436,7 +436,7 @@ export default {
       console.log("启动");
       this.$emit("change", "play");
       this.$refs.audio.play();
-      
+
       if (this.control.is_stop === true) {
         gsap.to($(".btn-play"), 0.2, {
           x: 20,
@@ -592,7 +592,7 @@ export default {
       }
       // 拖动进度条后会自动播放
       this.songPlay();
-      
+
       // 改变wave audio的播放进度
       this.$parent.$refs.wave.updateProgress(ct)
     },

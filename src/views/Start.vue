@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- <img src="../assets/bg2.jpeg" style="max-width:100%;overflow:hidden;"> -->
-    <img src="../assets/bg3.png" style="width: 100%;
-    height: 100%;
+    <img src="../assets/bg3.png" style="width: 100vw;
+    height: 100vh;
     object-fit:cover">
   </div>
   <div style="position:absolute;left:180px;top:220px">

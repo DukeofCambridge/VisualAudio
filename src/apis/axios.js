@@ -11,7 +11,7 @@ const service = axios.create({
 		'Content-Type': 'application/json',
 		//'token': 'your token',
 		'X-Requested-With': 'XMLHttpRequest',
-	}, 
+	},
 })
 
 // 添加请求拦截器
@@ -32,7 +32,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 	function (response) {
 		//store.state.loadingShow = false
-		console.log(response)
+		// console.log(response)
 		// 2xx 范围内的状态码都会触发该函数。
 		// 对响应数据做点什么
 		// dataAxios 是 axios 返回数据中的 data

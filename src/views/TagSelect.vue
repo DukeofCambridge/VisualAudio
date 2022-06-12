@@ -1,7 +1,7 @@
 <template >
     <div class="bgd">
       <div class="tip">
-        <p class="AIsing">选择您感兴趣的标签吧！</p>
+        <p class="AIsing" style="user-select: none">选择您感兴趣的标签吧！</p>
         <div class="connect_btn">
           <div class="connect_btn_text" @click="pushTagSelect" style="cursor:pointer">我选好了!</div>
         </div>
@@ -103,7 +103,7 @@ export default {
       }
       console.log(this.tagselect);
     },
-    
+
     //获取歌单详情
     async getPlayListDetails(id) {
       this.$store.commit("issueRequest");
@@ -111,9 +111,9 @@ export default {
       this.$store.commit("getResponse");
 
       this.detailList = res.playlist;
-      this.songList = res.playlist.tracks;
+      this.songs = res.playlist.tracks;
       console.log("曲目列表");
-      console.log(this.songList);
+      console.log(this.songs);
 
     },
 
@@ -156,8 +156,8 @@ export default {
       console.log("搜索前清空canvas")
       //this.$store.commit("issueRequest");
       var playList = [];
-      for (let i = 0; i < this.songList.length && i < 30; i++) {
-        let element = this.songList[i];
+      for (let i = 0; i < this.songs.length && i < 30; i++) {
+        let element = this.songs[i];
         let id = element.id;
 
         let song = {
@@ -230,10 +230,10 @@ export default {
           //     };
           //   song.name=res.playlist.tracks[j].name;
 
-          //   var index = Math.floor((Math.random()*this.singers.length)); 
+          //   var index = Math.floor((Math.random()*this.singers.length));
           //   song.singer=this.singers[index];
 
-          //   let _res = await searchById({id: res.playlist.tracks[j].id});    
+          //   let _res = await searchById({id: res.playlist.tracks[j].id});
           //   song.url=_res.data[0].url
 
 
@@ -247,7 +247,7 @@ export default {
           // }
 
         }
-        
+
       }
       console.log("ssg")
       console.log(this.$store.state.songList)

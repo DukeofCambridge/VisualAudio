@@ -100,15 +100,15 @@ export default {
           0.5
         );
       gsap.fromTo(
-        $(".lyric"),
+        $(".lyric, canvas"),
         1.8,
         { display: "none", opacity: 0 },
         { display: "block", opacity: 1, ease: Expo.easeInOut },
         1
       );
-      
+
       store.commit("showWave");
-      $("canvas").css("opacity", 1)
+      // $("canvas").css("opacity", 1)
 
     });
     $(".back_btn").click(function () {
@@ -148,14 +148,14 @@ export default {
           1.3
         );
       gsap.fromTo(
-        $(".lyric"),
+        $(".lyric, canvas"),
         2.8,
         { display: "block", opacity: 1 },
         { display: "none", opacity: 0, ease: Expo.easeIn },
         1
       );
       store.commit("hideWave");
-      $("canvas").css("opacity", 0)
+      // $("canvas").css("opacity", 0)
     });
   },
 };

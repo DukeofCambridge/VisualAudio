@@ -21,7 +21,7 @@
 
 <script>
 import { searchByKey, searchById, searchAlbumById } from "@/apis/songs.js";
-import Player from "../components/home/player.vue";
+import Player from "./home/player.vue";
 
 export default {
   name: "Home",

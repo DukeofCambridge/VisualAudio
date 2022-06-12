@@ -18,13 +18,15 @@
           @change="changeStatus"
         ></Player>
       </div>
+      <!--动感音效-->
       <AudioWave
-        v-if="wave"
+        v-if="wave&&this.$route.path==='/index/main'"
         ref="wave"
         class="audioWave"
+        style="display: none"
       ></AudioWave>
       <!--歌词-->
-      <Lyric class="lyric" ref="lyric" :song="song"></Lyric>
+      <Lyric class="lyric" ref="lyric" :song="song" v-if="this.$route.path==='/index/main'"></Lyric>
 
       <!--子路由方式切换界面-->
       <router-view></router-view>
@@ -82,8 +84,8 @@ export default {
           this.wave = true;
           console.log("test2")
         });
-        
       }
+      $("canvas").css("opacity", 0)
     },
     songList: {
       handler(newVal, oldVal) {
@@ -110,8 +112,10 @@ export default {
           console.log("重新加载");
           this.wave = true;
         }); */
+        $("canvas").css("opacity", 0)
       },
       deep: true,
+
     },
   },
   data() {
@@ -244,7 +248,7 @@ export default {
       this.$store.commit('loadList',this.playList)
 
     }
-    
+
  */
     //console.log("歌词："+this.song.lyric)
   },
@@ -261,7 +265,7 @@ export default {
       //this.$refs.wave.audio = null;
       this.$nextTick(() => {
         // 重新渲染波浪组件
-        
+
         console.log("重启");
         //在waveAudio加载完毕后再重启
         var time = setInterval(() => {
@@ -275,7 +279,7 @@ export default {
             //this.$refs.wave.audio.play();
             this.$refs.player.songPlay();
             clearInterval(time);
-          } 
+          }
         }, 500);
 
       });
