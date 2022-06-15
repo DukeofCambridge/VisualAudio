@@ -1,38 +1,39 @@
 <template>
   <div class="tip">
-    <p class="AIsing" style="font-size: 20px; color: #ffffff;">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
+    <p class="AIsing" style="font-size: 20px; color: #ffffff;user-select: none">完成该步骤将帮助我们为您推荐更适合的歌曲！</p>
+    <p class="AIsing" style="font-size: 20px; color: #ffffff;user-select: none">如果您不想使用摄像头，也可以直接点选下方的表情符号，或跳过本步骤</p>
     <div class="connect_btn">
-      <div class="connect_btn_text" @click="listen" style="cursor:pointer">开始听歌!</div>
+      <div class="connect_btn_text" @click="listen(0)" style="cursor:pointer">开始听歌!</div>
     </div>
   </div>
-<!--    <div id="chart">-->
-<!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->
-<!--      <div id="main"></div>-->
-<!--    </div>-->
-    <div id="login-box">
-      <h1 class="AIsing">Visual Audio</h1>
-      <!--    <button id="camera" class="camera" @click="openCamera">打开摄像头</button>-->
-      <!--    <br>-->
-      <button id="analysis" class="analysis" @click="analysis">情 绪 分 析</button>
-      <br>
+  <!--    <div id="chart">-->
+  <!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->
+  <!--      <div id="main"></div>-->
+  <!--    </div>-->
+  <div id="login-box">
+    <h1 class="AIsing">Visual Audio</h1>
+    <!--    <button id="camera" class="camera" @click="openCamera">打开摄像头</button>-->
+    <!--    <br>-->
+    <button id="analysis" class="analysis" @click="analysis" style="cursor:pointer">情 绪 分 析</button>
+    <br>
 
-      <div class="media">
-        <video id="video" width="320" height="240" preload autoplay loop muted></video>
-        <canvas id="canvas" width="320" height="240" style="display: none"></canvas>
-      </div>
+    <div class="media">
+      <video id="video" width="320" height="240" preload autoplay loop muted></video>
+      <canvas id="canvas" width="320" height="240" style="display: none"></canvas>
     </div>
+  </div>
 
-    <div class="glass">
-      <ul class="dock" style="cursor:pointer">
-        <li style="cursor:pointer">😇</li>
-        <li style="cursor:pointer">🥰</li>
-        <li style="cursor:pointer">😜</li>
-        <li style="cursor:pointer">🤩</li>
-        <li style="cursor:pointer">🥳</li>
-        <li style="cursor:pointer">🤯</li>
-        <li style="cursor:pointer">🥶</li>
-      </ul>
-    </div>
+  <div class="glass">
+    <ul class="dock">
+      <li style="cursor:pointer" @click="listen('anger')">😡</li>
+      <li style="cursor:pointer" @click="listen('disgust')">😖‍</li>
+      <li style="cursor:pointer" @click="listen('fear')">😨</li>
+      <li style="cursor:pointer" @click="listen('happiness')">😆</li>
+      <li style="cursor:pointer" @click="listen('neutral')">😐</li>
+      <li style="cursor:pointer" @click="listen('sadness')">😥</li>
+      <li style="cursor:pointer" @click="listen('surprise')">😳</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -147,50 +148,81 @@ export default {
         }
       }).then((res) => {
         console.log(res.data.faces[0].attributes)
-        _this.emotion = res.data.faces[0].attributes.emotion
+        let emo = res.data.faces[0].attributes.emotion
+        let val = Object.values(emo)
+        let max = Math.max(...val);
+        let argmax = val.indexOf(max);
+        // console.log(max)
+        console.log(Object.keys(emo)[argmax])
+        _this.emotion = Object.keys(emo)[argmax]
+        let txt=''
+        switch (_this.emotion) {
+          case "anger":
+            txt = "愤怒";
+            break;
+          case "disgust":
+            txt = "麻了";
+            break;
+          case "fear":
+            txt = "害怕";
+            break;
+          case "happiness":
+            txt = "开心";
+            break;
+          case "neutral":
+            txt = "平静";
+            break;
+          case "sadness":
+            txt = "沮丧";
+            break;
+          case "surprise":
+            txt = "惊讶";
+            break;
+        }
+        this.$message({
+          message: '分析得到您的情绪为:'+txt+',您可以再次识别',
+          type: 'success'
+        });
         // this.visualize()
       }).catch(failResponse => {
         console.log(failResponse)})
     },
-    async listen() {
-      let emo = ''
+    async listen(e) {
+      // console.log('e:',e)
+      if(e!==0){
+        this.emotion=e
+      }
       if (this.emotion != null) {
-        let val = Object.values(this.emotion)
-        let max = Math.max(...val);
-        let argmax = val.indexOf(max);
-        emo = Object.keys(this.emotion)[argmax]
-        // console.log(max)
-        // console.log(Object.keys(this.emotion)[argmax])
-      }
-      let emoSong = ''
-      switch (emo) {
-        case "anger":
-          emoSong = "Titan";
-          break;
-        case "disgust":
-          emoSong = "numb";
-          break;
-        case "fear":
-          emoSong = "light";
-          break;
-        case "happiness":
-          emoSong = "conqueror";
-          break;
-        case "neutral":
-          emoSong = "天空之城";
-          break;
-        case "sadness":
-          emoSong = "平凡之路";
-          break;
-        case "surprise":
-          emoSong = "sugar";
-          break;
-      }
-      //根据关键词搜索，获取音乐id列表
-      //var idList = new Array();
-      let res = await searchByKey({keywords: emoSong});
-      let songs = res.result.songs;
-      console.log('songs:', songs)
+        let emoSong = ''
+        switch (this.emotion) {
+          case "anger":
+            emoSong = "Titan";
+            break;
+          case "disgust":
+            emoSong = "numb";
+            break;
+          case "fear":
+            emoSong = "light";
+            break;
+          case "happiness":
+            emoSong = "Conqueror -DANTZ Remix-";
+            break;
+          case "neutral":
+            emoSong = "天空之城";
+            break;
+          case "sadness":
+            emoSong = "平凡之路朴树";
+            break;
+          case "surprise":
+            emoSong = "sugar";
+            break;
+        }
+        //根据关键词搜索，获取音乐id列表
+        //var idList = new Array();
+        console.log(emoSong)
+        let res = await searchByKey({keywords: emoSong});
+        let songs = res.result.songs;
+        console.log('songs:', songs)
 
         let element = songs[0];
         let id = element.id;
@@ -217,88 +249,95 @@ export default {
         song.lyric = res.lrc.lyric
         console.log(song)
         this.$store.commit('pushEmo', song)
-        this.$router.push('/index/main')
+        this.$store.commit('loadSong',song)
+        this.$message({
+          message: '推荐成功',
+          type: 'success'
+        });
+      }
+      this.$router.push('/index/main')
+
+    }
+
+  }
+  // 情绪识别结果格式：
+  // "emotion": {
+  //   "anger": 0.003,
+  //   "disgust": 0.04,
+  //   "fear": 0.003,
+  //   "happiness": 13.737,
+  //   "neutral": 86.128,
+  //   "sadness": 0.085,
+  //   "surprise": 0.003
+  // }
+
+  // 情绪可视化
+  /*
+  visualize(){
+    this.chart = echarts.init(document.getElementById('main'));
+    let EmotionList = [
+      'surpr',
+      'happi',
+      'neutr',
+      'sadne',
+      'disgu',
+      'anger',
+      'fear'
+    ];
+    let EmotionValue = [
+      this.emotion.surprise + 1,
+      this.emotion.happiness + 1,
+      this.emotion.neutral + 1,
+      this.emotion.sadness + 1,
+      this.emotion.disgust + 1,
+      this.emotion.anger + 1,
+      this.emotion.fear + 1
+    ]
+    this.chart.hideLoading(); //隐藏加载动画
+    this.chart.setOption({
+      title: {
+        text: '情绪分析'
       },
-
-    }
-    // 情绪识别结果格式：
-    // "emotion": {
-    //   "anger": 0.003,
-    //   "disgust": 0.04,
-    //   "fear": 0.003,
-    //   "happiness": 13.737,
-    //   "neutral": 86.128,
-    //   "sadness": 0.085,
-    //   "surprise": 0.003
-    // }
-
-    // 情绪可视化
-    /*
-    visualize(){
-      this.chart = echarts.init(document.getElementById('main'));
-      let EmotionList = [
-        'surpr',
-        'happi',
-        'neutr',
-        'sadne',
-        'disgu',
-        'anger',
-        'fear'
-      ];
-      let EmotionValue = [
-        this.emotion.surprise + 1,
-        this.emotion.happiness + 1,
-        this.emotion.neutral + 1,
-        this.emotion.sadness + 1,
-        this.emotion.disgust + 1,
-        this.emotion.anger + 1,
-        this.emotion.fear + 1
-      ]
-      this.chart.hideLoading(); //隐藏加载动画
-      this.chart.setOption({
-        title: {
-          text: '情绪分析'
-        },
-        tooltip: {},
-        legend: {
-          data: 'score(%)'
-        },
-        grid: {
-          containLabel: true
-        },
-        visualMap: {
-          orient: 'horizontal',
-          left: 'center',
-          min: 0,
-          max: 100,
-          text: ['High Score', 'Low Score'],
-          // Map the score column to color
-          dimension: 1,
-          inRange: {
-            color: ['#65B581', '#FFCE34', '#FD665F']
-          }
-        },
-        xAxis: {
-          data: EmotionList
-        },
-        yAxis: {}, //注意一定不能丢了这个，不然图表Y轴不显示
-        series: [{
-          // 根据名字对应到相应的系列，并且要注明type
-          name: 'score',
-          type: 'bar',
-          data: EmotionValue
-        }]
-      });
-    }
-     */
+      tooltip: {},
+      legend: {
+        data: 'score(%)'
+      },
+      grid: {
+        containLabel: true
+      },
+      visualMap: {
+        orient: 'horizontal',
+        left: 'center',
+        min: 0,
+        max: 100,
+        text: ['High Score', 'Low Score'],
+        // Map the score column to color
+        dimension: 1,
+        inRange: {
+          color: ['#65B581', '#FFCE34', '#FD665F']
+        }
+      },
+      xAxis: {
+        data: EmotionList
+      },
+      yAxis: {}, //注意一定不能丢了这个，不然图表Y轴不显示
+      series: [{
+        // 根据名字对应到相应的系列，并且要注明type
+        name: 'score',
+        type: 'bar',
+        data: EmotionValue
+      }]
+    });
+  }
+   */
 }
 </script>
 
 <style scoped>
 .tip{
   position:absolute;
-  left:12vw;
-  top:4vh;
+  left:8vw;
+  top:-1vh;
 }
 .shadow {
   box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.4);
@@ -314,8 +353,8 @@ export default {
   align-items: center;
   transition: 0.5s;
   position:absolute;
-  left:34vw;
-  top:2vh;
+  left:42vw;
+  top:3vh;
 }
 .connect_btn .connect_btn_text {
   font-size: 20px;

@@ -2,10 +2,10 @@
   <div>
     <!-- <div class="search">
        <el-input v-model="input" placeholder="请输入内容"></el-input>
-      <el-button round class="search_button" @click="dialogVisible = true">搜索</el-button> 
+      <el-button round class="search_button" @click="dialogVisible = true">搜索</el-button>
        <el-input
       v-model="input"
-      
+
       size="large"
       placeholder="Please Input"
       :suffix-icon="Search"
