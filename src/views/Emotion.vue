@@ -6,34 +6,34 @@
       <div class="connect_btn_text" @click="listen(0)" style="cursor:pointer">开始听歌!</div>
     </div>
   </div>
-<!--    <div id="chart">-->
-<!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->
-<!--      <div id="main"></div>-->
-<!--    </div>-->
-    <div id="login-box">
-      <h1 class="AIsing">Visual Audio</h1>
-      <!--    <button id="camera" class="camera" @click="openCamera">打开摄像头</button>-->
-      <!--    <br>-->
-      <button id="analysis" class="analysis" @click="analysis" style="cursor:pointer">情 绪 分 析</button>
-      <br>
+  <!--    <div id="chart">-->
+  <!--      &lt;!&ndash; 为 ECharts 准备一个定义了宽高的 DOM &ndash;&gt;-->
+  <!--      <div id="main"></div>-->
+  <!--    </div>-->
+  <div id="login-box">
+    <h1 class="AIsing">Visual Audio</h1>
+    <!--    <button id="camera" class="camera" @click="openCamera">打开摄像头</button>-->
+    <!--    <br>-->
+    <button id="analysis" class="analysis" @click="analysis" style="cursor:pointer">情 绪 分 析</button>
+    <br>
 
-      <div class="media">
-        <video id="video" width="320" height="240" preload autoplay loop muted></video>
-        <canvas id="canvas" width="320" height="240" style="display: none"></canvas>
-      </div>
+    <div class="media">
+      <video id="video" width="320" height="240" preload autoplay loop muted></video>
+      <canvas id="canvas" width="320" height="240" style="display: none"></canvas>
     </div>
+  </div>
 
-    <div class="glass">
-      <ul class="dock">
-        <li style="cursor:pointer" @click="listen('anger')">😡</li>
-        <li style="cursor:pointer" @click="listen('disgust')">😖‍</li>
-        <li style="cursor:pointer" @click="listen('fear')">😨</li>
-        <li style="cursor:pointer" @click="listen('happiness')">😆</li>
-        <li style="cursor:pointer" @click="listen('neutral')">😐</li>
-        <li style="cursor:pointer" @click="listen('sadness')">😥</li>
-        <li style="cursor:pointer" @click="listen('surprise')">😳</li>
-      </ul>
-    </div>
+  <div class="glass">
+    <ul class="dock">
+      <li style="cursor:pointer" @click="listen('anger')">😡</li>
+      <li style="cursor:pointer" @click="listen('disgust')">😖‍</li>
+      <li style="cursor:pointer" @click="listen('fear')">😨</li>
+      <li style="cursor:pointer" @click="listen('happiness')">😆</li>
+      <li style="cursor:pointer" @click="listen('neutral')">😐</li>
+      <li style="cursor:pointer" @click="listen('sadness')">😥</li>
+      <li style="cursor:pointer" @click="listen('surprise')">😳</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -249,6 +249,7 @@ export default {
         song.lyric = res.lrc.lyric
         console.log(song)
         this.$store.commit('pushEmo', song)
+        this.$store.commit('loadSong',song)
         this.$message({
           message: '推荐成功',
           type: 'success'
@@ -258,77 +259,77 @@ export default {
 
     }
 
-    }
-    // 情绪识别结果格式：
-    // "emotion": {
-    //   "anger": 0.003,
-    //   "disgust": 0.04,
-    //   "fear": 0.003,
-    //   "happiness": 13.737,
-    //   "neutral": 86.128,
-    //   "sadness": 0.085,
-    //   "surprise": 0.003
-    // }
+  }
+  // 情绪识别结果格式：
+  // "emotion": {
+  //   "anger": 0.003,
+  //   "disgust": 0.04,
+  //   "fear": 0.003,
+  //   "happiness": 13.737,
+  //   "neutral": 86.128,
+  //   "sadness": 0.085,
+  //   "surprise": 0.003
+  // }
 
-    // 情绪可视化
-    /*
-    visualize(){
-      this.chart = echarts.init(document.getElementById('main'));
-      let EmotionList = [
-        'surpr',
-        'happi',
-        'neutr',
-        'sadne',
-        'disgu',
-        'anger',
-        'fear'
-      ];
-      let EmotionValue = [
-        this.emotion.surprise + 1,
-        this.emotion.happiness + 1,
-        this.emotion.neutral + 1,
-        this.emotion.sadness + 1,
-        this.emotion.disgust + 1,
-        this.emotion.anger + 1,
-        this.emotion.fear + 1
-      ]
-      this.chart.hideLoading(); //隐藏加载动画
-      this.chart.setOption({
-        title: {
-          text: '情绪分析'
-        },
-        tooltip: {},
-        legend: {
-          data: 'score(%)'
-        },
-        grid: {
-          containLabel: true
-        },
-        visualMap: {
-          orient: 'horizontal',
-          left: 'center',
-          min: 0,
-          max: 100,
-          text: ['High Score', 'Low Score'],
-          // Map the score column to color
-          dimension: 1,
-          inRange: {
-            color: ['#65B581', '#FFCE34', '#FD665F']
-          }
-        },
-        xAxis: {
-          data: EmotionList
-        },
-        yAxis: {}, //注意一定不能丢了这个，不然图表Y轴不显示
-        series: [{
-          // 根据名字对应到相应的系列，并且要注明type
-          name: 'score',
-          type: 'bar',
-          data: EmotionValue
-        }]
-      });
-    }
-     */
+  // 情绪可视化
+  /*
+  visualize(){
+    this.chart = echarts.init(document.getElementById('main'));
+    let EmotionList = [
+      'surpr',
+      'happi',
+      'neutr',
+      'sadne',
+      'disgu',
+      'anger',
+      'fear'
+    ];
+    let EmotionValue = [
+      this.emotion.surprise + 1,
+      this.emotion.happiness + 1,
+      this.emotion.neutral + 1,
+      this.emotion.sadness + 1,
+      this.emotion.disgust + 1,
+      this.emotion.anger + 1,
+      this.emotion.fear + 1
+    ]
+    this.chart.hideLoading(); //隐藏加载动画
+    this.chart.setOption({
+      title: {
+        text: '情绪分析'
+      },
+      tooltip: {},
+      legend: {
+        data: 'score(%)'
+      },
+      grid: {
+        containLabel: true
+      },
+      visualMap: {
+        orient: 'horizontal',
+        left: 'center',
+        min: 0,
+        max: 100,
+        text: ['High Score', 'Low Score'],
+        // Map the score column to color
+        dimension: 1,
+        inRange: {
+          color: ['#65B581', '#FFCE34', '#FD665F']
+        }
+      },
+      xAxis: {
+        data: EmotionList
+      },
+      yAxis: {}, //注意一定不能丢了这个，不然图表Y轴不显示
+      series: [{
+        // 根据名字对应到相应的系列，并且要注明type
+        name: 'score',
+        type: 'bar',
+        data: EmotionValue
+      }]
+    });
+  }
+   */
 }
 </script>
 
