@@ -44,7 +44,7 @@
 
 项目主要涵盖四个功能点：海量音乐资源播放、动态旋律展示、人脸情绪识别和标签化歌曲风格推荐。与传统音乐播放器不同的是，我们的播放器重在用户交互，没有登录注册，用户进入网页即可直接选择推荐的音乐播放，这种类似开盲盒的方式更能吸引受众，我们对接网易云及qq音乐的曲库，利用人脸情绪识别技术和用户喜好标签选择，智能地为用户推荐音乐曲目，同时实现可视化的动态音乐效果，提供区别于传统音乐播放器的新颖视听体验。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=MzU4Y2Q0YTI2MGJiOTYzYjNmODhiZDFlODQxYzE1ZWVfaVpjMHhLa2V5dGVXUjVERllTcU1YUlZ6WnMwSjZpa0NfVG9rZW46Ym94Y241UGRXTmRvbkVxWmZHVDA4bEFtaGlkXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/1.PNG)
 
 
 
@@ -54,15 +54,15 @@
 
 竞品分析主要围绕五个层级，从宏观的企业战略、到具体的产品呈现。目前市场上已经有很多成熟的音乐软件，对于它们的分析于我们而言大有裨益。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjFmZWQ0YzJjMWY0NWVkM2JjNGQ4YzMxMTAyOWE2NjdfUGI3RFp5Nkw1VURxRHlKOUxKTkNCcjByVElKY3h4VkZfVG9rZW46Ym94Y251ZmNmTVhKdjBXWGNDbUhqUUlSeEZnXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/2.PNG)
 
 首先是使用用户，主要集中在20-39岁，男生搜索占比比女生搜索占比高，QQ音乐搜索热度最高。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NjRkZjg5YThlZTZiNDYzMzk5OGQ5Y2M3YjVlNDBlYTlfSUxhZkVOSk1WZWg0a0xRYjJQMm5ONDhkTVBybks4WGZfVG9rZW46Ym94Y24wczRLVFdFcEtjcDZiTTY1Z25DblBmXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/3.PNG)
 
 以下为详细对比分析：
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NmFjNmI1NjdkOGFiNWQ3Y2ExMjUxM2NkOGI3MzQ2ZTRfdVRaaXQ4N0R2MmtUa0sybHFqV0d5dGVmOW1YVUxySk1fVG9rZW46Ym94Y25XRmdWeEZ2aUpLVE5BUWZONk1ocUxnXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWNmZjk3NmFjM2MxZDM1NmIwN2RiMTUxZWVjNjc1Y2FfaWRKMktKb0JzdzhnNDVTTlFEN1VsbVRJOEdaUlNOODdfVG9rZW46Ym94Y25NZzE0OHlFT2FaR1hRWDdpb1N3VWVnXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/41.PNG)![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/42.PNG)
 
 | **软件名称** | **产品定位**                                                 | **用户定位**                                                 | **主界面对比**                                               |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -78,7 +78,7 @@
 
 我们预设了三种主要使用人群，结合随访以及专业评估的方式制定了用户画像，以指导我们的产品设计。
 
-| **照片**     | ![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NTEzYjdkOTNhNzgyMmVhYTU2ZDNlYjkzYzhjZTIzN2JfTVBIMzRJUXlyd1A2c0RkVDdvNE10cFlBaVNXMUEybDVfVG9rZW46Ym94Y24xT0traW5ZajE1eFUweU04dHFRaUxjXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA) | ![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=N2NhYWJlMWU4N2Q5YTQ3YmRlMmE2ODliM2YyZGZiZmRfS0NUNm1XU1hRdlA1TWlhbXdMTmJzYU1QeGJXdnJKbGNfVG9rZW46Ym94Y25nOWk1SVFCVFBtd3cycEpLOUVUSFBiXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA) | ![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=Mjg0MGVlMzRiMDliMmYzYjQzNzM5MTNmZjE0MGI0Y2NfUTJETWdOQkZEYngzNHhWem43TWN2ZUtpcWdsdm1SaWNfVG9rZW46Ym94Y25Zb21nMThubmtHMEg3cUpJZlVWbFJkXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA) |
+| **照片**     | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/51.PNG) | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/52.PNG) | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/53.PNG) |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **姓名**     | 吴守诚                                                       | 李开放                                                       | 戴浏                                                         |
 | **年龄**     | 21                                                           | 56                                                           | 24                                                           |
@@ -116,7 +116,7 @@
 
 ## 3.4 交互方式
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NWExYWVmYTE2MDJiOTk1MjQ2NGI2ZGIxN2EyODdlYjlfOE9YdkVtTGppSEkwNXlGUHRwZW56enNJWEprVXk1Q3pfVG9rZW46Ym94Y25jeFR4VjNLNTJXSmtMV2JqUFF3dlhmXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.1.PNG)
 
 1. **Instruction：** 
 
@@ -138,19 +138,19 @@
 
 针对概念设计中提出的三大用例，我们在物理设计阶段进一步厘清了用例关系，并绘制了详细的系统功能流程图
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NWY1ZGE0MmMyNTdmZGJhMDZmMzg2MmY4NDcyMjc5NTJfWTVKMmU2S0VWdHdRQ0UyQVR1bHZsUWlvUU1FdDF5OWRfVG9rZW46Ym94Y255ZWdjcE01ajVoRFFTVEE2bHo2ZmpkXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.1.PNG)
 
-暂时无法在飞书文档外展示此内容
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/流程图.jpg)
 
 ## 4.2 低保真度原型
 
 ​                                                             **音乐广场**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=MDUyOGM5ZjQ1MGIzZDhiMjVmMDdlOTNkY2E0YzAwMzRfS1hrMDY3YXNJWndKdHllYnRwcFhIdUE4TjNweUt2SnNfVG9rZW46Ym94Y253Wk1WaHZQWTk1ZGk4YzhNMVVvY2FoXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=YzQ4YTNkYTc4YjJmOGEyMTk3NDliMjUyYThhZWQyZjlfb0pRUmhaVHB2eTViQ2pFVEh1SVVCNEdvUTI3enRLMHBfVG9rZW46Ym94Y243c1NUQzVsMEtTYUxZWTFxcHF5d2hoXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.2.PNG)![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.22.PNG)
 
 **音乐播放**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NGFiZWM5MDIxYmJhNzY1Y2M4NDU5YzFjNmQ3ZDExOGVfZGtYb3BoNldtQnQ0QWxwcGYzOHpZeEJZRmNKTW9qOVJfVG9rZW46Ym94Y24wS2htUGh4WUp3RmExNWhCeGlKS0xkXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.23.PNG)
 
 ## 4.3 高保真度原型
 
@@ -160,31 +160,31 @@
 
 该页面主要是给初次使用该网站的用户一个提示作用，页面以淡粉色为基调，适用群体广泛，引导页上的两行字分别表示了该网站的名字和该网站的定义——视觉和听觉结合。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NjdmOTg0MDUxYmFmNmNkMWUxNWM5ZTJmM2IzN2YyMGVfT3dPaTlkODIwZ2NhaDQyOGUzcmNxNWxEWDhHU1hwazBfVG9rZW46Ym94Y25NUEtXQ04ySFl6TGg0QmRYamFBa0VjXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/43.PNG)
 
 ②标签选择页面
 
 该页面用户可以选择感兴趣的音乐标签，点击图片即可视作选中，每张图片代表一种风格，设计的交互方式是翻转卡片式，初始时卡片背面为风格文字标识，鼠标悬浮后卡片翻转到正面，显示图片。选中后卡片保持翻转不变，用户可选多个标签，系统将根据该标签向用户推荐歌曲。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=OGI0Y2U5MDUxZDM1Mjk0OTUzNzU3ZGZjZTk3YzMzYzlfWGh2aE5uSmU5RUdmUWIwSVhya1VwTGZqV2tYbVJHUTJfVG9rZW46Ym94Y25ScWptaWc5Z1dEVzd5cnU1UDhoNWNkXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/432.PNG)
 
 ③情绪识别页面
 
 在该页面，用户可以授权开启摄像头，系统将根据识别到的用户面部进行情绪分析，然后依据分析的结果为用户推荐歌曲。若用户不想打开摄像头，也可以点击下面的表情或跳过这一步骤。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ODI0MjA4YTU5MTdmMWZiM2QyNjM0YTE4YjE1YjI1ZTlfUWdJZmF6MURMcGxWaGdaS0lVeXVxeWJTWnN2VWM4R25fVG9rZW46Ym94Y244a2RHQUZraUlLQVMxeWRtMTJ2ZDVmXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/433.PNG)
 
 ④播放主页
 
 该页面是音乐播放的主页面，左部是歌曲封面，外围是可视化的部分，将随音乐的播放而变化，右侧显示歌词，对应该时间的歌词会高亮显示。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTA0MTA4ZDZiZWEyZjlhOGRlMDVhOTFhOWZjMTUxMmFfVGwxbXVGMTg0RklPUW1ZbE50VlU3RFZpYVFkZm5wUHlfVG9rZW46Ym94Y25EbDBHNXdXdGx2YkZ0RzdQMG1vOHJoXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/434.PNG)
 
 ⑤音乐广场页面
 
 该页面供用户自由选择歌单，用户可由导航栏进入，上方是热度较高的专辑信息，使用轮播图呈现，下方是精选歌单与精彩推荐及榜单等信息，点击某歌单封面即可将该歌单加入自己的播放列表。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=MmZmYzIzZTdlYjE2OTc5YzcwYWM4ZGFjZmQ1ZmVlNDBfNlJ0QTVXbXZCR2NqZndsb2JkQTgzSjVlY0lybFloczVfVG9rZW46Ym94Y25UUXgwOHd1U3VUZG5VRXZyNm00b0dmXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/435.PNG)
 
 
 
@@ -194,7 +194,7 @@
 
 **基于 VGG19 和 Resnet18 的表情识别** VGG19 和 ResNet 都是非常经典的卷积神经网络结构，在多方面被证明在图像分类问题上有较好的效果。VGG(Visual Geometry Group)的出现证明了增加网络的深度能够在一定程度上影响网络最终的性能，从而掀起了提高网络深度研究的热潮。其中VGG19 中包含了 19 个隐藏层 (16 个卷积层和 3 个全连接层)。而 ResNet 网络参考了 VGG19，在其基础上进行了修改，并引入残差学习（Residual     Learning）机制，既保证了网络层的复杂度，也缓解了深层网络带来的梯度消失或者爆炸问题。下图展示了VGG 和ResNet 的网络结构对比情况。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWI5YWYzN2QxNDFiNjBlN2IzNjJkMTA4MDU2NjE5NzhfdjRPQmIzS1NybkI4aDBadEViS2gxYzBESWJ3MXZOTkpfVG9rZW46Ym94Y254Z3ZkT3BudWNZSnJIMmZpa2JON0lnXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/5.1.PNG)
 
 我们对 ResNet18 和 VGG19 网络进行简化，以支持低计算资源的训练任务。**总体设计**如下：
 
@@ -208,7 +208,7 @@
 
 **损失函数**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmFkMmJjNjJjNDFhMzc4ZWM2MDVkYTFhMTcyMmZjZWNfVE0xNTVuZ1hlRnkyck90U3F1U3ljZ0MzbGNHZVpzcTZfVG9rZW46Ym94Y25INmlFYWxwcHc4VzZZZ1FwQ1puUmRoXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/5.2.PNG)
 
 **数据集：**
 
@@ -231,15 +231,15 @@ Fer2013 包含大约 30000 张不同表情的面部 RGB 图像，大小限制为
 
 我们使用html5原生的Web Audio API去对音频文件进行解析。先创建Audio上下文和分析器，关联音频文件，对其进行解码，获取到频率数据和时域数据，再通过canvas进行绘图 
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTYxMjE0Y2E0ZmYzYzVjNDRlNDM1ZTVhZTdjNDA2OTdfeGk4V0tZMXRBZVVsV1ZBSmZpdXQ3Rkt0YmxnQkRZWUVfVG9rZW46Ym94Y244aUdFVDRDdmI5cGlWQ3ZLYnJGWnJoXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/5.22.PNG)
 
 我们选用了Three.js去做更具体地图像绘制。简要来说，我们将音频数组作为 uniforms 的一个属性，传到着色器中。而着色器再将uniforms地属性映射为屏幕上的顶点和颜色。
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTdkOGQ5Njk1ZmI5NmFlOTZmZDkyODJlOGUxZDI4NDRfbk8xQVdKSmJFVW9lR25BWlF0YXQ2VE9ZZ2JsRnRQUmxfVG9rZW46Ym94Y24zbTBIbEFYZ3VocUE0dzRvYXo3OVllXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/522.PNG)
 
 **效果图**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=MTg4YWQyNjZmMjRhMDY2ZDk3NTk4ZGNjYWRiZjZkZmRfcXdIb3JsajFwcGI5VFAwUEN3eEQ0cWVTTDNhdG5TTmtfVG9rZW46Ym94Y250ZjhzdE1KT2lUa2J2aWRzcmlVbW9kXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/523.PNG)
 
 
 
@@ -247,35 +247,35 @@ Fer2013 包含大约 30000 张不同表情的面部 RGB 图像，大小限制为
 
 **欢迎**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=OTIyN2Q1NjcyZTBjOTgxYmY2NjliMDI3NWQ0YmUwZTFfa0ZQSkZNaWpLRDE3ZnFNcUkxWFNKYUNHUWV2M0NaZ0xfVG9rZW46Ym94Y256V2RmRGpUNTZHSDQ2ZVUxZDBVRFNlXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/61.PNG)
 
 **主页**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NGRiNjU3NGNlOWZmM2I2YjIwNDYxMDZmYjI0YTVmZmFfek1OcEpwVmU4MFZCTlpZT2pCT2hxenR4TEtHVlhIWTRfVG9rZW46Ym94Y25oeTNodFpNV09sbWR2TWZOYmgwdnViXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/62.PNG)
 
 **标签选择**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=MmI3NDcxNmI0NWI3NzEyOTdlODdmODE2MTk4NGFiODBfV2hBTjMyUDhVd3dod0U4ZG5ISUtLTllLVU5LbGJEZ1FfVG9rZW46Ym94Y25ySkFRb1EyR2xCR0VsZHhBVDczUW1oXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/63.PNG)
 
 **情绪分析**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=N2Y3ODg4YzllZjBmMWFhOTU2YWVjZjUwM2M2MjA5ZTlfYzZtcWJsVlZVcUQ0RVd0WVhYZkZsUUlUcWdteG5ZbmJfVG9rZW46Ym94Y25ENEdHdnFnY0hwQmRWNkNFeTk3YnRjXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/64.PNG)
 
 **歌词与旋律**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NTQ4MDFlNDczY2ZlZmViMDA3OTE1ZTBmZTUzYmFhODFfYlUxaXN5Y0JiRHczWG01WlBUMTY2MXhnR3Bjd1RWenBfVG9rZW46Ym94Y240M0FySXFqZ3B5UVhBSW9kWVpWb0toXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/65.PNG)
 
 **音乐广场**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=MDViMjY0N2JiMjI0MGMwMGE2ZGZmNmNjMDBmNjFiMGJfVkM5eVN3UFdGSlFSc1BiMWplYWo2dVBqOTZkNEs3NXRfVG9rZW46Ym94Y24zRmk3RTlES2w2dmpYRFRwekJBT3BiXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/66.PNG)
 
 **导航栏**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NzY4Mzg1ZmU0ODgxNGE4MWFhMTI2OWFjMjQ5NWFhMWZfazlJT3RSa01VcU44TDRqNjVoNHhRV29hczZvZHhKZnpfVG9rZW46Ym94Y241SzJBcXgxUmFBeDF0TlhFRWZVclVmXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/67.PNG)
 
 **播放列表**
 
-![img](https://m0v099apt4.feishu.cn/space/api/box/stream/download/asynccode/?code=NDVmYWI2MDkzNjFlOWZlNWMxZjk5ZWIyY2JhNDcyOTlfQmF3dVpJNWE4ZWpOQzU3WkFDUEVVcFB6SE5SNU5VbVdfVG9rZW46Ym94Y25UTUh6MFFiV0pQYjBERVVCYWlTTW1nXzE2NTUzNjcwMjQ6MTY1NTM3MDYyNF9WNA)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/68.PNG)
 
 # 七、项目评估
 
