@@ -78,7 +78,7 @@
 
 我们预设了三种主要使用人群，结合随访以及专业评估的方式制定了用户画像，以指导我们的产品设计。
 
-| **照片**     | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/51.PNG) | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/52.PNG) | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/53.PNG) |
+| **照片**     | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/51.png) | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/52.png) | ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/53.png) |
 | ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **姓名**     | 吴守诚                                                       | 李开放                                                       | 戴浏                                                         |
 | **年龄**     | 21                                                           | 56                                                           | 24                                                           |
@@ -116,7 +116,7 @@
 
 ## 3.4 交互方式
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/01.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/01.png)
 
 1. **Instruction：** 
 
@@ -138,7 +138,7 @@
 
 针对概念设计中提出的三大用例，我们在物理设计阶段进一步厘清了用例关系，并绘制了详细的系统功能流程图
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/01.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/01.png)
 
 ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/流程图.jpg)
 
@@ -146,11 +146,11 @@
 
 ​                                                             **音乐广场**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/02.PNG)![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/03.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/02.png)![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/03.png)
 
 **音乐播放**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/04.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/04.png)
 
 ## 4.3 高保真度原型
 
@@ -160,31 +160,31 @@
 
 该页面主要是给初次使用该网站的用户一个提示作用，页面以淡粉色为基调，适用群体广泛，引导页上的两行字分别表示了该网站的名字和该网站的定义——视觉和听觉结合。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/43.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/43.png)
 
 ②标签选择页面
 
 该页面用户可以选择感兴趣的音乐标签，点击图片即可视作选中，每张图片代表一种风格，设计的交互方式是翻转卡片式，初始时卡片背面为风格文字标识，鼠标悬浮后卡片翻转到正面，显示图片。选中后卡片保持翻转不变，用户可选多个标签，系统将根据该标签向用户推荐歌曲。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/432.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/432.png)
 
 ③情绪识别页面
 
 在该页面，用户可以授权开启摄像头，系统将根据识别到的用户面部进行情绪分析，然后依据分析的结果为用户推荐歌曲。若用户不想打开摄像头，也可以点击下面的表情或跳过这一步骤。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/433.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/433.png)
 
 ④播放主页
 
 该页面是音乐播放的主页面，左部是歌曲封面，外围是可视化的部分，将随音乐的播放而变化，右侧显示歌词，对应该时间的歌词会高亮显示。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/434.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/434.png)
 
 ⑤音乐广场页面
 
 该页面供用户自由选择歌单，用户可由导航栏进入，上方是热度较高的专辑信息，使用轮播图呈现，下方是精选歌单与精彩推荐及榜单等信息，点击某歌单封面即可将该歌单加入自己的播放列表。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/435.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/435.png)
 
 
 
@@ -194,7 +194,7 @@
 
 **基于 VGG19 和 Resnet18 的表情识别** VGG19 和 ResNet 都是非常经典的卷积神经网络结构，在多方面被证明在图像分类问题上有较好的效果。VGG(Visual Geometry Group)的出现证明了增加网络的深度能够在一定程度上影响网络最终的性能，从而掀起了提高网络深度研究的热潮。其中VGG19 中包含了 19 个隐藏层 (16 个卷积层和 3 个全连接层)。而 ResNet 网络参考了 VGG19，在其基础上进行了修改，并引入残差学习（Residual     Learning）机制，既保证了网络层的复杂度，也缓解了深层网络带来的梯度消失或者爆炸问题。下图展示了VGG 和ResNet 的网络结构对比情况。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/05.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/05.png)
 
 我们对 ResNet18 和 VGG19 网络进行简化，以支持低计算资源的训练任务。**总体设计**如下：
 
@@ -208,7 +208,7 @@
 
 **损失函数**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/06.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/06.png)
 
 **数据集：**
 
@@ -231,15 +231,15 @@ Fer2013 包含大约 30000 张不同表情的面部 RGB 图像，大小限制为
 
 我们使用html5原生的Web Audio API去对音频文件进行解析。先创建Audio上下文和分析器，关联音频文件，对其进行解码，获取到频率数据和时域数据，再通过canvas进行绘图 
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/07.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/07.png)
 
 我们选用了Three.js去做更具体地图像绘制。简要来说，我们将音频数组作为 uniforms 的一个属性，传到着色器中。而着色器再将uniforms地属性映射为屏幕上的顶点和颜色。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/522.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/522.png)
 
 **效果图**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/523.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/523.png)
 
 
 
@@ -247,35 +247,35 @@ Fer2013 包含大约 30000 张不同表情的面部 RGB 图像，大小限制为
 
 **欢迎**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/61.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/61.png)
 
 **主页**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/62.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/62.png)
 
 **标签选择**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/63.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/63.png)
 
 **情绪分析**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/64.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/64.png)
 
 **歌词与旋律**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/65.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/65.png)
 
 **音乐广场**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/66.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/66.png)
 
 **导航栏**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/67.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/67.png)
 
 **播放列表**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/68.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/68.png)
 
 # 七、项目评估
 
