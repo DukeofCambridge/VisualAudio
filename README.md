@@ -116,7 +116,7 @@
 
 ## 3.4 交互方式
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.1.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/01.PNG)
 
 1. **Instruction：** 
 
@@ -138,7 +138,7 @@
 
 针对概念设计中提出的三大用例，我们在物理设计阶段进一步厘清了用例关系，并绘制了详细的系统功能流程图
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.1.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/01.PNG)
 
 ![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/流程图.jpg)
 
@@ -146,11 +146,11 @@
 
 ​                                                             **音乐广场**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.2.PNG)![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.22.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/02.PNG)![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/03.PNG)
 
 **音乐播放**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/4.23.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/04.PNG)
 
 ## 4.3 高保真度原型
 
@@ -194,7 +194,7 @@
 
 **基于 VGG19 和 Resnet18 的表情识别** VGG19 和 ResNet 都是非常经典的卷积神经网络结构，在多方面被证明在图像分类问题上有较好的效果。VGG(Visual Geometry Group)的出现证明了增加网络的深度能够在一定程度上影响网络最终的性能，从而掀起了提高网络深度研究的热潮。其中VGG19 中包含了 19 个隐藏层 (16 个卷积层和 3 个全连接层)。而 ResNet 网络参考了 VGG19，在其基础上进行了修改，并引入残差学习（Residual     Learning）机制，既保证了网络层的复杂度，也缓解了深层网络带来的梯度消失或者爆炸问题。下图展示了VGG 和ResNet 的网络结构对比情况。
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/5.1.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/05.PNG)
 
 我们对 ResNet18 和 VGG19 网络进行简化，以支持低计算资源的训练任务。**总体设计**如下：
 
@@ -208,7 +208,7 @@
 
 **损失函数**
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/5.2.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/06.PNG)
 
 **数据集：**
 
@@ -231,7 +231,7 @@ Fer2013 包含大约 30000 张不同表情的面部 RGB 图像，大小限制为
 
 我们使用html5原生的Web Audio API去对音频文件进行解析。先创建Audio上下文和分析器，关联音频文件，对其进行解码，获取到频率数据和时域数据，再通过canvas进行绘图 
 
-![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/5.22.PNG)
+![img](https://github.com/DukeofCambridge/ImgHosting/blob/main/07.PNG)
 
 我们选用了Three.js去做更具体地图像绘制。简要来说，我们将音频数组作为 uniforms 的一个属性，传到着色器中。而着色器再将uniforms地属性映射为屏幕上的顶点和颜色。
 
