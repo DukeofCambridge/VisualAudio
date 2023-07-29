@@ -1,6 +1,6 @@
 # Visual Audio
 
-用户交互技术课程设计报告
+用户交互技术课程设计报告 <b>HCI Capstone Project</b> 
 
 # 项目结构
 
